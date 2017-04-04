@@ -1,7 +1,81 @@
 doctype html
 html
   head
-    title= title
+    title= MPlay
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(type='text/javascript' src='player/jplayer/jquery.jplayer.min.js')
+    script(type='text/javascript' src='player/add-on/jplayer.playlist.min.js')
+    script(type='text/javascript' src='player/init.js')
+
   body
-    block content
+      nav.navbar.navbar-default.navbar-fixed-top
+        div.container
+          .container-fluid
+              .navbar-header
+                  button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+                      span.sr-only Toggle navigation
+                      span.icon-bar
+                      span.icon-bar
+                      span.icon-bar
+              // Collect the nav links, forms, and other content for toggling
+              #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                  ul.nav.navbar-nav
+                      li
+                        a(href="") LOGO
+                      li.active
+                          a(href='')
+                              | Home
+                              span.sr-only (current)
+                      li
+                          a(href='#') About Us
+                  ul.nav.navbar-nav.navbar-right
+                      li
+                          a(href='')
+                              span.glyphicon.glyphicon-log-in
+                              |  Login/Sign Up
+
+    .jumbotron
+      .container
+        block content
+
+    .footer-player.navbar.navbar-full.navbar-fixed-bottom
+        #jquery_jplayer_1.jp-jplayer
+        #jp_container_1.jp-audio(role='application', aria-label='media player')
+            .jp-type-playlist
+                .jp-gui.jp-interface
+                    .jp-controls
+                        button.jp-previous(role='button', tabindex='0') previous
+                        button.jp-play(role='button', tabindex='0') play
+                        button.jp-next(role='button', tabindex='0') next
+                        button.jp-stop(role='button', tabindex='0') stop
+                    .jp-ratings
+                        input.rating.rating-loading(type='text', value='2', data-size='xs', title='')
+                    .jp-progress
+                        .jp-seek-bar
+                            .jp-play-bar
+                    button#show(style='color:#95a5a6')
+                        i.glyphicon.glyphicon-list
+                    .jp-volume-controls
+                        button.jp-mute(role='button', tabindex='0') mute
+                        button.jp-volume-max(role='button', tabindex='0') max volume
+                        .jp-volume-bar
+                            .jp-volume-bar-value
+                    .jp-time-holder
+                        .jp-current-time(role='timer', aria-label='time')  
+                        .jp-duration(role='timer', aria-label='duration')  
+                    .jp-toggles
+                        button.jp-repeat(role='button', tabindex='0') repeat
+                        button.jp-shuffle(role='button', tabindex='0') shuffle
+                .jp-no-solution
+                    span Update Required
+                    |             To play the media you will need to either update your browser to a recent version or update your
+                    a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
+                    | .
+            #playlist.jp-playlist
+                ul
+                    li  
+

@@ -8614,7 +8614,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        *
        * @description
        * Adds and removes the appropriate CSS class values to the element based on the difference
-       * between the new and old CSS class values (specified as newClasses and oldClasses).
+       * between the new and media_files CSS class values (specified as newClasses and oldClasses).
        *
        * @param {string} newClasses The current CSS className value
        * @param {string} oldClasses The former CSS className value
@@ -10028,7 +10028,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       var srcAttr = src.$attr,
           dstAttr = dst.$attr;
 
-      // reapply the old attributes to the new element
+      // reapply the media_files attributes to the new element
       forEach(dst, function(value, key) {
         if (key.charAt(0) !== '$') {
           if (src[key] && src[key] !== value) {
@@ -10042,7 +10042,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         }
       });
 
-      // copy the new attributes on the old attrs object
+      // copy the new attributes on the media_files attrs object
       forEach(src, function(value, key) {
         // Check if we already set this attribute in the loop above.
         // `dst` will never contain hasOwnProperty as DOM parser won't let it.
@@ -10323,7 +10323,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
                     //so that class changes can tap into the animation
                     //hooks provided by the $animate service. Be sure to
                     //skip animations when the first digest occurs (when
-                    //both the new and the old values are the same) since
+                    //both the new and the media_files values are the same) since
                     //the CSS classes are the non-interpolated values
                     if (name === 'class' && newValue !== oldValue) {
                       attr.$updateClass(newValue, oldValue);
@@ -12524,7 +12524,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       xhr.onload = function requestLoaded() {
         var statusText = xhr.statusText || '';
 
-        // responseText is the old-school way of retrieving response (supported by IE9)
+        // responseText is the media_files-school way of retrieving response (supported by IE9)
         // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
         var response = ('response' in xhr) ? xhr.response : xhr.responseText;
 
@@ -13479,7 +13479,7 @@ function LocationHtml5Url(appBase, appBaseNoFile, basePrefix) {
   this.$$parseLinkUrl = function(url, relHref) {
     if (relHref && relHref[0] === '#') {
       // special case for links to hash fragments:
-      // keep the old url and only replace the hash fragment
+      // keep the media_files url and only replace the hash fragment
       this.hash(relHref.slice(1));
       return true;
     }
@@ -13638,7 +13638,7 @@ function LocationHashbangInHtml5Url(appBase, appBaseNoFile, hashPrefix) {
   this.$$parseLinkUrl = function(url, relHref) {
     if (relHref && relHref[0] === '#') {
       // special case for links to hash fragments:
-      // keep the old url and only replace the hash fragment
+      // keep the media_files url and only replace the hash fragment
       this.hash(relHref.slice(1));
       return true;
     }
@@ -14209,7 +14209,7 @@ function $LocationProvider() {
         // loop. Checking deep equality would be too expensive.
         $location.$$state = $browser.state();
       } catch (e) {
-        // Restore old values if pushState fails
+        // Restore media_files values if pushState fails
         $location.url(oldUrl);
         $location.$$state = oldState;
 
@@ -16970,7 +16970,7 @@ function qFactory(nextTick, exceptionHandler, errorOnUnhandledRejections) {
    * ```js
    *   promiseB = promiseA.then(function(result) {
    *     // success: do something and resolve promiseB
-   *     //          with the old or a new result
+   *     //          with the media_files or a new result
    *     return result;
    *   }, function(reason) {
    *     // error: handle the error if possible and
