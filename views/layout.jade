@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app='')
   head
     title= MPlay
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
@@ -9,6 +9,7 @@ html
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(type='text/javascript' src='player/jplayer/jquery.jplayer.min.js')
     script(type='text/javascript' src='player/add-on/jplayer.playlist.min.js')
+    script(type='text/javascript' src='bower_components/angular/angular.js')
     script(type='text/javascript' src='player/init.js')
 
   body
