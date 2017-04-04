@@ -6,4 +6,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Mplay' });
 });
 
+router.get('/loginSignup.php', function(req, res, next) {
+    res.render('loginSignup', { title: 'Mplay' });
+});
+
+
+
 module.exports = router;
