@@ -1,7 +1,8 @@
 doctype html
-html(ng-app='')
+html(lang='en', ng-app='MPlayApp')
   head
     title= MPlay
+    base(href='/')
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
@@ -10,9 +11,23 @@ html(ng-app='')
     script(type='text/javascript' src='player/jplayer/jquery.jplayer.min.js')
     script(type='text/javascript' src='player/add-on/jplayer.playlist.min.js')
     script(type='text/javascript' src='bower_components/angular/angular.js')
+    script(type='text/javascript' src='bower_components/angular-route/angular-route.js')
+
+
+    script(type='text/javascript' src='javascripts/modules/app.module.js')
+    script(type='text/javascript' src='javascripts/modules/player/player.module.js')
+    script(type='text/javascript' src='javascripts/modules/player/player-main.component.js')
+
+    script(type='text/javascript' src='javascripts/modules/loginSignup/login-signup.module.js')
+    script(type='text/javascript' src='javascripts/modules/loginSignup/login.component.js')
+
+    script(type='text/javascript' src='javascripts/modules/userMenu/user-menu.module.js')
+    script(type='text/javascript' src='javascripts/modules/userMenu/my-account.component.js')
+
+
     script(type='text/javascript' src='player/init.js')
 
-  body
+  body(ng-controller='MainCtrl')
       nav.navbar.navbar-default.navbar-fixed-top
         div.container
           .container-fluid
@@ -28,55 +43,19 @@ html(ng-app='')
                       li
                         a(href="") LOGO
                       li.active
-                          a(href='/')
+                          a(href='/home.php')
                               | Home
                               span.sr-only (current)
                       li
-                          a(href='#') About Us
+                          a(href='MyAccount.php') About Us
                   ul.nav.navbar-nav.navbar-right
                       li
-                          a(href='loginSignup.php')
+                          a(href='/login.php')
                               span.glyphicon.glyphicon-log-in
                               |  Login/Sign Up
 
-    .jumbotron
-      .container
-        block content
+      block content
 
-    .footer-player.navbar.navbar-full.navbar-fixed-bottom
-        #jquery_jplayer_1.jp-jplayer
-        #jp_container_1.jp-audio(role='application', aria-label='media player')
-            .jp-type-playlist
-                .jp-gui.jp-interface
-                    .jp-controls
-                        button.jp-previous(role='button', tabindex='0') previous
-                        button.jp-play(role='button', tabindex='0') play
-                        button.jp-next(role='button', tabindex='0') next
-                        button.jp-stop(role='button', tabindex='0') stop
-                    .jp-ratings
-                        input.rating.rating-loading(type='text', value='2', data-size='xs', title='')
-                    .jp-progress
-                        .jp-seek-bar
-                            .jp-play-bar
-                    button#show(style='color:#95a5a6')
-                        i.glyphicon.glyphicon-list
-                    .jp-volume-controls
-                        button.jp-mute(role='button', tabindex='0') mute
-                        button.jp-volume-max(role='button', tabindex='0') max volume
-                        .jp-volume-bar
-                            .jp-volume-bar-value
-                    .jp-time-holder
-                        .jp-current-time(role='timer', aria-label='time')  
-                        .jp-duration(role='timer', aria-label='duration')  
-                    .jp-toggles
-                        button.jp-repeat(role='button', tabindex='0') repeat
-                        button.jp-shuffle(role='button', tabindex='0') shuffle
-                .jp-no-solution
-                    span Update Required
-                    |             To play the media you will need to either update your browser to a recent version or update your
-                    a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
-                    | .
-            #playlist.jp-playlist
-                ul
-                    li  
+    player-main
+
 

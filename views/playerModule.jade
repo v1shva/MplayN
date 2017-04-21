@@ -1,0 +1,39 @@
+//
+   Created by Vishva on 4/8/2017.
+
+.footer-player.navbar.navbar-full.navbar-fixed-bottom
+    #jquery_jplayer_1.jp-jplayer
+    #jp_container_1.jp-audio(role='application', aria-label='media player')
+        .jp-type-playlist
+            .jp-gui.jp-interface
+                .jp-controls
+                    button.jp-previous(role='button', tabindex='0') previous
+                    button.jp-play(role='button', tabindex='0') play
+                    button.jp-next(role='button', tabindex='0') next
+                    button.jp-stop(role='button', tabindex='0') stop
+                .jp-ratings
+                    input.rating.rating-loading(type='text', value='2', data-size='xs', title='')
+                .jp-progress
+                    .jp-seek-bar
+                        .jp-play-bar
+                button#show(style='color:#95a5a6')
+                    i.glyphicon.glyphicon-list
+                .jp-volume-controls
+                    button.jp-mute(role='button', tabindex='0') mute
+                    button.jp-volume-max(role='button', tabindex='0') max volume
+                    .jp-volume-bar
+                        .jp-volume-bar-value
+                .jp-time-holder
+                    .jp-current-time(role='timer', aria-label='time')  
+                    .jp-duration(role='timer', aria-label='duration')  
+                .jp-toggles
+                    button.jp-repeat(role='button', tabindex='0') repeat
+                    button.jp-shuffle(role='button', tabindex='0') shuffle
+            .jp-no-solution
+                span Update Required
+                |             To play the media you will need to either update your browser to a recent version or update your
+                a(href='http://get.adobe.com/flashplayer/', target='_blank') Flash plugin
+                | .
+        #playlist.jp-playlist
+            ul
+                li

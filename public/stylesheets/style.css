@@ -8,7 +8,8 @@ html{
 }
 
 .jumbotron{
-    height:90%;
+    height:85%;
+    overflow: scroll;
 }
 
 /* form */
