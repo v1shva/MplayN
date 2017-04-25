@@ -1,5 +1,5 @@
 
-.navbar {
+#main-nav.navbar {
 
     font-size: 12px;
 
@@ -7,7 +7,7 @@
 
 
 
-.navbar .brand {
+#main-nav.navbar .brand {
 
     position: relative;
 

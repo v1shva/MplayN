@@ -6,7 +6,8 @@ var MPlayApp = angular.module('MPlayApp', [
     'player',
     'loginSignup',
     'userMenu',
-    'ngRoute'
+    'ngRoute',
+    'angularSoundManager'
 ]);
 
 MPlayApp.config(['$routeProvider', '$locationProvider',
@@ -18,11 +19,11 @@ MPlayApp.config(['$routeProvider', '$locationProvider',
             })
             .when('/login.php', {
                 templateUrl: '/partials/login',
-                controller: 'LoginController'
+                controller: 'MainCtrl'
             })
             .when('/MyAccount.php', {
                 templateUrl: '/partials/myAccount',
-                controller: 'MyAccountController'
+                controller: 'MainCtrl'
             })
             .when('/', {
                 templateUrl: '/partials/home',
@@ -41,4 +42,6 @@ MPlayApp.controller('MainCtrl', ['$route', '$routeParams', '$location',
         this.$route = $route;
         this.$location = $location;
         this.$routeParams = $routeParams;
+        this.testValue = "test";
     }]);
+

@@ -32,11 +32,13 @@ router.get('/components/userMenuMain', function(req, res, next) {
 });
 
 
+/*router.get('/test', function(req, res, next) {
+    res.render('partials/playerTest', { title: 'Mplay' });
+});*/
+
 router.get('/player.php', function(req, res, next) {
-    res.render('playerModule', { title: 'Mplay' });
+    res.render('playerModule2', { title: 'Mplay' });
 });
-
-
 
 
 module.exports = router;

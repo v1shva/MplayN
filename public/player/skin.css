@@ -1,0 +1,22 @@
+
+.seekBase {
+    height: 10px;
+    width: 100%;
+    background-color: #e7e4ea;
+}
+
+
+.seekLoad {
+    height: 10px;
+    width: 0;
+    background-color: #2e8bf1;
+}
+
+li {
+    cursor: pointer;
+}
+
+#playerMain{
+    background: #9fdbe6;
+}
+

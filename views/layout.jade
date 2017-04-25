@@ -3,20 +3,21 @@ html(lang='en', ng-app='MPlayApp')
   head
     title= MPlay
     base(href='/')
-    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
+    //link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    //link(rel='stylesheet', href='/stylesheets/style.css')
+    //link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(type='text/javascript' src='player/jplayer/jquery.jplayer.min.js')
     script(type='text/javascript' src='player/add-on/jplayer.playlist.min.js')
     script(type='text/javascript' src='bower_components/angular/angular.js')
     script(type='text/javascript' src='bower_components/angular-route/angular-route.js')
-
+    script(src='/bower_components/angular-soundmanager2/dist/angular-soundmanager2.js')
 
     script(type='text/javascript' src='javascripts/modules/app.module.js')
     script(type='text/javascript' src='javascripts/modules/player/player.module.js')
     script(type='text/javascript' src='javascripts/modules/player/player-main.component.js')
+
 
     script(type='text/javascript' src='javascripts/modules/loginSignup/login-signup.module.js')
     script(type='text/javascript' src='javascripts/modules/loginSignup/login.component.js')
@@ -25,7 +26,7 @@ html(lang='en', ng-app='MPlayApp')
     script(type='text/javascript' src='javascripts/modules/userMenu/my-account.component.js')
 
 
-    script(type='text/javascript' src='player/init.js')
+    //script(type='text/javascript' src='player/init.js')
 
   body(ng-controller='MainCtrl')
       nav.navbar.navbar-default.navbar-fixed-top

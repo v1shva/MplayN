@@ -1,0 +1,56 @@
+//
+   Created by Vishva on 4/24/2017.
+link(rel='stylesheet', href='/player/skin.css')
+#playerMain
+    sound-manager
+        .seekBase(seek-track='')
+            .seekLoad(ng-style="{width : ( progress + '%' ) }")
+        br
+        p
+            | Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
+
+        button(play-pause-toggle='', data-play='Play!', data-pause='Pause!') Play Toggle
+        |                 Is Playing: {{ isPlaying }}
+        button(stop-music='') Stop
+        |                 -
+        button(repeat-music='') Repeat ({{ repeat }})
+        |                 -
+
+        br
+        br
+        | Volume: {{ volume }} -
+        button(music-volume='', data-type='increase') +
+        |                 -
+        button(music-volume='', data-type='decrease') -
+        |                 -
+        button(mute-music='') Mute ({{ mute }})
+        br
+        br
+
+        button(next-track='') Next Track
+        |                 -
+        button(clear-playlist='') Clear Playlist
+        br
+        br
+        h5 Playlist
+        ul
+            li(ng-repeat='song in playlist')
+                a(play-from-playlist='song') {{ song.title }}
+                |                         -
+                a(remove-from-playlist='song', data-index='{{$index}}')
+                    small (remove)
+                span(ng-if='currentPlaying.id == song.id')  - (current)
+
+   .row
+        .col-md-12
+            h5 Songs
+            ul
+                li(ng-repeat='song in $ctrl.songs')
+                    button(music-player='play', add-song='song') {{ song.title }}
+                    button(music-player='', add-song='song') +
+            button(play-all='songs') Play all
+            button(play-all='songs', data-play='false') Add all
+//    hr
+    .row
+        .col-md-12
+            // init soundManager2 player
