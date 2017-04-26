@@ -37,6 +37,12 @@ component('playerMain', {
                 title: 'Things that open, close and roll',
                 artist: 'Someone',
                 url: 'http://www.freshly-ground.com/data/audio/binaural/Things%20that%20open,%20close%20and%20roll.mp3'
+            },
+            {
+                id: 'six',
+                title: 'Summer Mix',
+                artist: 'Someone',
+                url: 'http://yt-files.com/yt-dd.php?id=UPftsIwGNoQ&hash=70d0d3a2411975488bf0ceef84384489&name=Feeling%20Happy%20%27%20Stay%20See%20Summer%20Mix%202015%20%E2%99%9B'
             }
         ];
 

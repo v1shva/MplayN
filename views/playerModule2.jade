@@ -6,31 +6,26 @@ link(rel='stylesheet', href='/player/skin.css')
         .seekBase(seek-track='')
             .seekLoad(ng-style="{width : ( progress + '%' ) }")
         br
-        p
+        //p
             | Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
+        .btn-group
+            button.btn.btn-primary.playerBtns.previous(prev-track='')
+            button.btn.btn-primary.playerBtns.play(play-pause-toggle, ng-class="{'pause': isPlaying}")
 
-        button(play-pause-toggle='', data-play='Play!', data-pause='Pause!') Play Toggle
-        |                 Is Playing: {{ isPlaying }}
-        button(stop-music='') Stop
-        |                 -
-        button(repeat-music='') Repeat ({{ repeat }})
-        |                 -
+            button.btn.btn-primary.playerBtns.next(next-track='')
+            button.btn.btn-primary.playerBtns.stop(stop-music='')
+        button.btn.btn-primary.playerBtns.repeat(repeat-music='')
 
         br
-        br
-        | Volume: {{ volume }} -
-        button(music-volume='', data-type='increase') +
-        |                 -
-        button(music-volume='', data-type='decrease') -
-        |                 -
-        button(mute-music='') Mute ({{ mute }})
-        br
+        button.btn.btn-primary.playerBtns.mute(mute-music='', ng-class="{'unmute': !mute}" )
+        .volumeBase(volume-bar='')
+            .volumeLoad(ng-style="{width : ( volume + '%' ) }")
+
         br
 
-        button(next-track='') Next Track
-        |                 -
+
         button(clear-playlist='') Clear Playlist
-        br
+        emo-bar
         br
         h5 Playlist
         ul
@@ -41,15 +36,20 @@ link(rel='stylesheet', href='/player/skin.css')
                     small (remove)
                 span(ng-if='currentPlaying.id == song.id')  - (current)
 
-   .row
-        .col-md-12
-            h5 Songs
-            ul
-                li(ng-repeat='song in $ctrl.songs')
-                    button(music-player='play', add-song='song') {{ song.title }}
-                    button(music-player='', add-song='song') +
-            button(play-all='songs') Play all
-            button(play-all='songs', data-play='false') Add all
+
+
+       .row
+            .col-md-12
+                h5 Songs
+                ul
+                    li(ng-repeat='song in $ctrl.songs')
+                        button(music-player='play', add-song='song') {{ song.title }}
+                        button(music-player='', add-song='song') +
+                button(play-all='songs') Play all
+                button(play-all='songs', data-play='false') Add all
+
+        .row
+            input(placeholder="Search songs", type="text")
 //    hr
     .row
         .col-md-12

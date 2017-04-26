@@ -3,8 +3,8 @@ html(lang='en', ng-app='MPlayApp')
   head
     title= MPlay
     base(href='/')
-    //link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
-    //link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
     //link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
@@ -16,6 +16,7 @@ html(lang='en', ng-app='MPlayApp')
 
     script(type='text/javascript' src='javascripts/modules/app.module.js')
     script(type='text/javascript' src='javascripts/modules/player/player.module.js')
+    script(type='text/javascript' src='javascripts/modules/player/emo-bar.component.js')
     script(type='text/javascript' src='javascripts/modules/player/player-main.component.js')
 
 
@@ -29,6 +30,7 @@ html(lang='en', ng-app='MPlayApp')
     //script(type='text/javascript' src='player/init.js')
 
   body(ng-controller='MainCtrl')
+      player-main
       nav.navbar.navbar-default.navbar-fixed-top
         div.container
           .container-fluid
@@ -57,6 +59,5 @@ html(lang='en', ng-app='MPlayApp')
 
       block content
 
-    player-main
 
 

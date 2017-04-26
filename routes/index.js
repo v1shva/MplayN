@@ -36,9 +36,14 @@ router.get('/components/userMenuMain', function(req, res, next) {
     res.render('partials/playerTest', { title: 'Mplay' });
 });*/
 
+router.get('/player/emobar.php', function(req, res, next) {
+    res.render('emotionbar', { title: 'Mplay' });
+});
+
 router.get('/player.php', function(req, res, next) {
     res.render('playerModule2', { title: 'Mplay' });
 });
+
 
 
 module.exports = router;

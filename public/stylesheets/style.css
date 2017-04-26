@@ -9,13 +9,11 @@ html{
 
 .jumbotron{
     height:85%;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 /* form */
-body{
-    background:#efefef;
-}
+
 .form-body{
     background:#fff;
     padding:20px;

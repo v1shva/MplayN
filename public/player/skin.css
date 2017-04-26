@@ -12,11 +12,101 @@
     background-color: #2e8bf1;
 }
 
+.volumeBase {
+    height: 10px;
+    width:100px;
+    background-color: #e7e4ea;
+}
+
+
+.volumeLoad {
+    height: 10px;
+    width: 0;
+    background-color: #2e8bf1;
+}
+
 li {
     cursor: pointer;
 }
 
 #playerMain{
+    z-index: 200;
     background: #9fdbe6;
+    position: fixed;
+    height: 30%;
+    bottom: 0;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x:hidden;
 }
+
+.previous{
+    background-image: url("/player/buttons/previous.png");
+    background-size: 20px 20px;
+}
+
+
+.next{
+    background-image: url("/player/buttons/next.png");
+    background-size: 20px 20px;
+}
+
+
+.play{
+    background-image: url("/player/buttons/play.png");
+    background-size: 40px 40px;
+    color:transparent;
+}
+
+
+
+
+.pause{
+    background-image: url("/player/buttons/pause.png");
+    background-size: 40px 40px;
+    color:transparent;
+}
+
+.stop{
+    background-image: url("/player/buttons/stop.png");
+    background-size: 20px 20px;
+}
+
+.repeat{
+    background-image: url("/player/buttons/repeat.png");
+    background-size: 17px 17px;
+}
+
+.mute{
+    background-image: url("/player/buttons/mute.png");
+    background-size: 17px 17px;
+}
+
+.unmute{
+    background-image: url("/player/buttons/unmute.png");
+    background-size: 17px 17px;
+}
+.playerBtns{
+    transition: all 0.5s;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    border:none;
+    width: 40px;
+    height: 40px;
+    !important outline:0;
+
+}
+
+.playerBtns:hover{
+    -webkit-filter: invert(80%);
+    filter: invert(80%);
+    background-color: transparent;
+}
+
+.playerBtns:focus{
+    outline-color:transparent;
+    background-color: transparent;
+}
+
 
