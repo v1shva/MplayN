@@ -5148,13 +5148,13 @@ ngSoundManager.directive('playPauseToggle', ['angularPlayer',
                         if(typeof attrs.pause != 'undefined') {
                             element.html(attrs.pause);
                         } else {
-                            element.html('Pause');
+                            element.html('');
                         }
                     } else {
                         if(typeof attrs.play != 'undefined') {
                             element.html(attrs.play);
                         } else {
-                            element.html('Play');
+                            element.html('');
                         }
                     }
                 });

@@ -22,6 +22,9 @@ ngSoundManager.directive('volumeBar', ['angularPlayer',
                 scope.volume = angularPlayer.getVolume();
                 scope.$on('music:volume', function(event, data) {
                     scope.$apply(function() {
+                        if(angularPlayer.getMuteStatus()){ // added a mute check on volume change
+                            angularPlayer.mute();
+                        }
                         scope.volume = data;
                     });
                 });
