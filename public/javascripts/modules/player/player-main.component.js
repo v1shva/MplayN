@@ -7,6 +7,7 @@ module('player').
 component('playerMain', {
     templateUrl: '/player.php',
     controller: function PlayListController() {
+
         this.songs = [
             {
                 id: 'one',

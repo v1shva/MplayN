@@ -5111,6 +5111,9 @@ ngSoundManager.directive('volumeBar', ['angularPlayer',
             restrict: "EA",
             link: function(scope, element, attrs) {
                 element.bind('click', function(event) {
+                    if(angularPlayer.getMuteStatus()){
+                        angularPlayer.mute();
+                    }
                     var getXOffset = function(event) {
                         var x = 0,
                             element = event.target;

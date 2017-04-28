@@ -1,23 +1,7 @@
-.col-md-1{
-    text-align: center;
-    padding: 5px;
-    width: 8%;
-    transition: width 0.5s;
-}
-
-.col-md-1:hover{
-    padding: 10px;
-    width: 13%;
-}
 
 .emotions{
-    position:absolute;
-    top:120px;
-    right:-130px;
     padding: 0px;
-    width: 90px;
-    float:left;
-    text-align: center;
+    width: 200px;
 }
 
 .emoicon{

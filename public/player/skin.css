@@ -13,16 +13,30 @@
 }
 
 .volumeBase {
+    padding: 0px;
     height: 10px;
     width:100px;
-    background-color: #e7e4ea;
+    background-color: rgba(0, 0, 0, 0.48);
+    background-size: 17px 100px;
 }
 
 
 .volumeLoad {
     height: 10px;
+    padding: 1px;
     width: 0;
-    background-color: #2e8bf1;
+    background-color: #a5a5a5;
+}
+
+.volumeLoadUnMute {
+    height: 10px;
+    padding: 1px;
+    width: 0;
+    background-color: #000000;
+}
+
+.volumeGroup{
+    height:15px;
 }
 
 li {
@@ -86,6 +100,12 @@ li {
     background-image: url("/player/buttons/unmute.png");
     background-size: 17px 17px;
 }
+
+.playlist{
+    background-image: url("/player/buttons/playlist.png");
+    background-size: 20px 20px;
+}
+
 .playerBtns{
     transition: all 0.5s;
     background-color: transparent;
@@ -109,4 +129,30 @@ li {
     background-color: transparent;
 }
 
+.playerBtnsVol{
+    transition: all 0.5s;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    border:none;
+!important outline:0;
 
+}
+
+.playerBtnsVol:hover{
+    -webkit-filter: invert(80%);
+    filter: invert(80%);
+    background-color: transparent;
+}
+
+.playerBtnsVol:focus{
+    outline-color:transparent;
+    background-color: transparent;
+}
+
+
+.playList{
+    background-color: #9acfea;
+    width:100%;
+    transition: all 0.5s linear;
+}

@@ -14,29 +14,21 @@ link(rel='stylesheet', href='/player/skin.css')
 
             button.btn.btn-primary.playerBtns.next(next-track='')
             button.btn.btn-primary.playerBtns.stop(stop-music='')
-        button.btn.btn-primary.playerBtns.repeat(repeat-music='')
+            button.btn.btn-primary.playerBtns.repeat(repeat-music='')
 
-        br
-        button.btn.btn-primary.playerBtns.mute(mute-music='', ng-class="{'unmute': !mute}" )
-        .volumeBase(volume-bar='')
-            .volumeLoad(ng-style="{width : ( volume + '%' ) }")
-
-        br
-
-
-        button(clear-playlist='') Clear Playlist
+        .btn-group
+            .btn.btn-primary.playerBtnsVol.mute(mute-music='', ng-class="{'unmute': !mute}" )
+            .btn.btn-primary.playerBtnsVol.volumeBase(volume-bar='')
+                .volumeLoad(ng-style="{width : ( volume + '%' ) }", ng-class="{'volumeLoadUnMute': !mute}")
         emo-bar
-        br
-        h5 Playlist
-        ul
+        button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
+        ul.playList(ng-hide="showPlaylist")
             li(ng-repeat='song in playlist')
                 a(play-from-playlist='song') {{ song.title }}
                 |                         -
                 a(remove-from-playlist='song', data-index='{{$index}}')
                     small (remove)
                 span(ng-if='currentPlaying.id == song.id')  - (current)
-
-
 
        .row
             .col-md-12
