@@ -7,7 +7,8 @@ var MPlayApp = angular.module('MPlayApp', [
     'loginSignup',
     'userMenu',
     'ngRoute',
-    'angularSoundManager'
+    'angularSoundManager',
+    'ngAnimate'
 ]);
 
 MPlayApp.config(['$routeProvider', '$locationProvider',

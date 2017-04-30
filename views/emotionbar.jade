@@ -3,7 +3,7 @@
 link(rel='stylesheet', href='/player/emobar.css')
 script(type='text/javascript' src='javascripts/modules/player/emo-bar.component.js')
 .emotions
-    img.img-circle.emoicon.songSelect.selected(src='/player/icons/happy.png', title='tooltip', name='happy')
+    img.img-circle.emoicon.songSelect.selected(ng-click="handeClick()", src='/player/icons/happy.png', title='tooltip', name='happy')
     img.img-circle.emoicon.songSelect(src='/player/icons/in-love.png', title='tooltip', name='in-love')
     img.img-circle.emoicon.songSelect(src='/player/icons/angry.png', title='tooltip', name='angry')
     img.img-circle.emoicon.songSelect(src='/player/icons/crying.png', title='tooltip', name='crying')

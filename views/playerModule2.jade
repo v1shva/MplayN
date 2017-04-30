@@ -22,7 +22,7 @@ link(rel='stylesheet', href='/player/skin.css')
                 .volumeLoad(ng-style="{width : ( volume + '%' ) }", ng-class="{'volumeLoadUnMute': !mute}")
         emo-bar
         button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
-        ul.playList(ng-hide="showPlaylist")
+        ul.playList.animate-show-hide(ng-hide="showPlaylist")
             li(ng-repeat='song in playlist')
                 a(play-from-playlist='song') {{ song.title }}
                 |                         -
