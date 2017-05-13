@@ -8,7 +8,7 @@ component('playerMain', {
     templateUrl: '/player.php',
     controller: function PlayListController() {
 
-        this.songs = [
+        /*this.songs = [
             {
                 id: 'one',
                 title: 'Rain',
@@ -46,6 +46,6 @@ component('playerMain', {
                 url: 'http://yt-files.com/yt-dd.php?id=UPftsIwGNoQ&hash=70d0d3a2411975488bf0ceef84384489&name=Feeling%20Happy%20%27%20Stay%20See%20Summer%20Mix%202015%20%E2%99%9B'
             }
         ];
-
+*/
     }
 });
