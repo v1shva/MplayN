@@ -8,7 +8,7 @@ html{
 }
 
 .jumbotron{
-    height:85%;
+    height:90%;
     overflow-y: auto;
 }
 
@@ -103,4 +103,14 @@ html{
 .sa-innate-form p{
     font-size:13px;
     padding-top:10px;
+}
+
+/*nav bar brand styling*/
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-brand>img {
+    height: 100%;
+    padding: 15px;
+    width: auto;
 }

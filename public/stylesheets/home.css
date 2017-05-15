@@ -1,0 +1,26 @@
+
+.logo{
+    position: absolute;
+    width:40%;
+    left:10px;
+    -webkit-animation: 2s linear; /* Safari 4+ */
+    -moz-animation:    2s linear; /* Fx 5+ */
+    -o-animation:      2s linear; /* Opera 12+ */
+    animation:         2s linear; /* IE 10+, Fx 29+ */
+}
+
+.logoP{
+    position:absolute;
+    left:0px;
+}
+
+@keyframes logoEnter {
+    0%{
+        left:-700px;
+
+    }
+    100%{
+        left: 0px;
+    }
+}
+

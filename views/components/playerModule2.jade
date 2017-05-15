@@ -1,7 +1,7 @@
 //
    Created by Vishva on 4/24/2017.
 link(rel='stylesheet', href='/player/skin.css')
-#playerMain
+#playerMain.playerMainSmall(ng-class="{'playerMainSmall': !showPlaylist, 'playerMainBig': showPlaylist}")
     sound-manager
         .seekBase(seek-track='')
             .seekLoad(ng-style="{width : ( progress + '%' ) }")
@@ -19,9 +19,11 @@ link(rel='stylesheet', href='/player/skin.css')
             .btn.btn-primary.playerBtnsVol.mute(mute-music='', ng-class="{'unmute': !mute}" )
             .btn.btn-primary.playerBtnsVol.volumeBase(volume-bar='')
                 .volumeLoad(ng-style="{width : ( volume + '%' ) }", ng-class="{'volumeLoadUnMute': !mute}")
-        emo-bar
-        button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
-        ul.playList.animate-show-hide(ng-hide="showPlaylist")
+        .btn-group
+            button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
+            emo-bar
+
+        ul.playList.animate-show-hide
             li(ng-repeat='song in playlist')
                 a(play-from-playlist='song') {{ song.title }}
                 |                         -

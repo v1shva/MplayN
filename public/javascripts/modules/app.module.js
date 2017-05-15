@@ -20,7 +20,6 @@ MPlayApp.config(['$routeProvider', '$locationProvider',
             })
             .when('/login.php', {
                 templateUrl: '/partials/login',
-                controller: 'MainCtrl'
             })
             .when('/MyAccount.php', {
                 templateUrl: '/partials/myAccount',

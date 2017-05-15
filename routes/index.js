@@ -37,11 +37,11 @@ router.get('/components/userMenuMain', function(req, res, next) {
 });*/
 
 router.get('/player/emobar.php', function(req, res, next) {
-    res.render('emotionbar', { title: 'Mplay' });
+    res.render('components/emotionbar', { title: 'Mplay' });
 });
 
 router.get('/player.php', function(req, res, next) {
-    res.render('playerModule2', { title: 'Mplay' });
+    res.render('components/playerModule2', { title: 'Mplay' });
 });
 
 

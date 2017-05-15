@@ -48,12 +48,199 @@ li {
     transition: all 0.5s linear;
     background: #9fdbe6;
     position: fixed;
-    height: 30%;
     bottom: 0;
     width: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x:hidden;
+    animation: colorchange 40s linear infinite; /* animation-name followed by duration in seconds*/
+    -webkit-animation: colorchange 40s linear infinite; /* Chrome and Safari */
+    -moz-animation: colorchange 40s linear infinite;
+    -o-animation: colorchange 40s linear infinite;
+    min-width: 325px;
 }
+.playerMainSmall{
+    height: 10%;
+    min-height: 110px;
+}
+
+.playerMainBig{
+    height: 50%;
+}
+
+/*CSS animated background color changer for player*/
+
+@keyframes colorchange
+{
+    0%,100% {background: #00bcbc
+    }
+    5% {background: #007bcc
+    }
+    10% {background: #3498db }
+    15% {background: #0094b6
+    }
+    20% {background: #5f7b95
+    }
+    25% {background: #1274a0
+    }
+    30% {background: #1aa8ae
+    }
+    35% {background: #2285b9
+    }
+    40% {background: #8c8ad6
+    }
+    45% {background: #8fc5ff
+    }
+    50% {background: #bf87f1
+    }
+    55% {background: #a898e6
+    }
+    60% {background: #99b4e7
+    }
+    65% {background: #bcadf1
+    }
+    70% {background: #9396a6
+    }
+    75% {background: #807fa3
+    }
+    80% {background: #e2c5e1
+    }
+    85% {background: #b99d92
+    }
+    90% {background: #c7b2b2
+    }
+    95% {background: #00768d
+    }
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+    0%,100% {background: #00bcbc
+    }
+    5% {background: #007bcc
+    }
+    10% {background: #3498db }
+    15% {background: #0094b6
+    }
+    20% {background: #5f7b95
+    }
+    25% {background: #1274a0
+    }
+    30% {background: #1aa8ae
+    }
+    35% {background: #2285b9
+    }
+    40% {background: #8c8ad6
+    }
+    45% {background: #8fc5ff
+    }
+    50% {background: #bf87f1
+    }
+    55% {background: #a898e6
+    }
+    60% {background: #99b4e7
+    }
+    65% {background: #bcadf1
+    }
+    70% {background: #9396a6
+    }
+    75% {background: #807fa3
+    }
+    80% {background: #e2c5e1
+    }
+    85% {background: #b99d92
+    }
+    90% {background: #c7b2b2
+    }
+    95% {background: #00768d
+    }
+}
+
+@-moz-keyframes colorchange /* Firefox */
+{
+    0%,100% {background: #00bcbc
+    }
+    5% {background: #007bcc
+    }
+    10% {background: #3498db }
+    15% {background: #0094b6
+    }
+    20% {background: #5f7b95
+    }
+    25% {background: #1274a0
+    }
+    30% {background: #1aa8ae
+    }
+    35% {background: #2285b9
+    }
+    40% {background: #8c8ad6
+    }
+    45% {background: #8fc5ff
+    }
+    50% {background: #bf87f1
+    }
+    55% {background: #a898e6
+    }
+    60% {background: #99b4e7
+    }
+    65% {background: #bcadf1
+    }
+    70% {background: #9396a6
+    }
+    75% {background: #807fa3
+    }
+    80% {background: #e2c5e1
+    }
+    85% {background: #b99d92
+    }
+    90% {background: #c7b2b2
+    }
+    95% {background: #00768d
+    }
+}
+
+@-o-keyframes colorchange /* Opera */
+{
+    0%,100% {background: #00bcbc
+    }
+    5% {background: #007bcc
+    }
+    10% {background: #3498db }
+    15% {background: #0094b6
+    }
+    20% {background: #5f7b95
+    }
+    25% {background: #1274a0
+    }
+    30% {background: #1aa8ae
+    }
+    35% {background: #2285b9
+    }
+    40% {background: #8c8ad6
+    }
+    45% {background: #8fc5ff
+    }
+    50% {background: #bf87f1
+    }
+    55% {background: #a898e6
+    }
+    60% {background: #99b4e7
+    }
+    65% {background: #bcadf1
+    }
+    70% {background: #9396a6
+    }
+    75% {background: #807fa3
+    }
+    80% {background: #e2c5e1
+    }
+    85% {background: #b99d92
+    }
+    90% {background: #c7b2b2
+    }
+    95% {background: #00768d
+    }
+}
+
 
 .previous{
     background-image: url("/player/buttons/previous.png");
