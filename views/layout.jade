@@ -12,11 +12,12 @@ html(lang='en', ng-app='MPlayApp')
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
 
-    //Angular and angular modules added to mai
+    //Angular and angular modules added to main application
     script(type='text/javascript' src='bower_components/angular/angular.js')
     script(type='text/javascript' src='bower_components/angular-route/angular-route.js')
     script(src='/bower_components/angular-soundmanager2/dist/angular-soundmanager2.js')
     script(src='/bower_components/angular-animate/angular-animate.js')
+    script(src='/bower_components/angular-resource/angular-resource.js')
 
     script(type='text/javascript' src='javascripts/modules/app.module.js')
     script(type='text/javascript' src='javascripts/modules/player/player.module.js')
@@ -34,12 +35,11 @@ html(lang='en', ng-app='MPlayApp')
     // Attaching Angular Services to main App
     script(type='text/javascript' src='javascripts/modules/core/song/song.module.js')
     script(type='text/javascript' src='javascripts/modules/core/song/song.service.js')
-    script(type='text/javascript' src='javascripts/modules/core/song/song.service.js')
+    script(type='text/javascript' src='javascripts/modules/core/core.module.js')
 
     script(type='text/javascript' src='javascripts/modules/home/home.module.js')
     script(type='text/javascript' src='javascripts/modules/home/home.component.js')
 
-    //script(type='text/javascript' src='player/init.js')
 
   body(ng-controller='MainCtrl')
       player-main
