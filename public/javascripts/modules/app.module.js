@@ -4,8 +4,10 @@
 var MPlayApp = angular.module('MPlayApp', [
     // ...which depends on the MPlayApp module
     'player',
+    'core',
     'loginSignup',
     'userMenu',
+    'home',
     'ngRoute',
     'angularSoundManager',
     'ngAnimate'

@@ -27,6 +27,10 @@ router.get('/components/login', function(req, res, next) {
     res.render('components/login', { title: 'Mplay' });
 });
 
+router.get('/components/home', function(req, res, next) {
+    res.render('components/home', { title: 'Mplay' });
+});
+
 router.get('/components/userMenuMain', function(req, res, next) {
     res.render('components/userMenu/MyAccount');
 });

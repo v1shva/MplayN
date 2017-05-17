@@ -3,24 +3,46 @@
     position: absolute;
     width:40%;
     left:10px;
-    -webkit-animation: 2s linear; /* Safari 4+ */
-    -moz-animation:    2s linear; /* Fx 5+ */
-    -o-animation:      2s linear; /* Opera 12+ */
-    animation:         2s linear; /* IE 10+, Fx 29+ */
+    opacity: 0;
+    -webkit-animation: fadeInLeft 2s linear, fadeOut 2s linear 2s; /* Safari 4+ */
+    -moz-animation:    fadeInLeft 2s linear, fadeOut 2s linear 2s; /* Fx 5+ */
+    -o-animation:      fadeInLeft 2s linear, fadeOut 2s linear 2s; /* Opera 12+ */
+    animation:         fadeInLeft 2s linear, fadeOut 2s linear 2s; /* IE 10+, Fx 29+ */
+
 }
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 
 .logoP{
     position:absolute;
-    left:0px;
-}
-
-@keyframes logoEnter {
-    0%{
-        left:-700px;
-
-    }
-    100%{
-        left: 0px;
-    }
+    left:10px;
+    opacity:0;
+    width:6.213%;
+    z-index:10;
+    -webkit-animation: 2s linear 2s; /* Safari 4+ */
+    -moz-animation:    2s linear 2s; /* Fx 5+ */
+    -o-animation:      2s linear 2s; /* Opera 12+ */
+    animation:         2s linear 2s; /* IE 10+, Fx 29+ */
 }
 

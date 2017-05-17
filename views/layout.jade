@@ -3,13 +3,16 @@ html(lang='en', ng-app='MPlayApp')
   head
     title= MPlay
     base(href='/')
+
+    //Attaching stylesheets related to main App
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    //link(rel='stylesheet', href='player/skin/whiteskin/css/jplayer.flat.white.css')
+
+    //Required essential plugins and angular modules
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
-    script(type='text/javascript' src='player/jplayer/jquery.jplayer.min.js')
-    script(type='text/javascript' src='player/add-on/jplayer.playlist.min.js')
+
+    //Angular and angular modules added to mai
     script(type='text/javascript' src='bower_components/angular/angular.js')
     script(type='text/javascript' src='bower_components/angular-route/angular-route.js')
     script(src='/bower_components/angular-soundmanager2/dist/angular-soundmanager2.js')
@@ -27,6 +30,14 @@ html(lang='en', ng-app='MPlayApp')
     script(type='text/javascript' src='javascripts/modules/userMenu/user-menu.module.js')
     script(type='text/javascript' src='javascripts/modules/userMenu/my-account.component.js')
 
+
+    // Attaching Angular Services to main App
+    script(type='text/javascript' src='javascripts/modules/core/song/song.module.js')
+    script(type='text/javascript' src='javascripts/modules/core/song/song.service.js')
+    script(type='text/javascript' src='javascripts/modules/core/song/song.service.js')
+
+    script(type='text/javascript' src='javascripts/modules/home/home.module.js')
+    script(type='text/javascript' src='javascripts/modules/home/home.component.js')
 
     //script(type='text/javascript' src='player/init.js')
 

@@ -7,7 +7,7 @@ factory('Song', ['$resource',
         return $resource('/api/song', {}, {
             query: {
                 method: 'GET',
-                params: {phoneId: 'phones'},
+                params: {songId: 'songs'},
                 isArray: true
             }
         });

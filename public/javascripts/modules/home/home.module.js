@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `loginSignUp` module
-angular.module('loginSignup', []);
+angular.module('home', []);
