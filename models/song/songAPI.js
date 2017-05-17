@@ -15,22 +15,22 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+var router = express.Router();
 
 function getModel () {
-    return require(`datastore`);
+    return require(`./datastore`);
 }
 
-const router = express.Router();
 
 // Automatically parse request body as JSON
 router.use(bodyParser.json());
 
 /**
- * GET /api/books
+ * GET /api/songs
  *
- * Retrieve a page of books (up to ten at a time).
+ * Retrieve a page of songs (up to ten at a time).
  */
-router.get('/api/song', (req, res, next) => {
+router.get('/', (req, res, next) => {
     getModel().list(10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
             next(err);

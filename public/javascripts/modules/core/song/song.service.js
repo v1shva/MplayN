@@ -8,7 +8,7 @@ factory('Song', ['$resource',
             query: {
                 method: 'GET',
                 params: {songId: 'songs'},
-                isArray: true
+                isArray: false
             }
         });
     }

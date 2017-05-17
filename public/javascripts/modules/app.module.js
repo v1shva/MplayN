@@ -18,22 +18,18 @@ MPlayApp.config(['$routeProvider', '$locationProvider',
         $routeProvider
             .when('/home.php', {
                 templateUrl: '/partials/home',
-                controller: 'MainCtrl'
             })
             .when('/login.php', {
                 templateUrl: '/partials/login',
             })
             .when('/MyAccount.php', {
                 templateUrl: '/partials/myAccount',
-                controller: 'MainCtrl'
             })
             .when('/', {
                 templateUrl: '/partials/home',
-                controller: 'MainCtrl'
             })
             .when('/*', {
                 templateUrl: '/partials/home',
-                controller: 'MainCtrl'
             });
 
         $locationProvider.html5Mode(true);

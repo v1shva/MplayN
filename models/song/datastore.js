@@ -17,14 +17,11 @@
 'use strict';
 
 const Datastore = require('@google-cloud/datastore');
-const config = require('../config');
-
-// [START config]
 const ds = Datastore({
     projectId: 'mplay-151612'
 });
 const kind = 'song';
-// [END config]
+
 
 // Translates from Datastore's entity format to
 // the format expected by the application.
