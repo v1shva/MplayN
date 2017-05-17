@@ -10,15 +10,15 @@ component('playerMain', {
         var songs = [];
         var res = Song.query();
         res.$promise.then(function(data){
-
-            console.log(data.items[0]);
             data.items.forEach( function (song)
             {
-                let filteredSong = (({ id, title, artist, url}) => ({ a, c }))(song);
+                let filteredSong = (({ id, title, artist, url}) => ({ id, title, artist, url}))(song);
+                songs.push(filteredSong);
             });
-
+            songs = data.items;
         });
         this.songs = songs;
+
 
 
 
