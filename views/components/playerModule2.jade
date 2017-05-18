@@ -22,7 +22,7 @@ link(rel='stylesheet', href='/player/skin.css')
         .btn-group
             button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
             emo-bar
-
+        hr
         ul.playList.animate-show-hide
             li(ng-repeat='song in playlist')
                 a(play-from-playlist='song') {{ song.title }}
@@ -30,7 +30,7 @@ link(rel='stylesheet', href='/player/skin.css')
                 a(remove-from-playlist='song', data-index='{{$index}}')
                     small (remove)
                 span(ng-if='currentPlaying.id == song.id')  - (current)
-                emo-bar
+                emo-bar-playlist
 
 //    hr
     .row

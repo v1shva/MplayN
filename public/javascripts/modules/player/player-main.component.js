@@ -5,7 +5,7 @@
 angular.
 module('player').
 component('playerMain', {
-    templateUrl: '/player.php',
+    templateUrl: '/components/player.php',
     controller: ['Song','$timeout', function PlayListController(Song, $timeout) {
         var songs = [];
         var res = Song.query();

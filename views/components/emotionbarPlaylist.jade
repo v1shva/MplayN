@@ -2,7 +2,7 @@
    Created by Vishva on 4/25/2017.
 link(rel='stylesheet', href='/player/emobar.css')
 script(type='text/javascript' src='javascripts/modules/player/emo-bar.component.js')
-.emotions.playerEmoBar
+.emotions.playlistEmoBar
     img.img-circle.emoicon.songSelect(ng-click="$ctrl.handleClick($event.currentTarget)", ng-class="{'selected': $ctrl.mood['happy']}", src='/player/icons/happy.png', title='Happy', name='happy')
     img.img-circle.emoicon.songSelect(ng-click="$ctrl.handleClick($event.currentTarget)", ng-class="{'selected': $ctrl.mood['in-love']}", src='/player/icons/in-love.png', title='In-Love', name='in-love')
     img.img-circle.emoicon.songSelect(ng-click="$ctrl.handleClick($event.currentTarget)", ng-class="{'selected': $ctrl.mood['angry']}", src='/player/icons/angry.png', title='Angry', name='angry')

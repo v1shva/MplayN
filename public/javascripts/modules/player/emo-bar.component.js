@@ -4,11 +4,12 @@
 angular.
 module('player').
 component('emoBar', {
-    templateUrl: 'player/emobar.php',
+    templateUrl: '/components/player/emobar.php',
     controller: function EmoController() {
         this.mood= [];
         this.mood["happy"] = true;
         this.currentMoods = ["happy"];
+        this.playerEmo = true;
 
         this.handleClick = function handleClick(item){
             var currentMood = item.attributes["name"].value;

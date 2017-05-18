@@ -3,13 +3,13 @@
  */
 angular.
 module('player').
-component('emoBar', {
-    templateUrl: 'player/emobarPlaylist.php',
+component('emoBarPlaylist', {
+    templateUrl: '/components/player/emobarPlaylist.php',
     controller: function EmoController() {
         this.mood= [];
         this.mood["happy"] = true;
         this.currentMoods = ["happy"];
-
+        this.playerEmo = false;
         this.handleClick = function handleClick(item){
             var currentMood = item.attributes["name"].value;
             var index = this.currentMoods.indexOf(currentMood);
