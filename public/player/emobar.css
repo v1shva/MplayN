@@ -2,6 +2,9 @@
 .emotions{
     padding: 0px;
     width: 320px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -130px;
 }
 
 .emoicon{

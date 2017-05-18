@@ -4,7 +4,7 @@
 angular.
 module('player').
 component('emoBar', {
-    templateUrl: 'player/emobar.php',
+    templateUrl: 'player/emobarPlaylist.php',
     controller: function EmoController() {
         this.mood= [];
         this.mood["happy"] = true;
