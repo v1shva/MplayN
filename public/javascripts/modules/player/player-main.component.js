@@ -6,17 +6,26 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/player.php',
-    controller: ['Song', function PlayListController(Song) {
+    controller: ['Song','$timeout', function PlayListController(Song, $timeout) {
         var songs = [];
         var res = Song.query();
+        var elem = angular.element(document.querySelector('[ng-app]'));
+        //get the injector.
+        var injector = elem.injector();
+        //get the service.
+        var angularPlayer = injector.get('angularPlayer');
         res.$promise.then(function(data){
             data.items.forEach( function (song)
             {
                 let filteredSong = (({ id, title, artist, url}) => ({ id, title, artist, url}))(song);
                 songs.push(filteredSong);
+                $timeout(function() {
+                    angularPlayer.addTrack(filteredSong)
+                }, 0);
             });
             songs = data.items;
         });
+
         this.songs = songs;
 
 
