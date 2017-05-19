@@ -30,8 +30,9 @@ router.use(bodyParser.json());
  *
  * Retrieve a page of songs (up to ten at a time).
  */
+
 router.get('/', (req, res, next) => {
-    getModel().list(10, req.query.pageToken, (err, entities, cursor) => {
+    getModel().listByEmotion(req.query.emotion,10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
             next(err);
             return;
@@ -42,6 +43,11 @@ router.get('/', (req, res, next) => {
         });
     });
 });
+
+
+
+
+
 
 /**
  * POST /api/books

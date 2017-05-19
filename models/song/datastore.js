@@ -83,10 +83,10 @@ function toDatastore (obj, nonIndexed) {
     return results;
 }
 
-// Lists all books in the Datastore sorted alphabetically by title.
+// Lists all songs in the Datastore sorted alphabetically by title.
 // The ``limit`` argument determines the maximum amount of results to
 // return per page. The ``token`` argument allows requesting additional
-// pages. The callback is invoked with ``(err, books, nextPageToken)``.
+// pages. The callback is invoked with ``(err, songs, nextPageToken)``.
 // [START list]
 function list (limit, token, cb) {
     const q = ds.createQuery([kind])
@@ -105,8 +105,24 @@ function list (limit, token, cb) {
 }
 // [END list]
 
-// Creates a new book or updates an existing book with new data. The provided
-// data is automatically translated into Datastore format. The book will be
+function listByEmotion (emotion, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter(emotion, '<', 0)
+        .order(emotion)
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
+// Creates a new song or updates an existing song with new data. The provided
+// data is automatically translated into Datastore format. The song will be
 // queued for background processing.
 // [START update]
 function update (id, data, cb) {
@@ -165,6 +181,7 @@ module.exports = {
     read,
     update,
     delete: _delete,
-    list
+    list,
+    listByEmotion
 };
 // [END exports]
