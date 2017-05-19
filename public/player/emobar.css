@@ -9,7 +9,7 @@
 }
 
 .playlistEmoBar{
-    width:200px;
+    width:250px;
     display: inline-block;
     float:right;
     vertical-align: middle;
@@ -46,26 +46,4 @@
 }
 .emobar{
     background: #ECF0F1;
-}
-
-.addsongform{
-    width:40%;
-    min-width: 300px;
-    background: #bdc3c7;
-    padding: 10px;
-    border-radius: 10px;
-    webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-    -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-    box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-    border: solid 1px #cbc9c9;
-
-}
-
-.songupload{
-    border-radius: inherit;
-    padding: 5px;
-}
-
-.tab-content{
-    transition: all 0.5s;
 }

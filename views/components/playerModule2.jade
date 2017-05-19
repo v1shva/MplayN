@@ -8,6 +8,9 @@ link(rel='stylesheet', href='/player/skin.css')
         br
         //p
             | Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
+
+        .currentDuration {{ currentDuration }}
+        .currentPosition {{ currentPostion }}
         .btn-group
             button.btn.btn-primary.playerBtns.previous(prev-track='')
             button.btn.btn-primary.playerBtns.play(play-pause-toggle, ng-class="{'pause': isPlaying}")
@@ -22,7 +25,7 @@ link(rel='stylesheet', href='/player/skin.css')
         .btn-group
             button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
             emo-bar
-        hr
+        .currentTrackDetails {{ currentPlaying.title }} by {{ currentPlaying.artist }}
         ul.playList.animate-show-hide
             li(ng-repeat='song in playlist')
                 a(play-from-playlist='song') {{ song.title }}
