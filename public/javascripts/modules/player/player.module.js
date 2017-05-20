@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `phoneList` module
-angular.module('player', ['core.song']);
+angular.module('player', ['core.song', 'ui.bootstrap','core.emotion']);

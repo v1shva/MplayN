@@ -6,7 +6,7 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/components/player.php',
-    controller: ['Song','$timeout', function PlayListController(Song, $timeout) {
+    controller: ['Song','$timeout','Emotion' function PlayListController(Song, $timeout) {
         var elem = angular.element(document.querySelector('[ng-app]'));
         //get the injector.
         var injector = elem.injector();

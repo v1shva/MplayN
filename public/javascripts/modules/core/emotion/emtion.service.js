@@ -1,15 +1,17 @@
 'use strict';
 
 angular.
-module('core.song').
-factory('Song', ['$resource',
-    function($resource) {
-        return $resource('/api/song', {}, {
-            query: {
-                method: 'GET',
-                params: {emotion: 'in-love'},
-                isArray: false
-            }
-        });
+module('core.emotion').
+factory('Emotion', [
+    function() {
+        this.emotion = "";
+
+        this.getEmotion = function () {
+            return this.emotion;
+        };
+
+        this.setEmotion = function (emo) {
+            this.emotion= emo;
+        };
     }
 ]);

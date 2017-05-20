@@ -26,7 +26,13 @@ component('emoBar', {
                 var removeMood = this.currentMoods.shift();
                 this.mood[removeMood] = false;
             }
-
+            var currentMoodString = "";
+            var currentMoodsCp  = this.currentMoods.slice();
+            currentMoodsCp.sort();
+            currentMoodsCp.forEach(function(emotion) {
+                currentMoodString+=emotion.concat('0');
+            });
+            console.log(currentMoodString);
 
         }
 
