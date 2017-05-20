@@ -6,7 +6,7 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/components/player.php',
-    controller: ['Song','$timeout','Emotion' function PlayListController(Song, $timeout) {
+    controller: ['Song','$timeout', function PlayListController(Song, $timeout) {
         var elem = angular.element(document.querySelector('[ng-app]'));
         //get the injector.
         var injector = elem.injector();
@@ -15,8 +15,7 @@ component('playerMain', {
 
         var songs = [];
         //var res = Song.query();
-        var res = Song.get({emotion: 'crying0inLove'});
-
+        var res = Song.get({emotion: 'happy0'});
         res.$promise.then(function(data){
             data.items.forEach( function (song)
             {

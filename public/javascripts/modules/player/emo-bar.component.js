@@ -5,7 +5,7 @@ angular.
 module('player').
 component('emoBar', {
     templateUrl: '/components/player/emobar.php',
-    controller: function EmoController() {
+    controller: ['Emotion', function EmoController(Emotion) {
         this.mood= [];
         this.mood["happy"] = true;
         this.currentMoods = ["happy"];
@@ -32,10 +32,12 @@ component('emoBar', {
             currentMoodsCp.forEach(function(emotion) {
                 currentMoodString+=emotion.concat('0');
             });
+            Emotion.setEmotion(currentMoodString);
             console.log(currentMoodString);
 
         }
 
 
     }
+]
 });
