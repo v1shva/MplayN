@@ -2,17 +2,21 @@
 
 angular.
 module('core.emotion').
-factory('Emotion', [
-    function() {
-        var emotion='happy';
-        return {
-            getEmotion: function () {
-                return emotion;
-            },
+factory('Emotion', ['rx',
+    function(rx) {
+        var subject = new rx.Subject();
+        var data = "Initial";
 
-            setEmotion: function (Emotion) {
-                emotion = Emotion;
-                //$rootScope.$broadcast("updates");
+        return {
+            set: function set(d){
+                data = d;
+                subject.onNext(d);
+            },
+            get: function get() {
+                return data;
+            },
+            subscribe: function (o) {
+                return subject.subscribe(o);
             }
         }
     }

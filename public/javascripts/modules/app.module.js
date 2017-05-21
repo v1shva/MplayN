@@ -10,7 +10,8 @@ var MPlayApp = angular.module('MPlayApp', [
     'home',
     'ngRoute',
     'angularSoundManager',
-    'ngAnimate'
+    'ngAnimate',
+    'rx'
 ]);
 
 MPlayApp.config(['$routeProvider', '$locationProvider',

@@ -32,9 +32,7 @@ component('emoBar', {
             currentMoodsCp.forEach(function(emotion) {
                 currentMoodString+=emotion.concat('0');
             });
-            Emotion.setEmotion(currentMoodString);
-            console.log(currentMoodString);
-
+            Emotion.set(currentMoodString);
         }
 
 
