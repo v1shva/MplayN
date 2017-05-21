@@ -29,9 +29,12 @@ component('playerMain', {
                             let filteredSong = (({ id, title, artist, url}) => ({ id, title, artist, url}))(song);
                             songs.push(filteredSong);
                             $timeout(function() {
-                                angularPlayer.addTrack(filteredSong)
+                                angularPlayer.addTrack(filteredSong);
+                                angularPlayer.playTrack(songs[0].id);
+
                             }, 0);
                         });
+
                         songs = dataRes.items;
                         angularPlayer.play();
 
