@@ -6,7 +6,8 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/components/player.php',
-    controller: ['Song','$timeout', function PlayListController(Song, $timeout) {
+    controller: ['Song','$timeout','Emotion', function PlayListController(Song, $timeout, Emotion) {
+
         var elem = angular.element(document.querySelector('[ng-app]'));
         //get the injector.
         var injector = elem.injector();
@@ -14,18 +15,36 @@ component('playerMain', {
         var angularPlayer = injector.get('angularPlayer');
 
         var songs = [];
-        //var res = Song.query();
-        var res = Song.get({emotion: 'happy0'});
-        res.$promise.then(function(data){
-            data.items.forEach( function (song)
-            {
-                let filteredSong = (({ id, title, artist, url}) => ({ id, title, artist, url}))(song);
-                songs.push(filteredSong);
+        var getSongsByEmotion = function (selectedEmotion) {
+            var res = Song.get({emotion: selectedEmotion});
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+                var dataRes = dataRes;
+                console.log(dataRes.items);
                 $timeout(function() {
-                    angularPlayer.addTrack(filteredSong)
+                    angularPlayer.clearPlaylist(function(data) {
+                        //add songs to playlist
+                        dataRes.items.forEach( function (song)
+                        {
+                            let filteredSong = (({ id, title, artist, url}) => ({ id, title, artist, url}))(song);
+                            songs.push(filteredSong);
+                            $timeout(function() {
+                                angularPlayer.addTrack(filteredSong)
+                            }, 0);
+                        });
+                        songs = dataRes.items;
+                        angularPlayer.play();
+
+                    });
                 }, 0);
+
+
             });
-            songs = data.items;
+        }
+        getSongsByEmotion('happy0');
+        var subscription = Emotion.subscribe(function onNext(d) {
+            console.log(d);
+            getSongsByEmotion(Emotion.get());
         });
 
         this.songs = songs;
