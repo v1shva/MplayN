@@ -11,36 +11,56 @@ var MPlayApp = angular.module('MPlayApp', [
     'ngRoute',
     'angularSoundManager',
     'ngAnimate',
-    'rx'
+    'rx',
+    'ui.router'
 ]);
 
-MPlayApp.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
-        $routeProvider
-            .when('/home.php', {
-                templateUrl: '/partials/home',
-            })
-            .when('/login.php', {
-                templateUrl: '/partials/login',
-            })
-            .when('/MyAccount.php', {
-                templateUrl: '/partials/myAccount',
-            })
-            .when('/', {
-                templateUrl: '/partials/home',
-            })
-            .when('/*', {
-                templateUrl: '/partials/home',
-            });
+MPlayApp.config(
+    function($stateProvider, $urlServiceProvider) {
+        $urlServiceProvider.rules.otherwise({ state: 'home' });
+        $stateProvider.state('home', {
+            url: 'home',
+            component: 'home',
 
-        $locationProvider.html5Mode(true);
-    }]);
+        });
 
-MPlayApp.controller('MainCtrl', ['$route', '$routeParams', '$location',
-    function MainCtrl($route, $routeParams, $location) {
-        this.$route = $route;
-        this.$location = $location;
-        this.$routeParams = $routeParams;
-        this.testValue = "test";
+        $stateProvider.state('login', {
+            url: 'login',
+            component: 'login',
+
+        });
+
+        $stateProvider.state('myAccount', {
+            url: 'myAccount',
+            component: 'myAccount',
+
+        });
+
+        /*var homeState = {
+            url: '/home.php',
+            template: '/partials/home'
+        }
+
+
+
+        var loginState = {
+            url: '/login.php',
+            template: '/partials/login'
+        }
+
+        var accountState = {
+            url: '/MyAccount.php',
+            template: '/partials/myAccount'
+        }
+
+        $stateProvider.state(homeState);
+        $stateProvider.state(loginState);
+        $stateProvider.state(accountState);
+*/
+    });
+
+MPlayApp.controller('MainCtrl', [
+    function MainCtrl() {
+
     }]);
 
