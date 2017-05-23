@@ -8,7 +8,6 @@ var MPlayApp = angular.module('MPlayApp', [
     'loginSignup',
     'userMenu',
     'home',
-    'ngRoute',
     'angularSoundManager',
     'ngAnimate',
     'rx',
