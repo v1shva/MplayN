@@ -7,6 +7,6 @@ module('loginSignup').
 component('login', {
     templateUrl: '/components/login',
     controller: function LoginController() {
-
+        this.testValue = "Hello";
     }
 });

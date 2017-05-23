@@ -18,19 +18,19 @@ MPlayApp.config(
     function($stateProvider, $urlServiceProvider) {
         $urlServiceProvider.rules.otherwise({ state: 'home' });
         $stateProvider.state('home', {
-            url: 'home',
+            url: '/home.php',
             component: 'home',
 
         });
 
         $stateProvider.state('login', {
-            url: 'login',
+            url: '/login.php',
             component: 'login',
 
         });
 
         $stateProvider.state('myAccount', {
-            url: 'myAccount',
+            url: '/myAccount.php',
             component: 'myAccount',
 
         });
