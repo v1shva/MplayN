@@ -14,6 +14,9 @@ router.get('/userMenuMain', function(req, res, next) {
     res.render('components/userMenu/MyAccount');
 });
 
+router.get('/songUpload', function(req, res, next) {
+    res.render('components/songUpload');
+});
 
 /*router.get('/test', function(req, res, next) {
  res.render('partials/playerTest', { title: 'Mplay' });

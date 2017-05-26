@@ -1,0 +1,70 @@
+//
+   Created by Vishva on 5/26/2017.
+
+
+.modal-dialog
+    #addsongContent.modal-content
+        .modal-header
+            h4.modal-title Add your Song
+        .modal-body
+            .form-group
+                label Song Title:
+                input#title.form-control(onfocusout='validateTitle(this)', type='text', title='tooltip')
+                #titleLoader.cssload-thecube(style='display: none')
+                    .cssload-cube.cssload-c1
+                    .cssload-cube.cssload-c2
+                    .cssload-cube.cssload-c4
+                    .cssload-cube.cssload-c3
+            .form-group.ui-widget
+                label Artist:
+                input#artist.form-control(onfocusout='validateArtist(this);validateArtistAndTitle()', type='text', title='tooltip')
+            .form-group.ui-widget
+                label#moodLable Mood:
+                .container-fluid.moods
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " border="0" class="img-circle emoicon" name="happy">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " border="0" class="img-circle emoicon" name="in-love">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " border="0" class="img-circle emoicon" name="confused">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " border="0" class="img-circle emoicon" name="angry">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " border="0" class="img-circle emoicon" name="crying">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | "border="0" class="img-circle emoicon" name="embarrassed">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="smiling">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="suspicious">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="crazy">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="naughty">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="bored">
+                    img(src='<?php echo base_url(', media='', moods='', ?='')
+                    | " width="8%"border="0" class="img-circle emoicon" name="smart">
+            .form-group.songupload
+                ul.nav.nav-tabs(role='tablist')
+                    li.active(role='presentation')
+                        a(href='#url', aria-controls='home', role='tab', data-toggle='tab') Upload File
+                    li(role='presentation')
+                        a(href='#upfile', aria-controls='profile', role='tab', data-toggle='tab') URL
+                .tab-content
+                    #url.tab-pane.active(role='tabpanel')
+                        .form-group
+                            .form-group
+                                input#fileup.file(data-show-upload='true', name='fileup', type='file', data-upload-url="<?php echo base_url().'index.php/Song/uploadSong'; ?>")
+                    #upfile.tab-pane(role='tabpanel')
+                        label(for='pwd') URL:
+                        input.form-control(type='text')
+            #uploadErrorMsg.form-group.ui-widget(style='display: none')
+                label
+            .checkbox
+                label
+                    input(type='checkbox', onchange='agree(this)')
+                    |  I agree to the terms and conditions of the MPlay web app.
+        .modal-footer
+            button#submitdata.btn.btn-default.fileinput-upload.fileinput-upload-button(type='submit', disabled='') Submit
+            button#closeFromBottom.btn.btn-default(type='button', data-dismiss='modal') Close

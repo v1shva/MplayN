@@ -36,6 +36,9 @@ html(lang='en', ng-app='MPlayApp')
     script(type='text/javascript' src='javascripts/modules/userMenu/user-menu.module.js')
     script(type='text/javascript' src='javascripts/modules/userMenu/my-account.component.js')
 
+    script(type='text/javascript' src='javascripts/modules/songUpload/song-upload.module.js')
+    script(type='text/javascript' src='javascripts/modules/songUpload/song-upload.module.js')
+
 
     // Attaching Angular Services to main App
     script(type='text/javascript' src='javascripts/modules/core/song/song.module.js')
@@ -74,9 +77,14 @@ html(lang='en', ng-app='MPlayApp')
                           a(ui-sref='myAccount') About Us
                   ul.nav.navbar-nav.navbar-right
                       li
+                          a(ui-sref='songUpload')
+                              span.glyphicon.glyphicon-music
+                              |  Add Songs
+                      li
                           a(ui-sref='login')
                               span.glyphicon.glyphicon-log-in
                               |  Login/Sign Up
+
 
       block content
 
