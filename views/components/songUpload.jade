@@ -1,7 +1,6 @@
 //
    Created by Vishva on 5/26/2017.
-
-
+p {{showUpload}}
 .modal-dialog
     #addsongContent.modal-content
         .modal-header
@@ -21,43 +20,20 @@
             .form-group.ui-widget
                 label#moodLable Mood:
                 .container-fluid.moods
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " border="0" class="img-circle emoicon" name="happy">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " border="0" class="img-circle emoicon" name="in-love">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " border="0" class="img-circle emoicon" name="confused">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " border="0" class="img-circle emoicon" name="angry">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " border="0" class="img-circle emoicon" name="crying">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | "border="0" class="img-circle emoicon" name="embarrassed">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="smiling">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="suspicious">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="crazy">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="naughty">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="bored">
-                    img(src='<?php echo base_url(', media='', moods='', ?='')
-                    | " width="8%"border="0" class="img-circle emoicon" name="smart">
+                    emo-bar
             .form-group.songupload
                 ul.nav.nav-tabs(role='tablist')
-                    li.active(role='presentation')
-                        a(href='#url', aria-controls='home', role='tab', data-toggle='tab') Upload File
-                    li(role='presentation')
-                        a(href='#upfile', aria-controls='profile', role='tab', data-toggle='tab') URL
+                    li.active(role='presentation', ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
+                        a(role='tab',ng-click="$ctrl.showUpload = true") Upload File
+                    li(role='presentation', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                        a(role='tab',ng-click="$ctrl.showUpload = false") URL
                 .tab-content
-                    #url.tab-pane.active(role='tabpanel')
+                    #url.tab-pane.active(role='tabpanel',ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
                         .form-group
                             .form-group
-                                input#fileup.file(data-show-upload='true', name='fileup', type='file', data-upload-url="<?php echo base_url().'index.php/Song/uploadSong'; ?>")
-                    #upfile.tab-pane(role='tabpanel')
-                        label(for='pwd') URL:
+                                input#fileup.file(type='file')
+                    #upfile.tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                        label URL:
                         input.form-control(type='text')
             #uploadErrorMsg.form-group.ui-widget(style='display: none')
                 label
