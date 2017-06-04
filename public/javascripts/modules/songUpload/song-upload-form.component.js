@@ -20,7 +20,6 @@ component('songUploadForm', {
             url: 'upload.php'
         });
 
-        this.item = this.uploader.queue[0];
 
         uploader.filters.push({
             name: 'imageFilter',
@@ -28,9 +27,10 @@ component('songUploadForm', {
                 var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
                 return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
             }
+
         });
 
-        // CALLBACKS
+        this.selectedItem = "Test Value";
 
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
@@ -39,7 +39,9 @@ component('songUploadForm', {
             console.info('onAfterAddingFile', fileItem);
         };
         uploader.onAfterAddingAll = function(addedFileItems) {
+            this.selectedItem = "Test 2";
             console.info('onAfterAddingAll', addedFileItems);
+            console.log(this.selectedItem);
         };
         uploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
@@ -66,7 +68,6 @@ component('songUploadForm', {
             console.info('onCompleteAll');
         };
 
-        console.info('uploader', uploader);
 
         this.EmoBarInput = function handleClick(item) {
             this.emotionSelected = true;
