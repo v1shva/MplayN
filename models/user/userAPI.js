@@ -46,7 +46,7 @@ router.get('/byUserID', (req, res, next) => {
 });
 
 router.get('/byUserEmail', (req, res, next) => {
-    getModel().getUserByEmail(req.query.userEmail,10, req.query.pageToken, (err, entities, cursor) => {
+    getModel().getUserByEmail(req.query.email,10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
             next(err);
             return;

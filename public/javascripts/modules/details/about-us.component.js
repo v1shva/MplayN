@@ -6,7 +6,7 @@ angular.
 module('details').
 component('aboutUs', {
     templateUrl: '/components/aboutUs',
-    controller: function LoginController() {
+    controller: function DetailsController() {
         this.testValue = "Hello";
     }
 });

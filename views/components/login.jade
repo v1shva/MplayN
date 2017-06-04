@@ -12,7 +12,7 @@ block content
                         li
                             a(data-toggle='tab', href='#sectionB') Join us!
                     .tab-content
-                        #sectionA.tab-pane.fade.in.active(ng-controller='LoginController')
+                        #sectionA.tab-pane.fade.in.active
                             .innter-form
                                 form.sa-innate-form(method='post')
                                     label Email Address
@@ -37,7 +37,7 @@ block content
                                             i.fa.fa-twitter
                                             |  Twitter
                             .clearfix
-                        #sectionB.tab-pane.fade(ng-controller='SignupController')
+                        #sectionB.tab-pane.fade()
                             .innter-form
                                 form.sa-innate-form(method='post')
                                     label Name

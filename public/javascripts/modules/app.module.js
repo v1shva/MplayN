@@ -5,10 +5,10 @@ var MPlayApp = angular.module('MPlayApp', [
     // ...which depends on the MPlayApp module
     'player',
     'core',
-    'loginSignup',
     'userMenu',
     'home',
     'songUpload',
+    'loginSignUp',
     'details',
     'angularSoundManager',
     'angularFileUpload',
