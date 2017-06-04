@@ -1,0 +1,13 @@
+.errorMsg{
+    font-size: 12px;
+    color: #c9302c;
+    padding: 5px;
+}
+
+.dragDrop{
+    width:100%;
+    border: dotted 3px lightgray;
+    text-align: center;
+    pointer-events : none;
+}
+

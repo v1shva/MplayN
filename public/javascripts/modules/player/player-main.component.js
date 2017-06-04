@@ -16,7 +16,7 @@ component('playerMain', {
 
         var songs = [];
         var getSongsByEmotion = function (selectedEmotion) {
-            var res = Song.get({emotion: selectedEmotion});
+            var res = Song.getSongsByEmo.get({emotion: selectedEmotion});
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
                 var dataRes = dataRes;

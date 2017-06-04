@@ -10,6 +10,7 @@ var MPlayApp = angular.module('MPlayApp', [
     'home',
     'songUpload',
     'angularSoundManager',
+    'angularFileUpload',
     'ngAnimate',
     'rx',
     'ui.router'

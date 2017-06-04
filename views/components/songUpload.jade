@@ -1,46 +1,94 @@
 //
    Created by Vishva on 5/26/2017.
-p {{showUpload}}
+link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
 .modal-dialog
     #addsongContent.modal-content
-        .modal-header
-            h4.modal-title Add your Song
-        .modal-body
-            .form-group
-                label Song Title:
-                input#title.form-control(onfocusout='validateTitle(this)', type='text', title='tooltip')
-                #titleLoader.cssload-thecube(style='display: none')
-                    .cssload-cube.cssload-c1
-                    .cssload-cube.cssload-c2
-                    .cssload-cube.cssload-c4
-                    .cssload-cube.cssload-c3
-            .form-group.ui-widget
-                label Artist:
-                input#artist.form-control(onfocusout='validateArtist(this);validateArtistAndTitle()', type='text', title='tooltip')
-            .form-group.ui-widget
-                label#moodLable Mood:
-                .container-fluid.moods
-                    emo-bar
-            .form-group.songupload
-                ul.nav.nav-tabs(role='tablist')
-                    li.active(role='presentation', ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
-                        a(role='tab',ng-click="$ctrl.showUpload = true") Upload File
-                    li(role='presentation', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
-                        a(role='tab',ng-click="$ctrl.showUpload = false") URL
-                .tab-content
-                    #url.tab-pane.active(role='tabpanel',ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
-                        .form-group
+        form(name='uploadForm',enctype="multipart/form-data", ng-submit="$ctrl.submitForm(uploadForm.$valid)", novalidate)
+            .modal-header
+                h4.modal-title Add your Song
+            .modal-body
+                .form-group
+                    label Song Title:
+                    input#title.form-control(type='text', name='songTitle', ng-model="songTitle", required)
+                    .error(ng-show="uploadForm.songTitle.$invalid && uploadForm.songTitle.$touched", class="errorMsg") Song title is required.
+                    #titleLoader.cssload-thecube(style='display: none')
+                        .cssload-cube.cssload-c1
+                        .cssload-cube.cssload-c2
+                        .cssload-cube.cssload-c4
+                        .cssload-cube.cssload-c3
+                .form-group.ui-widget
+                    label Artist:
+                    input#artist.form-control(type='text',name='songArtist', ng-model="songArtist", required)
+                    .error(ng-show="uploadForm.songArtist.$invalid && uploadForm.songArtist.$touched", class="errorMsg") Song artist is required.
+                .form-group.ui-widget
+                    label#moodLable Mood:
+                    .container-fluid.moods
+                        link(rel='stylesheet', href='/player/emobar.css')
+                        script(type='text/javascript' src='javascripts/modules/player/emo-bar.component.js')
+                        .emotions.playerEmoBar(uib-tooltip='Select Your Mood')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['happy']}", src='/player/icons/happy.png', title='Happy', name='happy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['inLove']}", src='/player/icons/in-love.png', title='In-Love', name='inLove')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['angry']}", src='/player/icons/angry.png', title='Angry', name='angry')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crying']}", src='/player/icons/crying.png', title='Crying', name='crying')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['embarrassed']}", src='/player/icons/embarrassed.png', title='Embarrassed', name='embarrassed')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crazy']}", src='/player/icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['bored']}", src='/player/icons/bored.png', width='8%', title='Bored', name='bored')
+                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
+                .form-group.songupload
+                    ul.nav.nav-tabs(role='tablist')
+                        li.active(role='presentation', ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
+                            a(role='tab',ng-click="$ctrl.showUpload = true") Upload File
+                        li(role='presentation', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                            a(role='tab',ng-click="$ctrl.showUpload = false") URL
+                    .tab-content
+                        #url.tab-pane.active(role='tabpanel',ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
                             .form-group
-                                input#fileup.file(type='file')
-                    #upfile.tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
-                        label URL:
-                        input.form-control(type='text')
-            #uploadErrorMsg.form-group.ui-widget(style='display: none')
-                label
-            .checkbox
-                label
-                    input(type='checkbox', onchange='agree(this)')
-                    |  I agree to the terms and conditions of the MPlay web app.
-        .modal-footer
-            button#submitdata.btn.btn-default.fileinput-upload.fileinput-upload-button(type='submit', disabled='') Submit
-            button#closeFromBottom.btn.btn-default(type='button', data-dismiss='modal') Close
+                                .form-group
+                                    .fileDrop(nv-file-drop, uploader="$ctrl.uploader")
+                                        .well.dragDrop(nv-file-over, uploader="$ctrl.uploader", over-class='fileOver') Drag and Drop files here to upload
+                                    input(type='file',name='songFile', ng-model="songFile",nv-file-select='', uploader="$ctrl.uploader" ng-click='showEmoError = true;')
+
+                                    td
+                                        strong {{ $ctrl.item.file.name }}
+                                        // Image preview
+                                        // auto height
+                                        // <div ng-thumb="{ file: $ctrl.item.file, width: 100 }"></div>
+                                        // auto width
+                                        div(ng-show='$ctrl.uploader.isHTML5', ng-thumb='{ file: $ctrl.item._file, height: 100 }')
+                                        // fixed width and height
+                                        // <div ng-thumb="{ file: $ctrl.item.file, width: 100, height: 100 }"></div>
+                                    td(ng-show='$ctrl.uploader.isHTML5', nowrap='') {{ $ctrl.item.file.size/1024/1024|number:2 }} MB
+                                    td(ng-show='$ctrl.uploader.isHTML5')
+                                        .progress(style='margin-bottom: 0;')
+                                            .progress-bar(role='progressbar', ng-style="{ 'width': $ctrl.item.progress + '%' }")
+                                    td.text-center
+                                        span(ng-show='$ctrl.item.isSuccess')
+                                            i.glyphicon.glyphicon-ok
+                                        span(ng-show='$ctrl.item.isCancel')
+                                            i.glyphicon.glyphicon-ban-circle
+                                        span(ng-show='$ctrl.item.isError')
+                                            i.glyphicon.glyphicon-remove
+                                    td(nowrap='')
+                                        button.btn.btn-success.btn-xs(type='button', ng-click='$ctrl.item.upload()', ng-disabled='$ctrl.item.isReady || $ctrl.item.isUploading || $ctrl.item.isSuccess')
+                                            span.glyphicon.glyphicon-upload
+                                            |  Upload
+                                        button.btn.btn-warning.btn-xs(type='button', ng-click='$ctrl.item.cancel()', ng-disabled='!$ctrl.item.isUploading')
+                                            span.glyphicon.glyphicon-ban-circle
+                                            |  Cancel
+                                        button.btn.btn-danger.btn-xs(type='button', ng-click='$ctrl.item.remove()')
+                                            span.glyphicon.glyphicon-trash
+                                            |  Remove
+
+                        #upfile.tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                            label URL:
+                            input.form-control(type='text',name='songURL', ng-model="songURL", ng-click='showEmoError = true')
+                    p(ng-show="!$ctrl.showUploadOrURLMsg", class='errorMsg') {{$ctrl.uploadOrURLMsg}}
+                #uploadErrorMsg.form-group.ui-widget(style='display: none')
+                    label
+                .checkbox
+                    label
+                        input(type='checkbox',ng-model="agreeTerms")
+                        |  I agree to the terms and conditions of the MPlay web app.
+            .modal-footer
+                button#submitdata.btn.btn-default(type='submit', ng-disabled="!uploadForm.$valid || !$ctrl.uploadFormValid") Submit
+                a#closeFromBottom.btn.btn-default(type='button', ui-sref='home') Close
