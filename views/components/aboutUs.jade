@@ -1,0 +1,83 @@
+body(data-spy='scroll', data-target='.navbar', data-offset='50')
+    #imagearea.row
+        .col-md-12
+            img.responsive(src='images/logooo.png')
+    #buynow.row
+        h2.text-center  LET'S GO FOR A TOUR WITH MPLAY
+    .container
+        .row
+            .col-md-8
+                img.responsive(src='images/Showcase-14.png')
+            .col-md-4
+    .container-fluid
+        #selectdemo1.row(style='background-color: #8080ff; ')
+            .col-md-12
+                h2  WHAT IS YOUR MOOD??..
+        #selectdemo.row(style='background-color: #e6e6ff;')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['happy']}", src='./icons/happy.png', title='Happy', name='happy')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['in-love']}", src='./icons/in-love.png', title='In-Love', name='in-love')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['angry']}", src='./icons/angry.png', title='Angry', name='angry')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['crying']}", src='./icons/crying.png', title='Crying', name='crying')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['embarrassed']}", src='./icons/embarrassed.png', title='Embarrassed', name='embarrassed')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['crazy']}", src='./icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
+            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['bored']}", src='./icons/bored.png', width='8%', title='Bored', name='bored')
+        #currentdemo.row(style='background-color: #9999ff;')
+            .col-md-12
+                h3
+                    | Not Happy With
+                    br
+                    |  Current Players??!
+                h6
+                    | Don’t worry MPLAY will provide new experience for you.
+                    br
+                    | 				keep stay with MPLAY....
+        #mplay.row
+            .col-md-12
+                img.responsive(src='images/logooo.png')
+        #mplaym.row
+            .col-md-12
+                h3
+                    | MPLAY IS MAKING SONGS READY FOR YOU..
+                    br
+                    |  ARE YOU READY...??
+    .container-fluid
+        #rebuild.row
+            .col-md-12
+                h2 Let's Find Out What MPLAY Provide Us
+            .col-md-2
+            .col-md-2
+                h5
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | You can hear songs according to your favours and tastes
+                    br
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | You can add songs according to your favours and tastes
+                    br
+            .col-md-2
+                h5
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | You can delete songs according to your favours and tastes
+                    br
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | 					You may feel easy to select song for your mood
+                    br
+            .col-md-2
+                h5
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | 					You can easily que songs
+                    br
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | 					Your votings will be very important for MPLAY
+                    br
+            .col-md-2
+                h5
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | 					Your ugly mood will be a pleasent one easily
+                    br
+                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
+                    | 					Anyone cant make your face ugly untill MPLAY remains
+                    br
+            .col-md-2
+        #register.row
+            .col-md-12
+                h3 REGISTER WITH MPLAY NOW...!!!

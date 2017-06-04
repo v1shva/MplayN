@@ -9,6 +9,7 @@ var MPlayApp = angular.module('MPlayApp', [
     'userMenu',
     'home',
     'songUpload',
+    'details',
     'angularSoundManager',
     'angularFileUpload',
     'ngAnimate',
@@ -40,6 +41,12 @@ MPlayApp.config(
         $stateProvider.state('songUploadForm', {
             url: '/songUpload.php',
             component: 'songUploadForm',
+
+        });
+
+        $stateProvider.state('aboutUs', {
+            url: '/aboutUs.php',
+            component: 'aboutUs',
 
         });
 

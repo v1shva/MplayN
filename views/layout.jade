@@ -50,6 +50,9 @@ html(lang='en', ng-app='MPlayApp')
 
     script(type='text/javascript' src='javascripts/modules/core/core.module.js')
 
+    script(type='text/javascript' src='javascripts/modules/details/details.module.js')
+    script(type='text/javascript' src='javascripts/modules/details/about-us.component.js')
+
     script(type='text/javascript' src='javascripts/modules/home/home.module.js')
     script(type='text/javascript' src='javascripts/modules/home/home.component.js')
 
@@ -75,7 +78,7 @@ html(lang='en', ng-app='MPlayApp')
                               | Home
                               span.sr-only (current)
                       li
-                          a(ui-sref='myAccount') About Us
+                          a(ui-sref='aboutUs') About Us
                   ul.nav.navbar-nav.navbar-right
                       li
                           a(ui-sref='songUploadForm')
