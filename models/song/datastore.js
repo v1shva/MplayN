@@ -108,6 +108,7 @@ function list (limit, token, cb) {
 function listByEmotion (emotion, limit, token, cb) {
     const q = ds.createQuery([kind])
         .filter(emotion, '<', 0)
+        .limit(limit)
         .order(emotion)
         .start(token);
 
@@ -120,6 +121,22 @@ function listByEmotion (emotion, limit, token, cb) {
         cb(null, entities.map(fromDatastore), hasMore);
     });
 }
+
+function listByUserID (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter('userID', '=', userID)
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
 
 // Creates a new song or updates an existing song with new data. The provided
 // data is automatically translated into Datastore format. The song will be
@@ -182,6 +199,7 @@ module.exports = {
     update,
     delete: _delete,
     list,
-    listByEmotion
+    listByEmotion,
+    listByUserID
 };
 // [END exports]

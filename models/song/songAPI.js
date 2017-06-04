@@ -31,8 +31,21 @@ router.use(bodyParser.json());
  * Retrieve a page of songs (up to ten at a time).
  */
 
-router.get('/', (req, res, next) => {
+router.get('/byEmotion', (req, res, next) => {
     getModel().listByEmotion(req.query.emotion,10, req.query.pageToken, (err, entities, cursor) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.json({
+            items: entities,
+            nextPageToken: cursor
+        });
+    });
+});
+
+router.get('/byUserID', (req, res, next) => {
+    getModel().listByUserID(req.query.userID,10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
             next(err);
             return;
@@ -54,7 +67,7 @@ router.get('/', (req, res, next) => {
  *
  * Create a new book.
  */
-router.post('/api/song', (req, res, next) => {
+router.post('/addNew', (req, res, next) => {
     getModel().create(req.body, (err, entity) => {
         if (err) {
             next(err);
