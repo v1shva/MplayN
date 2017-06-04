@@ -1,83 +1,78 @@
-body(data-spy='scroll', data-target='.navbar', data-offset='50')
-    #imagearea.row
-        .col-md-12
-            img.responsive(src='images/logooo.png')
-    #buynow.row
-        h2.text-center  LET'S GO FOR A TOUR WITH MPLAY
-    .container
-        .row
-            .col-md-8
-                img.responsive(src='images/Showcase-14.png')
-            .col-md-4
-    .container-fluid
-        #selectdemo1.row(style='background-color: #8080ff; ')
-            .col-md-12
-                h2  WHAT IS YOUR MOOD??..
-        #selectdemo.row(style='background-color: #e6e6ff;')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['happy']}", src='./icons/happy.png', title='Happy', name='happy')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['in-love']}", src='./icons/in-love.png', title='In-Love', name='in-love')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['angry']}", src='./icons/angry.png', title='Angry', name='angry')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['crying']}", src='./icons/crying.png', title='Crying', name='crying')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['embarrassed']}", src='./icons/embarrassed.png', title='Embarrassed', name='embarrassed')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['crazy']}", src='./icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
-            img.img-circle.emoicon.songSelect(ng-click='$ctrl.handleClick($event.currentTarget)', ng-class="{'selected': $ctrl.mood['bored']}", src='./icons/bored.png', width='8%', title='Bored', name='bored')
-        #currentdemo.row(style='background-color: #9999ff;')
-            .col-md-12
-                h3
-                    | Not Happy With
-                    br
-                    |  Current Players??!
-                h6
-                    | Don’t worry MPLAY will provide new experience for you.
-                    br
-                    | 				keep stay with MPLAY....
-        #mplay.row
-            .col-md-12
-                img.responsive(src='images/logooo.png')
-        #mplaym.row
-            .col-md-12
-                h3
-                    | MPLAY IS MAKING SONGS READY FOR YOU..
-                    br
-                    |  ARE YOU READY...??
-    .container-fluid
-        #rebuild.row
-            .col-md-12
-                h2 Let's Find Out What MPLAY Provide Us
-            .col-md-2
-            .col-md-2
-                h5
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | You can hear songs according to your favours and tastes
-                    br
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | You can add songs according to your favours and tastes
-                    br
-            .col-md-2
-                h5
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | You can delete songs according to your favours and tastes
-                    br
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | 					You may feel easy to select song for your mood
-                    br
-            .col-md-2
-                h5
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | 					You can easily que songs
-                    br
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | 					Your votings will be very important for MPLAY
-                    br
-            .col-md-2
-                h5
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | 					Your ugly mood will be a pleasent one easily
-                    br
-                    span.fa.fa-check-circle(style='font-size: 30px; color: #ffcc00; padding:5px')
-                    | 					Anyone cant make your face ugly untill MPLAY remains
-                    br
-            .col-md-2
-        #register.row
-            .col-md-12
-                h3 REGISTER WITH MPLAY NOW...!!!
+head
+    title About Us
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(href='stylesheets/aboutUs/indexx.css', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Francois+One|Ubuntu+Condensed|Raleway|Fjalla+One|Yanone+Kaffeesatz|Rubik+Mono+One|Exo+2|Oswald', rel='stylesheet')
+    script(type='text/javascript', src='js/jquery-3.1.1.min.js')
+    script(type='text/javascript', src='js/bootstrap.min.js')
+#imagearea.row
+    .col-md-12
+        img.responsive(src='images/aboutUs/Logo.png')
+#contactus.row
+    .col-md-12
+        .col-md-6(style='margin-right: auto;margin-left: auto; margin-top: 40px; margin-bottom:40px; text-align: center;')
+            iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.2463011911814!2d79.8837588850527!3d6.861057374211851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25a59f683ced7%3A0xe7d8d5717eb850e!2sWoodland+Ave!5e0!3m2!1sen!2slk!4v1496566434618', width='500', height='350', frameborder='0', style='border:0', allowfullscreen='')
+
+        .col-md-6(style='align-content: center; margin-top:70px;')
+         sidebar
+            h3
+                | <strong> Contact Us
+
+            p
+                | Fusce ac velit. Nunc ut eros vitae magna tristique volutpat. Suspendisse potenti!
+            // special list with class "contactlist"
+            ul.contactlist
+                li.address-icon 22-1/1, Woodland Avenue, Kohuwala
+                li.phone-icon +94-767940104
+                li.fax-icon +94-771932913
+                li.email-icon yaka@gmail.com
+#content.row
+    .col-md-12
+        h3 <strong> Our Team
+#us.row
+    .col-md-12
+        .col-md-4
+            img.img-circle(src='images/aboutUs/yaka.jpg', width='150', height='150')
+            h3
+                | Vishwa Sudantha
+                br
+                h4
+                    |  Team Lead & Web Developer
+        .col-md-4
+            img.img-circle(src='images/aboutUs/seththa.jpg', width='150', height='150')
+            h3
+                | Sameera Dissanayake
+                br
+                h4
+                    |   Mobile App Developer
+        .col-md-4
+            img.img-circle(src='images/aboutUs/araa.jpg', width='150', height='150')
+            h3
+                | Aravinda Rathnamalala
+                br
+                h4
+                    |  Web Developer
+    .col-md-12
+        .col-md-4
+            img.img-circle(src='images/aboutUs/zinda.jpg', width='150', height='150')
+            h3
+                | Uthpala Bathiya
+                br
+                h4
+                    |  Web Developer
+        .col-md-4
+            img.img-circle(src='images/aboutUs/thadiya.jpg', width='150', height='150')
+            h3
+                | Musny Naleem
+                br
+                h4
+                    |   Mobile App Developer
+        .col-md-4
+            img.img-circle(src='images/aboutUs/visnu.jpg', width='150', height='150')
+            h3
+                | Vishnusaran
+                br
+                h4
+                    |  Web Developer
