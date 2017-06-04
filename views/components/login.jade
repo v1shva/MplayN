@@ -1,6 +1,7 @@
 //
    Created by Vishva on 4/17/2017.
 block content
+    p {{$ctrl.testValue}}
     .container
         .row
             .col-md-4.col-md-offset-4
@@ -15,10 +16,10 @@ block content
                             .innter-form
                                 form.sa-innate-form(method='post')
                                     label Email Address
-                                    input(type='text', name='username')
+                                    input(type='text', name='username', ng-model="$ctrl.username")
                                     label Password
-                                    input(type='password', name='password')
-                                    button(type='submit') Sign In
+                                    input(type='password', name='password', ng-model="$ctrl.password")
+                                    button(type="button", ng-click="$ctrl.auth()") Sign In
                                     a(href='') Forgot Password?
                             .social-login
                                 p Sign in with
