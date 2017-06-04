@@ -122,6 +122,21 @@ function listByUserID (userID, limit, token, cb) {
 }
 
 
+function getUserByEmail (email, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter('email', '=', email)
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
 
 // Creates a new song or updates an existing song with new data. The provided
 // data is automatically translated into Datastore format. The song will be
@@ -184,6 +199,7 @@ module.exports = {
     update,
     delete: _delete,
     list,
-    listByUserID
+    listByUserID,
+    getUserByEmail
 };
 // [END exports]

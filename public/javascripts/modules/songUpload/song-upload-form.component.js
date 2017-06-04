@@ -30,7 +30,6 @@ component('songUploadForm', {
 
         });
 
-        this.selectedItem = "Test Value";
 
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);

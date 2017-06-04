@@ -1,26 +1,25 @@
 'use strict';
 
 angular.
-module('core.song').
-factory('Song', ['$resource',
-    function Song($resource) {
+module('core.user').
+factory('User', ['$resource',
+    function User($resource) {
         return {
-            getSongsByEmo : $resource('/api/song/byEmotion', {}, {
+            getUserByEmail : $resource('/api/user/byUserEmail', {}, {
                 get: {
                     method: 'GET',
-                    params: {emotion: 'in-love'},
+                    params: {email: ''},
                     isArray: false
                 }
-
             }),
-            getSongsByUserID : $resource('/api/song/byUser', {}, {
+            getUserByUserID : $resource('/api/user/byUserID', {}, {
                 get: {
                     method: 'GET',
                     params: {userID: '123'},
                     isArray: false
                 }
             }),
-            addNewSong : $resource('/api/song/addNew', {}, {
+            addNewUser : $resource('/api/user/addNew', {}, {
                 post: {
                     method: 'post',
                     isArray: false
