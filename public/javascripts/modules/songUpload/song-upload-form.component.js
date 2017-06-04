@@ -17,8 +17,7 @@ component('songUploadForm', {
         this.moodString = "";
 
         var uploader = this.uploader = new FileUploader({
-            url: 'upload.php',
-            queueLimit:1
+            url: 'upload.php'
         });
 
         this.item = this.uploader.queue[0];
