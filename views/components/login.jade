@@ -1,18 +1,17 @@
 //
    Created by Vishva on 4/17/2017.
 block content
-    p {{$ctrl.testValue}}
     .container
         .row
             .col-md-4.col-md-offset-4
                 .form-body
                     ul.nav.nav-tabs.final-login
-                        li.active
-                            a(data-toggle='tab', href='#sectionA') Sign In
-                        li
-                            a(data-toggle='tab', href='#sectionB') Join us!
+                        li(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
+                            a(ng-click="$ctrl.showSignIn = true") Sign In
+                        li(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
+                            a(ng-click="$ctrl.showSignIn = false") Join us!
                     .tab-content
-                        #sectionA.tab-pane.fade.in.active
+                        #sectionA.tab-pane.fade.in(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
                             .innter-form
                                 form.sa-innate-form(method='post')
                                     label Email Address
@@ -37,7 +36,7 @@ block content
                                             i.fa.fa-twitter
                                             |  Twitter
                             .clearfix
-                        #sectionB.tab-pane.fade()
+                        #sectionB.tab-pane.fade.in(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
                             .innter-form
                                 form.sa-innate-form(method='post')
                                     label Name

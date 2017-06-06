@@ -8,6 +8,7 @@ component('login', {
     templateUrl: '/components/login',
     controller: ['User', function LoginController(User) {
         this.testValue = "Hello";
+        this.showSignIn = true;
         this.username = "";
         this.password = "";
         this.auth = function () {

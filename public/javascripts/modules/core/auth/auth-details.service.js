@@ -2,31 +2,23 @@
 
 angular.
 module('core.auth').
-factory('Song', ['$resource',
-    function Song($resource) {
+factory('AuthDetails', ['rx',
+    function(rx) {
+        var subject = new rx.Subject();
+        var data = "Initial";
+
         return {
-            getSongsByEmo : $resource('/api/song/byEmotion', {}, {
-                get: {
-                    method: 'GET',
-                    params: {emotion: 'in-love'},
-                    isArray: false
-                }
-
-            }),
-            getSongsByUserID : $resource('/api/song/byUser', {}, {
-                get: {
-                    method: 'GET',
-                    params: {userID: '123'},
-                    isArray: false
-                }
-            }),
-            addNewSong : $resource('/api/song/addNew', {}, {
-                post: {
-                    method: 'post',
-                    isArray: false
-                }
-            }),
-
+            set: function set(d){
+                data = d;
+                subject.onNext(d);
+            },
+            get: function get() {
+                return data;
+            },
+            subscribe: function (o) {
+                return subject.subscribe(o);
+            }
         }
     }
 ]);
+
