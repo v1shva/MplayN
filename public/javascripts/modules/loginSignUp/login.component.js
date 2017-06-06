@@ -6,16 +6,19 @@ angular.
 module('loginSignUp').
 component('login', {
     templateUrl: '/components/login',
-    controller: ['User', function LoginController(User) {
+    controller: ['User','AuthDetails', function LoginController(User, AuthDetails) {
         this.testValue = "Hello";
         this.showSignIn = true;
         this.username = "";
         this.password = "";
         this.auth = function () {
-            var res = User.getUserByEmail.get({email:this.username});
+            var res = User.authUser.get({email:this.username,password:this.password});
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object appropriate object type, that can be used
-                var dataRes = dataRes;
+                if(dataRes.items.length ==1){
+                    authData['status'] = 'Success';
+                    authData['user'] = dataRes.items[0];
+                }
                 console.log(dataRes.items);
 
             });

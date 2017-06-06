@@ -58,7 +58,18 @@ router.get('/byUserEmail', (req, res, next) => {
     });
 });
 
-
+router.get('/authUser', (req, res, next) => {
+    getModel().authUser(req.query.email, req.query.password, 10, req.query.pageToken, (err, entities, cursor) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.json({
+            items: entities,
+            nextPageToken: cursor
+        });
+    });
+});
 
 
 /**

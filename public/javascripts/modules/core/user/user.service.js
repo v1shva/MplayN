@@ -8,7 +8,14 @@ factory('User', ['$resource',
             getUserByEmail : $resource('/api/user/byUserEmail', {}, {
                 get: {
                     method: 'GET',
-                    params: {email: ''},
+                    params: {email: '',},
+                    isArray: false
+                }
+            }),
+            authUser  : $resource('/api/user/authUser', {}, {
+                get: {
+                    method: 'GET',
+                    params: {email: '',password:''},
                     isArray: false
                 }
             }),
