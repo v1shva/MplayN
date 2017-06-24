@@ -1,6 +1,5 @@
 //
    Created by Vishva on 5/26/2017.
-p Name {{$ctrl.moodString}}
 link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
 .modal-dialog
     #addsongContent.modal-content
@@ -42,50 +41,48 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                         li(role='presentation', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
                             a(role='tab',ng-click="$ctrl.showUpload = false") URL
                     .tab-content
-                        #url.tab-pane.active(role='tabpanel',ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
+                        .tab-pane.active(ng-class="{'active': $ctrl.showUpload, '': !$ctrl.showUpload}")
                             .form-group
                                 .form-group
                                     .fileDrop(nv-file-drop, uploader="$ctrl.uploader")
                                         .well.dragDrop(nv-file-over, uploader="$ctrl.uploader", over-class='fileOver') Drag and Drop files here to upload
                                     input(type='file',name='songFile', ng-model="songFile",nv-file-select='', uploader="$ctrl.uploader" ng-click='showEmoError = true;')
-                                    strong {{ $ctrl.selectedItem.name }}
+                                    strong {{ selectedItem.file.name }}
                                     td
-                                        strong {{ $ctrl.selectedItem.file.name }}
+                                        strong {{ selectedItem.file.name }}
                                         // Image preview
                                         // auto height
-                                        // <div ng-thumb="{ file: $ctrl.selectedItem.file, width: 100 }"></div>
+                                        // <div ng-thumb="{ file: selectedItem.file, width: 100 }"></div>
                                         // auto width
-                                        div(ng-show='$ctrl.selectedItem.isHTML5', ng-thumb='{ file: $ctrl.selectedItem._file, height: 100 }')
+                                        div(ng-show='selectedItem.isHTML5', ng-thumb='{ file: selectedItem._file, height: 100 }')
                                         // fixed width and height
-                                        // <div ng-thumb="{ file: $ctrl.selectedItem.file, width: 100, height: 100 }"></div>
-                                    td(ng-show='$ctrl.selectedItem.isHTML5', nowrap='') {{ $ctrl.selectedItem.file.size/1024/1024|number:2 }} MB
-                                    td(ng-show='$ctrl.selectedItem.isHTML5')
+                                        // <div ng-thumb="{ file: selectedItem.file, width: 100, height: 100 }"></div>
+                                    td(ng-show='selectedItem.isHTML5', nowrap='') {{ selectedItem.file.size/1024/1024|number:2 }} MB
+                                    td(ng-show='selectedItem.isHTML5')
                                         .progress(style='margin-bottom: 0;')
-                                            .progress-bar(role='progressbar', ng-style="{ 'width': $ctrl.selectedItem.progress + '%' }")
+                                            .progress-bar(role='progressbar', ng-style="{ 'width': selectedItem.progress + '%' }")
                                     td.text-center
-                                        span(ng-show='$ctrl.selectedItem.isSuccess')
+                                        span(ng-show='selectedItem.isSuccess')
                                             i.glyphicon.glyphicon-ok
-                                        span(ng-show='$ctrl.selectedItem.isCancel')
+                                        span(ng-show='selectedItem.isCancel')
                                             i.glyphicon.glyphicon-ban-circle
-                                        span(ng-show='$ctrl.selectedItem.isError')
+                                        span(ng-show='selectedItem.isError')
                                             i.glyphicon.glyphicon-remove
                                     td(nowrap='')
-                                        button.btn.btn-success.btn-xs(type='button', ng-click='$ctrl.selectedItem.upload()', ng-disabled='$ctrl.selectedItem.isReady || $ctrl.selectedItem.isUploading || $ctrl.selectedItem.isSuccess')
+                                        button.btn.btn-success.btn-xs(type='button', ng-click='selectedItem.upload()', ng-disabled='selectedItem.isReady || selectedItem.isUploading || selectedItem.isSuccess')
                                             span.glyphicon.glyphicon-upload
                                             |  Upload
-                                        button.btn.btn-warning.btn-xs(type='button', ng-click='$ctrl.selectedItem.cancel()', ng-disabled='!$ctrl.selectedItem.isUploading')
+                                        button.btn.btn-warning.btn-xs(type='button', ng-click='selectedItem.cancel()', ng-disabled='!selectedItem.isUploading')
                                             span.glyphicon.glyphicon-ban-circle
                                             |  Cancel
-                                        button.btn.btn-danger.btn-xs(type='button', ng-click='$ctrl.selectedItem.remove()')
+                                        button.btn.btn-danger.btn-xs(type='button', ng-click='selectedItem.remove()')
                                             span.glyphicon.glyphicon-trash
                                             |  Remove
 
-                        #upfile.tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                        .tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
                             label URL:
                             input.form-control(type='text',name='songURL', ng-model="songURL", ng-click='showEmoError = true')
                     p(ng-show="!$ctrl.showUploadOrURLMsg", class='errorMsg') {{$ctrl.uploadOrURLMsg}}
-                #uploadErrorMsg.form-group.ui-widget(style='display: none')
-                    label
                 .checkbox
                     label
                         input(type='checkbox',ng-model="agreeTerms")
