@@ -38,4 +38,8 @@ router.get('/player.php', function(req, res, next) {
     res.render('components/playerModule2', { title: 'Mplay' });
 });
 
+router.get('/uploadSuccess', function(req, res, next) {
+    res.render('components/uploadSuccess', { title: 'Mplay' });
+});
+
 module.exports = router;

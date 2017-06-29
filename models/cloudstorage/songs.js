@@ -15,7 +15,7 @@
 
 const Storage = require('@google-cloud/storage');
 
-const CLOUD_BUCKET = '';
+const CLOUD_BUCKET = 'mplay-151612.appspot.com';
 
 const storage = Storage({
   projectId: 'mplay-151612'
