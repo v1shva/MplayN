@@ -48,7 +48,6 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                                     .fileDrop(nv-file-drop, uploader="uploader")
                                         .well.dragDrop(nv-file-over, uploader="uploader", over-class='fileOver') Drag and Drop files here to upload
                                     input(type='file',name='songFile', ng-model="songFile",nv-file-select='', uploader="uploader", ng-click='showEmoError = true;')
-                                    strong {{ selectedItem.file.name }}
                                     td
                                         strong {{ selectedItem.file.name }}
                                         // Image preview

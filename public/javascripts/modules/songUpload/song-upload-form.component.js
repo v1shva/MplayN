@@ -109,12 +109,11 @@ component('songUploadForm', {
             var artist = {artist: uploadForm.songArtist.value};
             var url = {url : "none"};
             var moodS = {};
-            moodS1[this.moodString] = -1;
+            moodS[this.moodString] = -1;
             // check to make sure the form is completely valid
             if (isValid) {
                 console.log(uploadForm);
                 $scope.selectedItem.formData = [title,artist,url,moodS];
-                console.log(moodS1);
                 $scope.selectedItem.upload();
             }
             else{
