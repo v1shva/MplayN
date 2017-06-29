@@ -107,7 +107,7 @@ function list (limit, token, cb) {
 
 function listByEmotion (emotion, limit, token, cb) {
     const q = ds.createQuery([kind])
-        .filter(emotion, '<', 0)
+        .filter(emotion, '>', 0)
         .limit(limit)
         .order(emotion)
         .start(token);

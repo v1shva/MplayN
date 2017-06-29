@@ -109,7 +109,7 @@ component('songUploadForm', {
             var artist = {artist: uploadForm.songArtist.value};
             var url = {url : "none"};
             var moodS = {};
-            moodS[this.moodString] = -1;
+            moodS[this.moodString] = -10;
             // check to make sure the form is completely valid
             if (isValid) {
                 console.log(uploadForm);
