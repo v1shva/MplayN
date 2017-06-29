@@ -12,7 +12,6 @@ component('songUploadForm', {
         this.showUploadOrURLMsg = false;
         this.emotionSelected = false;
         this.mood = [];
-        var song = this.song = [];
         this.currentMoods = [];
         this.moodString = "";
 
@@ -30,15 +29,14 @@ component('songUploadForm', {
 
         // CALLBACKS
         this.clearQ = function () {
-            console.log('here');
             $scope.uploader.clearQueue();
             $scope.selectedItem = "";
         }
         $scope.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-            //console.info('onWhenAddingFileFailed', item, filter, options);
+           // console.info('onWhenAddingFileFailed', item, filter, options);
         };
         $scope.uploader.onAfterAddingFile = function(fileItem) {
-            //console.info('onAfterAddingFile', fileItem);
+            console.info('onAfterAddingFile', fileItem);
             $scope.selectedItem = fileItem;
             $scope.$apply();
         };
@@ -49,7 +47,7 @@ component('songUploadForm', {
         $scope.uploader.onBeforeUploadItem = function(item) {
             //$scope.uploader.formData = [song];
             //console.info('onBeforeUploadItem', this);
-            console.log(uploader);
+            //console.log(song);
         };
        /* $scope.uploader.onProgressItem = function(fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
@@ -107,16 +105,17 @@ component('songUploadForm', {
 
 
         this.submitForm = function (isValid) {
-            this.song["title"] = uploadForm.songTitle.value;
-            this.song["artist"] = uploadForm.songArtist.value;
-            this.song["url"] = "none";
-            this.song[this.moodString] = -1;
+            var title = {title: uploadForm.songTitle.value};
+            var artist = {artist: uploadForm.songArtist.value};
+            var url = {url : "none"};
+            var moodS = {};
+            moodS1[this.moodString] = -1;
             // check to make sure the form is completely valid
             if (isValid) {
-
-                $scope.uploader.formData = [song];
-                $scope.uploader.uploadAll();
-                //Song.addNewSong(this.song);
+                console.log(uploadForm);
+                $scope.selectedItem.formData = [title,artist,url,moodS];
+                console.log(moodS1);
+                $scope.selectedItem.upload();
             }
             else{
 
