@@ -42,7 +42,6 @@ component('songUploadForm', {
             $scope.selectedItem = fileItem;
             var audioElement =  document.getElementById('filePreview');
             audioElement.src = $scope.fileLink;
-            audioElement.play();
             $scope.$apply();
         };
 

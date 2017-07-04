@@ -54,17 +54,13 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                                         .well.dragDrop(nv-file-over, uploader="uploader", over-class='fileOver') Drag and Drop files here to upload
 
 
-                                    input(type='file',id='fileIn', name='songFile', ng-model='$ctrl.songFile' ,nv-file-select='', uploader="uploader", ng-click='showEmoError = true;')
-                                    td
-                                        strong {{ selectedItem.file.name }}
-                                        // Image preview
-                                        // auto height
-                                        // <div ng-thumb="{ file: selectedItem.file, width: 100 }"></div>
-                                        // auto width
-                                        div(ng-show='selectedItem.isHTML5', ng-thumb='{ file: selectedItem._file, height: 100 }')
-                                        // fixed width and height
-                                        // <div ng-thumb="{ file: selectedItem.file, width: 100, height: 100 }"></div>
-                                    td(ng-show='selectedItem.isHTML5', nowrap='') {{ selectedItem.file.size/1024/1024|number:2 }} MB
+                                    .input-group
+                                        label.btn.btn-default Select File
+                                            input(type='file',id='fileIn', name='songFile', ng-model='$ctrl.songFile' ,nv-file-select='', uploader="uploader", ng-click='showEmoError = true;')
+                                        span.input-group-addon(style='max-width:300px')
+                                            strong {{ selectedItem.file.name }}
+                                        span.input-group-addon
+                                            td(ng-show='selectedItem.isHTML5', nowrap='') {{ selectedItem.file.size/1024/1024|number:2 }} MB
                                     td(ng-show='selectedItem.isHTML5')
                                         .progress(style='margin-bottom: 0;')
                                             .progress-bar(role='progressbar', ng-style="{ 'width': selectedItem.progress + '%' }")
