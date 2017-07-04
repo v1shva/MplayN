@@ -6,7 +6,7 @@ angular.
 module('songUpload').
 component('songUploadForm', {
     templateUrl: '/components/songUpload',
-    controller: ['FileUploader','$scope', function SongUploadController(FileUploader, $scope) {
+    controller: ['FileUploader','$scope','Song', function SongUploadController(FileUploader, $scope, Song) {
         this.showUpload = true;
         this.uploadFormValid = true;
         this.showUploadOrURLMsg = false;
@@ -111,17 +111,19 @@ component('songUploadForm', {
             var artist = {artist: uploadForm.songArtist.value};
             var url = {url : "none"};
             var moodS = {};
-            moodS[this.moodString] = -10;
-            // check to make sure the form is completely valid
-            if (isValid) {
+            moodS[this.moodString] = -1;
+
+            if(this.showUpload && isValid){
+                // check to make sure the form is completely valid
                 console.log(uploadForm);
                 $scope.selectedItem.formData = [title,artist,url,moodS];
                 $scope.selectedItem.upload();
             }
-            else{
-
+            else if(isValid){
+                url = {url: uploadForm.songURL.value};
+                var currentSong =  [title,artist,url,moodS];
+                Song.addNewSong(currentSong);
             }
-
         }
 
         this.previewLink = function () {
@@ -133,14 +135,13 @@ component('songUploadForm', {
 
     }]
 })
-    
+
 .directive('audioLoaded', function() {
     return {
         restrict: 'AE',
         link: function(scope, elem, attrs) {
-            elem.on('onloadeddata', function() {
+            elem[0].addEventListener("loadedData", function () {
                 console.log('loaded');
-                scope.audioLoadedFromURL = true;
             });
         }
     };

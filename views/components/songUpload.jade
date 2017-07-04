@@ -2,7 +2,6 @@
    Created by Vishva on 5/26/2017.
 
 link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
-
 .modal-dialog
     #addsongContent.modal-content
         form(name='uploadForm',enctype="multipart/form-data", ng-submit="$ctrl.submitForm(uploadForm.$valid)", novalidate)
@@ -49,7 +48,7 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                                 .form-group
                                     .fileDrop(nv-file-drop, uploader="uploader")
                                         .test(ng-show='fileLink',)
-                                            audio(controls='', id='filePreview')
+                                            audio(controls='', id='filePreview', audio-loaded)
                                                 source()
                                         .well.dragDrop(nv-file-over, uploader="uploader", over-class='fileOver') Drag and Drop files here to upload
 
@@ -79,11 +78,11 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                         .tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
                             .form-group(ng-show='$ctrl.URLlink')
                                 h5 Preview
-                                audio(controls='', id='urlPreview', audio-loaded)
+                                audio(controls='', id='urlPreview',audio-loaded, onloadeddata="alert()")
                                     source()
                                 h6(ng-show='!audioLoadedFromURL && $ctrl.URLlink') Please Wait ..... URL is being processed.
                             label URL:
-                            input.form-control(type='text', ng-click='showEmoError = true', ng-model='$ctrl.URLlink', ng-change='$ctrl.previewLink()')
+                            input.form-control(type='text',name='songURL', ng-click='showEmoError = true', ng-model='$ctrl.URLlink', ng-change='$ctrl.previewLink()')
                     p(ng-show="!$ctrl.showUploadOrURLMsg", class='errorMsg') {{$ctrl.uploadOrURLMsg}}
                 .checkbox
                     label

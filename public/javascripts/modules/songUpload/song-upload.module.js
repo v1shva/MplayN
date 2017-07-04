@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `loginSignUp` module
-angular.module('songUpload', []);
+angular.module('songUpload', ['core.song']);
