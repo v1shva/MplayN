@@ -14,6 +14,7 @@ component('songUploadForm', {
         this.mood = [];
         this.currentMoods = [];
         this.moodString = "";
+        this.songFile = "a";
 
         var uploader = $scope.uploader = new FileUploader({
             url: '/api/song/uploadSong',
@@ -37,7 +38,11 @@ component('songUploadForm', {
         };
         $scope.uploader.onAfterAddingFile = function(fileItem) {
             console.info('onAfterAddingFile', fileItem);
+            $scope.fileLink = window.URL.createObjectURL(fileItem._file);
             $scope.selectedItem = fileItem;
+            var audioElement =  document.getElementById('filePreview');
+            audioElement.src = $scope.fileLink;
+            audioElement.play();
             $scope.$apply();
         };
 
@@ -121,5 +126,6 @@ component('songUploadForm', {
             }
 
         }
+
     }]
 });

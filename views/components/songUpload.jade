@@ -1,6 +1,8 @@
 //
    Created by Vishva on 5/26/2017.
+
 link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
+
 .modal-dialog
     #addsongContent.modal-content
         form(name='uploadForm',enctype="multipart/form-data", ng-submit="$ctrl.submitForm(uploadForm.$valid)", novalidate)
@@ -46,8 +48,13 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                             .form-group
                                 .form-group
                                     .fileDrop(nv-file-drop, uploader="uploader")
+                                        .test(ng-show='fileLink',)
+                                            audio(controls='', id='filePreview')
+                                                source()
                                         .well.dragDrop(nv-file-over, uploader="uploader", over-class='fileOver') Drag and Drop files here to upload
-                                    input(type='file',name='songFile', ng-model="songFile",nv-file-select='', uploader="uploader", ng-click='showEmoError = true;')
+
+
+                                    input(type='file',id='fileIn', name='songFile', ng-model='$ctrl.songFile' ,nv-file-select='', uploader="uploader", ng-click='showEmoError = true;')
                                     td
                                         strong {{ selectedItem.file.name }}
                                         // Image preview
