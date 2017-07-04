@@ -77,4 +77,3 @@ MPlayApp.controller('MainCtrl', [
     function MainCtrl() {
 
     }]);
-

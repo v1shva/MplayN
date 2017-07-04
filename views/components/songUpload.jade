@@ -77,8 +77,13 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                                             |  Remove
 
                         .tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
+                            .form-group(ng-show='$ctrl.URLlink')
+                                h5 Preview
+                                audio(controls='', id='urlPreview', audio-loaded)
+                                    source()
+                                h6(ng-show='!audioLoadedFromURL && $ctrl.URLlink') Please Wait ..... URL is being processed.
                             label URL:
-                            input.form-control(type='text',name='songURL', ng-model="songURL", ng-click='showEmoError = true')
+                            input.form-control(type='text', ng-click='showEmoError = true', ng-model='$ctrl.URLlink', ng-change='$ctrl.previewLink()')
                     p(ng-show="!$ctrl.showUploadOrURLMsg", class='errorMsg') {{$ctrl.uploadOrURLMsg}}
                 .checkbox
                     label
