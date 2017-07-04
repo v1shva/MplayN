@@ -136,13 +136,13 @@ component('songUploadForm', {
     }]
 })
 
-.directive('audioLoaded', function() {
-    return {
-        restrict: 'AE',
-        link: function(scope, elem, attrs) {
-            elem[0].addEventListener("loadedData", function () {
-                console.log('loaded');
-            });
-        }
-    };
+.directive('audioEvents', function () {
+    return function ($scope, $element) {
+        $element[0].addEventListener("loadeddata", function () {
+            console.log('loadeddata');
+            $scope.audioLoadedFromURL = true;
+            // you can $rootScope.$broadcast...
+        });
+
+    }
 });

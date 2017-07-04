@@ -48,7 +48,7 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                                 .form-group
                                     .fileDrop(nv-file-drop, uploader="uploader")
                                         .test(ng-show='fileLink',)
-                                            audio(controls='', id='filePreview', audio-loaded)
+                                            audio(controls='', id='filePreview')
                                                 source()
                                         .well.dragDrop(nv-file-over, uploader="uploader", over-class='fileOver') Drag and Drop files here to upload
 
@@ -78,7 +78,7 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                         .tab-pane(role='tabpanel', ng-class="{'active': !$ctrl.showUpload, '': $ctrl.showUpload}")
                             .form-group(ng-show='$ctrl.URLlink')
                                 h5 Preview
-                                audio(controls='', id='urlPreview',audio-loaded, onloadeddata="alert()")
+                                audio(controls='', id='urlPreview', audio-events)
                                     source()
                                 h6(ng-show='!audioLoadedFromURL && $ctrl.URLlink') Please Wait ..... URL is being processed.
                             label URL:
