@@ -15,6 +15,8 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const validator = require('validator');
+const xss = require('xss-filters');
 const songs = require('../cloudstorage/songs');
 var router = express.Router();
 
@@ -33,6 +35,7 @@ router.use(bodyParser.json());
  */
 
 router.get('/byEmotion', (req, res, next) => {
+    //var emotion = req.query.emotion;
     getModel().listByEmotion(req.query.emotion,10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
             next(err);
@@ -99,6 +102,9 @@ function changeEmotionProperty(obj) {
     return null; // This should not be possible
 }
 
+function validation(obj){
+
+}
 /**
  * POST /api/songs
  *

@@ -147,6 +147,7 @@ component('songUploadForm', {
         $element[0].addEventListener("loadeddata", function () {
             console.log('loadeddata');
             $scope.audioLoadedFromURL = true;
+            $scope.$apply();
             // you can $rootScope.$broadcast...
         });
 
