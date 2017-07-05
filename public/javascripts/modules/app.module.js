@@ -18,7 +18,7 @@ var MPlayApp = angular.module('MPlayApp', [
 ]);
 
 MPlayApp.config(
-    function($stateProvider, $urlServiceProvider,$locationProvider) {
+    function($stateProvider, $urlServiceProvider) {
         $urlServiceProvider.rules.otherwise({ state: 'home' });
         $stateProvider.state('home', {
             url: '/home.php',
@@ -49,7 +49,12 @@ MPlayApp.config(
             component: 'aboutUs',
 
         });
-        $locationProvider.html5Mode(true);
+
+        $stateProvider.state('uploadSuccess', {
+            url: '/uploadSuccess.php',
+            templateUrl: '/components/uploadSuccess',
+
+        });
         /*var homeState = {
             url: '/home.php',
             template: '/partials/home'

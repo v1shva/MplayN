@@ -6,7 +6,7 @@ angular.
 module('songUpload').
 component('songUploadForm', {
     templateUrl: '/components/songUpload',
-    controller: ['FileUploader','$scope','Song', function SongUploadController(FileUploader, $scope, Song) {
+    controller: ['FileUploader','$scope','Song','$state', function SongUploadController(FileUploader, $scope, Song, $state) {
         this.showUpload = true;
         this.uploadFormValid = true;
         this.showUploadOrURLMsg = false;
@@ -54,33 +54,14 @@ component('songUploadForm', {
             //console.info('onBeforeUploadItem', this);
             //console.log(song);
         };
-       /* $scope.uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        $scope.uploader.onProgressAll = function(progress) {
-            console.info('onProgressAll', progress);
-        };
+
         $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
+            //console.info('onSuccessItem', fileItem, response, status, headers);
+            $state.go('uploadSuccess');
         };
         $scope.uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
         };
-        $scope.uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-        };
-        $scope.uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
-        };*/
-
-
-
-
-        //console.info('uploader', uploader);
-
 
         this.EmoBarInput = function handleClick(item) {
             this.emotionSelected = true;
@@ -128,7 +109,12 @@ component('songUploadForm', {
                                     url : uploadForm.songURL.value};
                 currentSong[this.moodString] = -1;
                 console.log(currentSong);
-                Song.addNewSong.post(currentSong);
+                var res = Song.addNewSong.post(currentSong);
+                res.$promise.then(function(dataRes){
+                    //casting the retrieved song object apropriate object type, that casn be used
+                    console.log(dataRes);
+                    $state.go('uploadSuccess');
+                });
             }
         }
 

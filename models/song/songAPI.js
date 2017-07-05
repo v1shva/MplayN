@@ -91,15 +91,14 @@ router.post(
         changeEmotionProperty(data);
         sanitation(data);
         // Save the data to the database.
-        if(validator.isURL(data.url)){
-            getModel().create(data, (err, savedData) => {
-                if (err) {
-                    next(err);
-                    return;
-                }
-                res.redirect(`/components/uploadSuccess`);
-            });
-        }
+        getModel().create(data, (err, savedData) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+
     }
 );
 
@@ -138,7 +137,9 @@ router.post(
                 next(err);
                 return;
             }
+            res.status(200).send('OK');
         });
+
     }
 );
 
