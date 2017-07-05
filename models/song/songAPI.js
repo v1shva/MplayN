@@ -91,13 +91,15 @@ router.post(
         changeEmotionProperty(data);
         sanitation(data);
         // Save the data to the database.
-        getModel().create(data, (err, savedData) => {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.redirect(`/components/uploadSuccess`);
-        });
+        if(validator.isURL(data.url)){
+            getModel().create(data, (err, savedData) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                res.redirect(`/components/uploadSuccess`);
+            });
+        }
     }
 );
 
@@ -116,6 +118,7 @@ function sanitation(obj){
     obj.artist = xss.inHTMLData(obj.artist);
     obj.url = xss.inHTMLData(obj.url);
 }
+
 /**
  * POST /api/songs
  *
