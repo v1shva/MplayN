@@ -18,7 +18,7 @@ var MPlayApp = angular.module('MPlayApp', [
 ]);
 
 MPlayApp.config(
-    function($stateProvider, $urlServiceProvider) {
+    function($stateProvider, $urlServiceProvider,$locationProvider) {
         $urlServiceProvider.rules.otherwise({ state: 'home' });
         $stateProvider.state('home', {
             url: '/home.php',
@@ -49,7 +49,7 @@ MPlayApp.config(
             component: 'aboutUs',
 
         });
-
+        $locationProvider.html5Mode(true);
         /*var homeState = {
             url: '/home.php',
             template: '/partials/home'
