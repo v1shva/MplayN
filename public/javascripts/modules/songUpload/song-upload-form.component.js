@@ -29,7 +29,10 @@ component('songUploadForm', {
         // CALLBACKS
         this.clearQ = function () {
             $scope.uploader.clearQueue();
+            var audioElement =  document.getElementById('filePreview');
+            audioElement.src = "";
             $scope.selectedItem = "";
+
         }
         $scope.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
            // console.info('onWhenAddingFileFailed', item, filter, options);
