@@ -66,7 +66,7 @@ router.get('/byUserID', (req, res, next) => {
 /**
  * POST /api/songs
  *
- * Create a new book.
+ * Create a new song using song upload.
  */
 router.post(
     '/uploadSong',
@@ -87,6 +87,29 @@ router.post(
                 return;
             }
             res.redirect(`/components/uploadSuccess`);
+        });
+    }
+);
+
+
+/**
+ * POST /api/songs
+ *
+ * Create a new song using song URL.
+ */
+router.post(
+    '/addNew',
+    (req, res, next) => {
+        let data = req.body;
+        // Was an image uploaded? If so, we'll use its public URL
+        // in cloud storage.
+        console.log(data);
+        // Save the data to the database.
+        getModel().create(data, (err, savedData) => {
+            if (err) {
+                next(err);
+                return;
+            }
         });
     }
 );

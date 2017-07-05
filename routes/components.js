@@ -7,7 +7,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-    res.render('components/home', { title: 'Mplay' });
+    res.render('components/home1', { title: 'Mplay' });
 });
 
 router.get('/userMenuMain', function(req, res, next) {

@@ -122,7 +122,7 @@ component('songUploadForm', {
             else if(isValid){
                 url = {url: uploadForm.songURL.value};
                 var currentSong =  [title,artist,url,moodS];
-                Song.addNewSong(currentSong);
+                Song.addNewSong.post(currentSong);
             }
         }
 
