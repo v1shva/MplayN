@@ -123,8 +123,11 @@ component('songUploadForm', {
                 $scope.selectedItem.upload();
             }
             else if(isValid){
-                url = {url: uploadForm.songURL.value};
-                var currentSong =  [title,artist,url,moodS];
+                var currentSong =  {title: uploadForm.songTitle.value,
+                                    artist: uploadForm.songArtist.value,
+                                    url : uploadForm.songURL.value};
+                currentSong[this.moodString] = -1;
+                console.log(currentSong);
                 Song.addNewSong.post(currentSong);
             }
         }

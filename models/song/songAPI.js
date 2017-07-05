@@ -79,7 +79,7 @@ router.post(
         if (req.file && req.file.cloudStoragePublicUrl) {
             data.url = req.file.cloudStoragePublicUrl;
         }
-        console.log(data);
+        changeEmotionProperty(data);
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
             if (err) {
@@ -91,6 +91,13 @@ router.post(
     }
 );
 
+function changeEmotionProperty(obj) {
+    var re = new RegExp("0$"), key;
+    for (key in obj)
+        if (re.test(key))
+           obj[key]= parseInt(obj[key]);
+    return null; // This should not be possible
+}
 
 /**
  * POST /api/songs
