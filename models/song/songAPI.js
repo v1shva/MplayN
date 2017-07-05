@@ -35,30 +35,36 @@ router.use(bodyParser.json());
  */
 
 router.get('/byEmotion', (req, res, next) => {
-    //var emotion = req.query.emotion;
-    getModel().listByEmotion(req.query.emotion,10, req.query.pageToken, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
+    var emotion = xss.inHTMLData(req.query.emotion);
+    if(validator.isAlphanumeric(emotion)){
+        getModel().listByEmotion(emotion,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
         });
-    });
+    };
+
 });
 
 router.get('/byUserID', (req, res, next) => {
-    getModel().listByUserID(req.query.userID,10, req.query.pageToken, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
+    var userID = xss.inHTMLData(req.query.userID);
+    if(validator.isAlphanumeric(userID)){
+        getModel().listByUserID(userID,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
         });
-    });
+    }
 });
 
 
@@ -83,6 +89,7 @@ router.post(
             data.url = req.file.cloudStoragePublicUrl;
         }
         changeEmotionProperty(data);
+        sanitation(data);
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
             if (err) {
@@ -97,13 +104,17 @@ router.post(
 function changeEmotionProperty(obj) {
     var re = new RegExp("0$"), key;
     for (key in obj)
-        if (re.test(key))
-           obj[key]= parseInt(obj[key]);
+        if (re.test(key)) {
+            obj[key]= parseInt(obj[key]);
+            obj[key] = xss.inHTMLData(obj[key]);
+        }
     return null; // This should not be possible
 }
 
-function validation(obj){
-
+function sanitation(obj){
+    obj.title =  xss.inHTMLData(obj.title);
+    obj.artist = xss.inHTMLData(obj.artist);
+    obj.url = xss.inHTMLData(obj.url);
 }
 /**
  * POST /api/songs
@@ -117,6 +128,7 @@ router.post(
         // Was an image uploaded? If so, we'll use its public URL
         // in cloud storage.
         console.log(data);
+        sanitation(data);
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
             if (err) {
@@ -173,7 +185,7 @@ router.delete('/:book', (req, res, next) => {
 });
 
 /**
- * Errors on "/api/books/*" routes.
+ * Errors on "/api/songAPI/*" routes.
  */
 router.use((err, req, res, next) => {
     // Format error and forward to generic error handler for logging and
