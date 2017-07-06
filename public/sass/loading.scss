@@ -1,0 +1,23 @@
+@import "compass/css3";
+
+@include keyframes(bounce) {
+  0% {
+    @include transform(translateY(0));
+  }
+  50% {
+    @include transform(translateY(-15px));
+    filter: invert(50%);
+  }
+}
+
+
+.logo {
+  margin:auto;
+  height: 40px;
+  background-image: url("../images/Logo.png");
+  background-size: contain;
+}
+
+.bounce {
+  @include animation(bounce 2s infinite);
+}
