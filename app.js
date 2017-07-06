@@ -5,9 +5,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var jwt = require('jwt-simple');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var messages = require('./routes/messages');
 var components = require('./routes/components');
 var apiSong = require('./models/song/songAPI');
 var apiUser = require('./models/user/userAPI');
@@ -31,6 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/components', components);
+app.use('/messages', messages);
+// API Calls
 app.use('/api/song', apiSong);
 app.use('/api/user', apiUser);
 
