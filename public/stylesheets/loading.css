@@ -39,13 +39,51 @@
 .logo {
   margin: auto;
   height: 40px;
+  width: 142px;
   background-image: url("../images/Logo.png");
+  background-repeat: no-repeat;
   background-size: contain;
 }
 
-/* line 21, ../sass/loading.scss */
+/* line 23, ../sass/loading.scss */
 .bounce {
   -moz-animation: bounce 2s infinite;
   -webkit-animation: bounce 2s infinite;
   animation: bounce 2s infinite;
+}
+
+/* line 27, ../sass/loading.scss */
+.text-process {
+  color: #686b7a;
+  font-size: 14px;
+  font-style: italic;
+}
+
+@keyframes blink {
+  0% {
+    opacity: .2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+}
+/* line 46, ../sass/loading.scss */
+.text-process span {
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+/* line 53, ../sass/loading.scss */
+.text-process span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+/* line 57, ../sass/loading.scss */
+.text-process span:nth-child(3) {
+  animation-delay: .4s;
 }

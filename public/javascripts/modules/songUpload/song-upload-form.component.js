@@ -96,7 +96,7 @@ component('songUploadForm', {
             var url = {url : "none"};
             var moodS = {};
             moodS[this.moodString] = -1;
-
+            $state.go('loading');
             if(this.showUpload && isValid){
                 // check to make sure the form is completely valid
                 console.log(uploadForm);
