@@ -52,8 +52,13 @@ MPlayApp.config(
 
         $stateProvider.state('uploadSuccess', {
             url: '/uploadSuccess.php',
-            templateUrl: '/components/uploadSuccess',
+            templateUrl: '/messages/uploadSuccess',
 
+        });
+
+        $stateProvider.state('loading', {
+            url: '/loading.php',
+            templateUrl: '/messages/loading',
         });
         /*var homeState = {
             url: '/home.php',
