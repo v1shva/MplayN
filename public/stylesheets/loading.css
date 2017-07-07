@@ -6,7 +6,7 @@
   50% {
     -moz-transform: translateY(-15px);
     transform: translateY(-15px);
-    filter: invert(50%);
+    filter: invert(30%);
   }
 }
 @-webkit-keyframes bounce {
@@ -17,7 +17,7 @@
   50% {
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
-    filter: invert(50%);
+    filter: invert(30%);
   }
 }
 @keyframes bounce {
@@ -32,7 +32,7 @@
     -ms-transform: translateY(-15px);
     -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
-    filter: invert(50%);
+    filter: invert(30%);
   }
 }
 /* line 14, ../sass/loading.scss */

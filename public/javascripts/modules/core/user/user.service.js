@@ -13,9 +13,8 @@ factory('User', ['$resource',
                 }
             }),
             authUser  : $resource('/api/user/authUser', {}, {
-                get: {
-                    method: 'GET',
-                    params: {email: '',password:''},
+                post: {
+                    method: 'POST',
                     isArray: false
                 }
             }),

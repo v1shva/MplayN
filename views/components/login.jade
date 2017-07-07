@@ -1,25 +1,28 @@
 //
    Created by Vishva on 4/17/2017.
+link(rel='stylesheet', href='/stylesheets/login.css')
 block content
-    .container
-        .row
-            .col-md-4.col-md-offset-4
-                .form-body
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h4 Welcome
+            .modal-body
                     ul.nav.nav-tabs.final-login
                         li(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
                             a(ng-click="$ctrl.showSignIn = true") Sign In
                         li(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
                             a(ng-click="$ctrl.showSignIn = false") Join us!
                     .tab-content
-                        #sectionA.tab-pane.fade.in(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
-                            .innter-form
-                                form.sa-innate-form(method='post')
+                        .tab-pane.fade.in(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
+                            form
+                                .form-group
                                     label Email Address
-                                    input(type='text', name='username', ng-model="$ctrl.username")
+                                    input.form-control(type='text', name='email', ng-model="$ctrl.email")
+                                .form-group
                                     label Password
-                                    input(type='password', name='password', ng-model="$ctrl.password")
-                                    button(type="button", ng-click="$ctrl.auth()") Sign In
-                                    a(href='') Forgot Password?
+                                    input.form-control(type='password', name='password', ng-model="$ctrl.password")
+                                .btn.btn-default(type="button", ng-click="$ctrl.auth()") Sign In
+                                a(href='') Forgot Password?
                             .social-login
                                 p Sign in with
                                 ul
@@ -36,15 +39,18 @@ block content
                                             i.fa.fa-twitter
                                             |  Twitter
                             .clearfix
-                        #sectionB.tab-pane.fade.in(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
-                            .innter-form
-                                form.sa-innate-form(method='post')
+                        .tab-pane.fade.in(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
+                            form(method='post')
+                                .form-group
                                     label Name
-                                    input(type='text', name='username')
+                                    input.form-control(type='text', name='username')
+                                .form-group
                                     label Email Address
-                                    input(type='text', name='username')
+                                    input.form-control(type='text', name='username')
+                                .form-group
                                     label Password
-                                    input(type='password', name='password')
-                                    button(type='submit') Join now
-                                    p
-                                        | By clicking Join now, you agree to Mplay's User Agreement, Privacy Policy, and Cookie Policy.
+                                    input.form-control(type='password', name='password')
+
+                                .btn.btn-default(type='submit') Join now
+                                p
+                                | By clicking Join now, you agree to Mplay's User Agreement, Privacy Policy, and Cookie Policy.

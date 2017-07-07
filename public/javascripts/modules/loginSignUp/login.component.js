@@ -6,23 +6,21 @@ angular.
 module('loginSignUp').
 component('login', {
     templateUrl: '/components/login',
-    controller: ['User','AuthDetails', function LoginController(User, AuthDetails) {
+    controller: ['User','$state', function LoginController(User, $state) {
         this.testValue = "Hello";
         this.showSignIn = true;
-        this.username = "";
+        this.email = "";
         this.password = "";
         this.auth = function () {
-            var res = User.authUser.get({email:this.username,password:this.password});
+            var user = {email:this.email, password:this.password}
+            var res = User.authUser.post(user);
+            $state.go('loading');
             res.$promise.then(function(dataRes){
-                //casting the retrieved song object appropriate object type, that can be used
-                if(dataRes.items.length ==1){
-                    authData['status'] = 'Success';
-                    authData['user'] = dataRes.items[0];
-                }
-                console.log(dataRes.items);
-
+                //casting the retrieved song object apropriate object type, that casn be used
+                console.log(dataRes);
+                $state.go('uploadSuccess');
             });
-            console.log(this.username);
         }
+
     }]
 });

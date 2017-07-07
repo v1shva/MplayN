@@ -6,7 +6,7 @@
   }
   50% {
     @include transform(translateY(-15px));
-    filter: invert(50%);
+    filter: invert(30%);
   }
 }
 

@@ -3,7 +3,7 @@
 
 link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
 .modal-dialog
-    #addsongContent.modal-content
+    .modal-content
         form(name='uploadForm',enctype="multipart/form-data", ng-submit="$ctrl.submitForm(uploadForm.$valid)", novalidate)
             .modal-header
                 h4.modal-title Add your Song
@@ -19,7 +19,7 @@ link(rel='stylesheet', href='/stylesheets/songUploadForm.css')
                         .cssload-cube.cssload-c3
                 .form-group.ui-widget
                     label Artist:
-                    input#artist.form-control(type='text',name='songArtist', ng-model="songArtist", required)
+                    input.form-control(type='text',name='songArtist', ng-model="songArtist", required)
                     .error(ng-show="uploadForm.songArtist.$invalid && uploadForm.songArtist.$touched", class="errorMsg") Song artist is required.
                 .form-group.ui-widget
                     label#moodLable Mood:
