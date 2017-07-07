@@ -16,6 +16,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
+var passport	= require('passport');
+var jwt         = require('jwt-simple');
+var config = require('../../config/app');
 var router = express.Router();
 
 function getModel () {
@@ -26,13 +29,7 @@ function getModel () {
 // Automatically parse request body as JSON
 router.use(bodyParser.json());
 
-/**
- * GET /api/songs
- *
- * Retrieve a page of songs (up to ten at a time).
- */
-
-
+//list user by user id.
 router.get('/byUserID', (req, res, next) => {
     getModel().listByUserID(req.query.userID,10, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
@@ -59,49 +56,70 @@ router.get('/byUserEmail', (req, res, next) => {
     });
 });
 
-router.get('/authUser', (req, res, next) => {
-    getModel().authUser(req.query.email, req.query.password, 10, req.query.pageToken, (err, entities, cursor) => {
+router.post('/authUser', (req, res, next) => {
+    console.log(req.body);
+   getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
         if (err) {
             next(err);
             return;
         }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
+       console.log(entities);
+       if(entities.length==1){
+           comparePassword(entities[0].password, req.body.password, function (err, isMatch) {
+               if (isMatch && !err) {
+                   // if user is found and password is right create a token
+                   var token = jwt.encode(entities[0], config.secret);
+                   // return the information including token as JSON
+                   res.json({success: true, token: 'JWT ' + token});
+               } else {
+                   res.send({success: false, msg: 'Authentication failed. Wrong password.'});
+               }
+           });
+       }
+       else{
+           res.send({success: false, msg: 'Authentication failed. Invalid User.'});
+       }
+    });
+
+});
+
+
+
+/**
+ * POST /api/user/addNew
+ *
+ * Create a new user.
+ */
+router.post('/addNew', (req, res, next) => {
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            return next(err);
+        }
+        bcrypt.hash(req.body.password, salt, null, function (err, hash) {
+            if (err) {
+                return next(err);
+            }
+            req.body.password = hash;
+            getModel().create(req.body, (err, entity) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                res.status(200).send('OK');
+            });
         });
     });
 });
 
-
-/**
- * POST /api/books
- *
- * Create a new book.
- */
-router.post('/addNew', (req, res, next) => {
-    getModel().create(req.body, (err, entity) => {
-        if (err) {
-            next(err);
-            return;
+var comparePassword = function (dbpassw, passw, cb) {
+    bcrypt.compare(passw, dbpassw, function (err, isMatch) {
+        if(err){
+            return cb(err);
         }
-        res.json(entity);
-    });
-});
+        cb(null, isMatch);
+    })
+}
 
-/**
- * GET /api/books/:id
- *
- * Retrieve a book.
- */
-router.get('/:book', (req, res, next) => {
-    getModel().read(req.params.book, (err, entity) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json(entity);
-    });
-});
 
 /**
  * PUT /api/books/:id
@@ -134,7 +152,7 @@ router.delete('/:book', (req, res, next) => {
 });
 
 /**
- * Errors on "/api/books/*" routes.
+ * Errors on "/api/user/*" routes.
  */
 router.use((err, req, res, next) => {
     // Format error and forward to generic error handler for logging and
