@@ -6,7 +6,7 @@ angular.
 module('loginSignUp').
 component('login', {
     templateUrl: '/components/login',
-    controller: ['User','$state', function LoginController(User, $state) {
+    controller: ['User','$state', 'AuthDetails', function LoginController(User, $state, AuthDetails) {
         this.testValue = "Hello";
         this.showSignIn = true;
         this.email = "";
@@ -18,6 +18,7 @@ component('login', {
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
                 console.log(dataRes);
+                AuthDetails.set(dataRes);
                 $state.go('uploadSuccess');
             });
         }

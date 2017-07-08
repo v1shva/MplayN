@@ -30,18 +30,6 @@ function getModel () {
 router.use(bodyParser.json());
 
 //list user by user id.
-router.get('/byUserID', (req, res, next) => {
-    getModel().listByUserID(req.query.userID,10, req.query.pageToken, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
-        });
-    });
-});
 
 router.get('/byUserEmail', (req, res, next) => {
     getModel().getUserByEmail(req.query.email,10, req.query.pageToken, (err, entities, cursor) => {
@@ -56,9 +44,24 @@ router.get('/byUserEmail', (req, res, next) => {
     });
 });
 
+router.post('/byUserUid', (req, res, next) => {
+    getModel().read(req.body.id, function(err, user) {
+        if (err) {
+            console.log('error');
+        }
+        if (user) {
+            //done(null, user);
+            console.log(user);
+            console.log('done');
+        } else {
+            //done(null, false);
+            console.log('doneElse');
+        }
+    });
+});
 router.post('/authUser', (req, res, next) => {
     console.log(req.body);
-   getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
+    getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
         if (err) {
             next(err);
             return;
@@ -69,8 +72,10 @@ router.post('/authUser', (req, res, next) => {
                if (isMatch && !err) {
                    // if user is found and password is right create a token
                    var token = jwt.encode(entities[0], config.secret);
+                   entities[0].password=null;
                    // return the information including token as JSON
-                   res.json({success: true, token: 'JWT ' + token});
+                   var user = {username:entities[0].username, email:entities[0].email, imageURL: entities[0].imageURL}
+                   res.json({success: true, token: 'JWT ' + token, user: user});
                } else {
                    res.send({success: false, msg: 'Authentication failed. Wrong password.'});
                }

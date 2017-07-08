@@ -18,13 +18,6 @@ factory('User', ['$resource',
                     isArray: false
                 }
             }),
-            getUserByUserID : $resource('/api/user/byUserID', {}, {
-                get: {
-                    method: 'GET',
-                    params: {userID: '123'},
-                    isArray: false
-                }
-            }),
             addNewUser : $resource('/api/user/addNew', {}, {
                 post: {
                     method: 'post',

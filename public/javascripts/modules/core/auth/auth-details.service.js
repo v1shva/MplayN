@@ -6,7 +6,6 @@ factory('AuthDetails', ['rx',
     function(rx) {
         var subject = new rx.Subject();
         var data = "Initial";
-
         return {
             set: function set(d){
                 data = d;

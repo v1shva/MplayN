@@ -83,7 +83,15 @@ MPlayApp.config(
 */
     });
 
-MPlayApp.controller('MainCtrl', [
+MPlayApp.controller('MainCtrl', ['AuthDetails',
     function MainCtrl() {
-
+        var subscription = AuthDetails.subscribe(function onNext(d) {
+            console.log(d);
+            if(d.success){
+                this.loggedIn = true;
+                this.userEmail = d.user.email;
+                this.userImageURL = d.user.imageURL;
+                this.userName = d.user.username;
+            }
+        });
     }]);

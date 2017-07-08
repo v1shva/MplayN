@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `loginSignUp` module
-angular.module('loginSignUp', []);
+angular.module('loginSignUp', ['core.auth','core.user']);
