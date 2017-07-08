@@ -14,7 +14,8 @@ var MPlayApp = angular.module('MPlayApp', [
     'angularFileUpload',
     'ngAnimate',
     'rx',
-    'ui.router'
+    'ui.router',
+    'core.auth'
 ]);
 
 MPlayApp.config(
@@ -83,8 +84,8 @@ MPlayApp.config(
 */
     });
 
-MPlayApp.controller('MainCtrl', ['AuthDetails',
-    function MainCtrl() {
+MPlayApp.controller('MainCtrl',
+    function MainCtrl(AuthDetails) {
         var subscription = AuthDetails.subscribe(function onNext(d) {
             console.log(d);
             if(d.success){
@@ -94,4 +95,4 @@ MPlayApp.controller('MainCtrl', ['AuthDetails',
                 this.userName = d.user.username;
             }
         });
-    }]);
+    });
