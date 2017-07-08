@@ -6,7 +6,7 @@ angular.
 module('home').
 component('home', {
     templateUrl: '/components/home',
-    controller: ['AuthDetails', function HomeController() {
+    controller: ['AuthDetails', function HomeController(AuthDetails) {
         this.testValue = "Hello";
         var subscription = AuthDetails.subscribe(function onNext(d) {
             console.log(d);

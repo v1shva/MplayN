@@ -85,14 +85,15 @@ MPlayApp.config(
     });
 
 MPlayApp.controller('MainCtrl',
-    function MainCtrl(AuthDetails) {
+    function MainCtrl(AuthDetails, $scope) {
+        $scope.loggedIn = false;
         var subscription = AuthDetails.subscribe(function onNext(d) {
-            console.log(d);
             if(d.success){
-                this.loggedIn = true;
-                this.userEmail = d.user.email;
-                this.userImageURL = d.user.imageURL;
-                this.userName = d.user.username;
+                console.log('success');
+                $scope.loggedIn = true;
+                $scope.userEmail = d.user.email;
+                $scope.userImageURL = d.user.imageURL;
+                $scope.userName = d.user.username;
             }
         });
     });
