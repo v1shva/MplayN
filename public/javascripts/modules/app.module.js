@@ -15,7 +15,7 @@ var MPlayApp = angular.module('MPlayApp', [
     'ngAnimate',
     'rx',
     'ui.router',
-    'core.auth'
+    'ngCookies'
 ]);
 
 MPlayApp.config(
@@ -85,8 +85,17 @@ MPlayApp.config(
     });
 
 MPlayApp.controller('MainCtrl',
-    function MainCtrl(AuthDetails, $scope) {
+    function MainCtrl(AuthDetails, $scope, $cookies, $state) {
         $scope.loggedIn = false;
+        console.log('maincontrol');
+        var loggedIn = $cookies.get('loggedIn');
+        if(loggedIn){
+            var data = $cookies.getObject('userData');
+            $scope.loggedIn = true;
+            $scope.userEmail = data.user.email;
+            $scope.userImageURL = data.user.imageURL;
+            $scope.userName = data.user.username;
+        }
         var subscription = AuthDetails.subscribe(function onNext(d) {
             if(d.success){
                 console.log('success');
@@ -94,6 +103,14 @@ MPlayApp.controller('MainCtrl',
                 $scope.userEmail = d.user.email;
                 $scope.userImageURL = d.user.imageURL;
                 $scope.userName = d.user.username;
+                $cookies.put("loggedIn", "true");
+                $cookies.putObject('userData', d);
+                console.log($cookies.getObject('userData'));
             }
         });
+        $scope.logOut = function () {
+            $cookies.remove("loggedIn");
+            $cookies.remove("userData");
+            $stae.go('home');
+        }
     });
