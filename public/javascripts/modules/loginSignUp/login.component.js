@@ -16,7 +16,7 @@ component('login', {
             var res = User.authUser.post(user);
             $state.go('loading');
             res.$promise.then(function(dataRes){
-                
+
                 console.log(dataRes);
                 AuthDetails.set(dataRes);
                 $state.go('uploadSuccess');
