@@ -43,14 +43,14 @@ block content
                             form(method='post')
                                 .form-group
                                     label Name
-                                    input.form-control(type='text', name='username')
+                                    input.form-control(type='text', ng-model="$ctrl.signUpUserName")
                                 .form-group
                                     label Email Address
-                                    input.form-control(type='text', name='username')
+                                    input.form-control(type='text', ng-model="$ctrl.signUpEmail")
                                 .form-group
                                     label Password
-                                    input.form-control(type='password', name='password')
+                                    input.form-control(type='password', ng-model="$ctrl.signUpPassword")
 
-                                .btn.btn-default(type='submit') Join now
+                                .btn.btn-default(type='button', ng-click="$ctrl.signUp()") Join now
                                 p
                                 | By clicking Join now, you agree to Mplay's User Agreement, Privacy Policy, and Cookie Policy.

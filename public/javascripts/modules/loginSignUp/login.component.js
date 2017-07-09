@@ -16,9 +16,18 @@ component('login', {
             var res = User.authUser.post(user);
             $state.go('loading');
             res.$promise.then(function(dataRes){
-                //casting the retrieved song object apropriate object type, that casn be used
+                
                 console.log(dataRes);
                 AuthDetails.set(dataRes);
+                $state.go('uploadSuccess');
+            });
+        }
+        this.signUp = function () {
+            var user = {email:this.signUpEmail, username: this.signUpUserName, password: this.signUpPassword}
+            var res = User.addNewUser(user);
+            $state.go('loading');
+            res.$promise.then(function(dataRes){
+                console.log(dataRes);
                 $state.go('uploadSuccess');
             });
         }
