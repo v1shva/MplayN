@@ -111,7 +111,7 @@ html(lang='en', ng-app='MPlayApp')
                                                   strong {{username}}
                                               p.text-left.small {{userEmail}}
                                               p.text-left
-                                                  a.btn.btn-primary.btn-block.btn-sm(href='#') Log out
+                                                  a.btn.btn-primary.btn-block.btn-sm(href='#', ng-click="logOut()") Log out
                               li.divider
                               li
                                   .navbar-login.navbar-login-session

@@ -19,6 +19,11 @@ const validator = require('validator');
 const xss = require('xss-filters');
 const songs = require('../cloudstorage/songs');
 var router = express.Router();
+var passport	= require('passport');
+var jwt         = require('jwt-simple');
+var config = require('../../config/app');
+require('../../config/passport')(passport);
+
 
 function getModel () {
     return require(`./datastore`);
@@ -27,7 +32,7 @@ function getModel () {
 
 // Automatically parse request body as JSON
 router.use(bodyParser.json());
-
+global.app.use(passport.initialize());
 /**
  * GET /api/songs
  *
@@ -51,6 +56,7 @@ router.get('/byEmotion', (req, res, next) => {
 
 });
 
+// this api route should be protected
 router.get('/byUserID', (req, res, next) => {
     var userID = xss.inHTMLData(req.query.userID);
     if(validator.isAlphanumeric(userID)){
@@ -77,6 +83,7 @@ router.get('/byUserID', (req, res, next) => {
  *
  * Create a new song using song upload.
  */
+// this api route should be protected
 router.post(
     '/uploadSong',
     songs.multer.single('file'),
@@ -123,6 +130,7 @@ function sanitation(obj){
  *
  * Create a new song using song URL.
  */
+// this api route should be protected
 router.post(
     '/addNew',
     (req, res, next) => {

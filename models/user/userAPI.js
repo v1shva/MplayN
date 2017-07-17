@@ -19,7 +19,9 @@ const bcrypt = require('bcrypt-nodejs');
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
 var config = require('../../config/app');
+require('../../config/passport')(passport);
 var router = express.Router();
+
 
 function getModel () {
     return require(`./datastore`);
@@ -28,37 +30,32 @@ function getModel () {
 
 // Automatically parse request body as JSON
 router.use(bodyParser.json());
-
+global.app.use(passport.initialize());
 //list user by user id.
+// this api route should be protected
+router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    console.log(req.headers);
+    var token = getToken(req.headers);
 
-router.get('/byUserEmail', (req, res, next) => {
-    getModel().getUserByEmail(req.query.email,10, req.query.pageToken, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        getModel().getUserByEmail(req.body.email,10, req.body.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
         });
-    });
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided.'});
+    }
 });
 
-router.post('/byUserUid', (req, res, next) => {
-    getModel().read(req.body.id, function(err, user) {
-        if (err) {
-            console.log('error');
-        }
-        if (user) {
-            //done(null, user);
-            console.log(user);
-            console.log('done');
-        } else {
-            //done(null, false);
-            console.log('doneElse');
-        }
-    });
-});
+// this api route should be protected
+
 router.post('/authUser', (req, res, next) => {
     console.log(req.body);
     getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
@@ -95,6 +92,7 @@ router.post('/authUser', (req, res, next) => {
  *
  * Create a new user.
  */
+// this api route should be protected
 router.post('/addNew', (req, res, next) => {
     bcrypt.genSalt(10, function (err, salt) {
         if (err) {
@@ -141,20 +139,7 @@ router.put('/:book', (req, res, next) => {
     });
 });
 
-/**
- * DELETE /api/books/:id
- *
- * Delete a book.
- */
-router.delete('/:book', (req, res, next) => {
-    getModel().delete(req.params.book, (err) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.status(200).send('OK');
-    });
-});
+
 
 /**
  * Errors on "/api/user/*" routes.
@@ -169,4 +154,19 @@ router.use((err, req, res, next) => {
     next(err);
 });
 
+//function to extract authorization header from headers
+
+var getToken = function (headers) {
+    console.log(headers.authorization);
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 module.exports = router;
