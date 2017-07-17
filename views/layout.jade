@@ -86,7 +86,7 @@ html(lang='en', ng-app='MPlayApp')
                       li
                           a(ui-sref='loading') About Us
                   ul.nav.navbar-nav.navbar-right
-                      li
+                      li(ng-show="loggedIn")
                           a(ui-sref='songUploadForm')
                               span.glyphicon.glyphicon-music
                               |  Add Songs
