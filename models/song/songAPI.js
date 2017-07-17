@@ -57,7 +57,7 @@ router.get('/byEmotion', (req, res, next) => {
 });
 
 // this api route should be protected
-router.get('/byUserID', (req, res, next) => {
+router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var userID = xss.inHTMLData(req.query.userID);
     if(validator.isAlphanumeric(userID)){
         getModel().listByUserID(userID,10, req.query.pageToken, (err, entities, cursor) => {
@@ -72,11 +72,6 @@ router.get('/byUserID', (req, res, next) => {
         });
     }
 });
-
-
-
-
-
 
 /**
  * POST /api/songs
@@ -109,21 +104,6 @@ router.post(
     }
 );
 
-function changeEmotionProperty(obj) {
-    var re = new RegExp("0$"), key;
-    for (key in obj)
-        if (re.test(key)) {
-            obj[key]= parseInt(obj[key]);
-            obj[key] = xss.inHTMLData(obj[key]);
-        }
-    return null; // This should not be possible
-}
-
-function sanitation(obj){
-    obj.title =  xss.inHTMLData(obj.title);
-    obj.artist = xss.inHTMLData(obj.artist);
-    obj.url = xss.inHTMLData(obj.url);
-}
 
 /**
  * POST /api/songs
@@ -147,54 +127,10 @@ router.post(
             }
             res.status(200).send('OK');
         });
-
     }
 );
 
-/**
- * GET /api/books/:id
- *
- * Retrieve a book.
- */
-router.get('/:book', (req, res, next) => {
-    getModel().read(req.params.book, (err, entity) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json(entity);
-    });
-});
 
-/**
- * PUT /api/books/:id
- *
- * Update a book.
- */
-router.put('/:book', (req, res, next) => {
-    getModel().update(req.params.book, req.body, (err, entity) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json(entity);
-    });
-});
-
-/**
- * DELETE /api/books/:id
- *
- * Delete a book.
- */
-router.delete('/:book', (req, res, next) => {
-    getModel().delete(req.params.book, (err) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.status(200).send('OK');
-    });
-});
 
 /**
  * Errors on "/api/songAPI/*" routes.
@@ -208,5 +144,22 @@ router.use((err, req, res, next) => {
     };
     next(err);
 });
+
+//required functions .....
+function changeEmotionProperty(obj) {
+    var re = new RegExp("0$"), key;
+    for (key in obj)
+        if (re.test(key)) {
+            obj[key]= parseInt(obj[key]);
+            obj[key] = xss.inHTMLData(obj[key]);
+        }
+    return null; // This should not be possible
+}
+
+function sanitation(obj){
+    obj.title =  xss.inHTMLData(obj.title);
+    obj.artist = xss.inHTMLData(obj.artist);
+    obj.url = xss.inHTMLData(obj.url);
+}
 
 module.exports = router;

@@ -16,6 +16,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
+const xss = require('xss-filters');
+const validator = require('validator');
+
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
 var config = require('../../config/app');
@@ -36,8 +39,9 @@ global.app.use(passport.initialize());
 router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (req, res, next) => {
     console.log(req.headers);
     var token = getToken(req.headers);
-
-    if (token) {
+    req.body.email = xss.inHTMLData(req.body.email);
+    req.body.pageToken = xss.inHTMLData(req.body.pageToken);
+    if (token && validator.isEmail(req.body)) {
         var decoded = jwt.decode(token, config.secret);
         getModel().getUserByEmail(req.body.email,10, req.body.pageToken, (err, entities, cursor) => {
             if (err) {
@@ -50,39 +54,44 @@ router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (r
             });
         });
     } else {
-        return res.status(403).send({success: false, msg: 'No token provided.'});
+        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
     }
 });
 
 // this api route should be protected
 
 router.post('/authUser', (req, res, next) => {
-    console.log(req.body);
-    getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-       console.log(entities);
-       if(entities.length==1){
-           comparePassword(entities[0].password, req.body.password, function (err, isMatch) {
-               if (isMatch && !err) {
-                   // if user is found and password is right create a token
-                   var token = jwt.encode(entities[0], config.secret);
-                   entities[0].password=null;
-                   // return the information including token as JSON
-                   var user = {username:entities[0].username, email:entities[0].email, imageURL: entities[0].imageURL}
-                   res.json({success: true, token: 'JWT ' + token, user: user});
-               } else {
-                   res.send({success: false, msg: 'Authentication failed. Wrong password.'});
-               }
-           });
-       }
-       else{
-           res.send({success: false, msg: 'Authentication failed. Invalid User.'});
-       }
-    });
-
+    req.body.email = xss.HTMLData(req.body.email);
+    req.body.password = xss.HTMLData(req.body.password);
+    if(validator.isEmail(req.body.email)){
+        getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            console.log(entities);
+            if(entities.length==1){
+                comparePassword(entities[0].password, req.body.password, function (err, isMatch) {
+                    if (isMatch && !err) {
+                        // if user is found and password is right create a token
+                        var token = jwt.encode(entities[0], config.secret);
+                        entities[0].password=null;
+                        // return the information including token as JSON
+                        var user = {username:entities[0].username, email:entities[0].email, imageURL: entities[0].imageURL}
+                        res.json({success: true, token: 'JWT ' + token, user: user});
+                    } else {
+                        res.send({success: false, msg: 'Authentication failed. Wrong password.'});
+                    }
+                });
+            }
+            else{
+                res.send({success: false, msg: 'Authentication failed. Invalid User.'});
+            }
+        });
+    }
+    else{
+        res.send({success: false, msg: 'Authentication failed. Invalid Email'});
+    }
 });
 
 
@@ -94,24 +103,29 @@ router.post('/authUser', (req, res, next) => {
  */
 // this api route should be protected
 router.post('/addNew', (req, res, next) => {
-    bcrypt.genSalt(10, function (err, salt) {
-        if (err) {
-            return next(err);
-        }
-        bcrypt.hash(req.body.password, salt, null, function (err, hash) {
+    sanitation(req.body);
+    if(validateUser(req.body)) {
+        bcrypt.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
             }
-            req.body.password = hash;
-            getModel().create(req.body, (err, entity) => {
+            bcrypt.hash(req.body.password, salt, null, function (err, hash) {
                 if (err) {
-                    next(err);
-                    return;
+                    return next(err);
                 }
-                res.status(200).send('OK');
+                req.body.password = hash;
+                getModel().create(req.body, (err, entity) => {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                    res.status(200).send('OK');
+                });
             });
         });
-    });
+    }else{
+        res.status(501).send('Invalid Data');
+    }
 });
 
 var comparePassword = function (dbpassw, passw, cb) {
@@ -124,20 +138,6 @@ var comparePassword = function (dbpassw, passw, cb) {
 }
 
 
-/**
- * PUT /api/books/:id
- *
- * Update a book.
- */
-router.put('/:book', (req, res, next) => {
-    getModel().update(req.params.book, req.body, (err, entity) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json(entity);
-    });
-});
 
 
 
@@ -169,4 +169,19 @@ var getToken = function (headers) {
         return null;
     }
 };
+
+function validateUser(obj){
+    if(validator.isEmail(obj.email) && validator.isAlphanumeric(obj.username)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function sanitation(obj){
+    obj.email = xss.inHTMLData(obj.email);
+    obj.password = xss.inHTMLData(obj.password);
+    obj.username = xss.inHTMLData(obj.username);
+}
+
 module.exports = router;
