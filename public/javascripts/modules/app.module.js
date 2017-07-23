@@ -85,7 +85,7 @@ MPlayApp.config(
     });
 
 MPlayApp.controller('MainCtrl',
-    function MainCtrl(AuthDetails, $scope, $cookies, $state) {
+    function MainCtrl(AuthDetails, $scope, $cookies, $state, $window) {
         $scope.loggedIn = false;
         console.log('maincontrol');
         var loggedIn = $cookies.get('loggedIn');
@@ -111,6 +111,7 @@ MPlayApp.controller('MainCtrl',
         $scope.logOut = function () {
             $cookies.remove("loggedIn");
             $cookies.remove("userData");
-            $stae.go('home');
+            $window.location.href = '';
+            $state.go('home');
         }
     });
