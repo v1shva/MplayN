@@ -12,6 +12,7 @@ block content
                             a(ng-click="$ctrl.showSignIn = true") Sign In
                         li(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
                             a(ng-click="$ctrl.showSignIn = false") Join us!
+                    br
                     .tab-content
                         .tab-pane.fade.in(ng-class="{'active': $ctrl.showSignIn, '': !$ctrl.showSignIn}")
                             form
@@ -42,7 +43,7 @@ block content
                         .tab-pane.fade.in(ng-class="{'active': !$ctrl.showSignIn, '': $ctrl.showSignIn}")
                             form(method='post')
                                 .form-group
-                                    label Name
+                                    label Username
                                     input.form-control(type='text', ng-model="$ctrl.signUpUserName")
                                 .form-group
                                     label Email Address

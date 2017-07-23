@@ -1,0 +1,50 @@
+//
+   Created by Vishva on 7/23/2017.
+
+.mainbody.container-fluid
+    .row
+        div(style='padding-top:50px;')  
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs
+            .panel.panel-default.panel-menu.panel-active
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  Settings
+                        | &nbsp;
+                        span.glyphicon.glyphicon-cog
+            .panel.panel-default.panel-menu
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  My Songs
+                        | &nbsp;
+                        span.glyphicon.glyphicon-headphones
+            .panel.panel-default.panel-menu
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  My Messages
+                        | &nbsp;
+                        span.glyphicon.glyphicon-comment
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+            .panel.panel-default
+                .panel-body
+                    h1.panel-title.pull-left(style='font-size:20px;') My basic profile
+            .panel.panel-default
+                .panel-body
+                    h3.panel-title.pull-left Your photo
+                    br
+                    br
+                    div(align='center')
+                        .col-lg-12.col-md-12
+                            img.img-circle.img-responsive(src='https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png', width='100px', height='100px')
+                        .col-lg-12.col-md-12
+                            button.btn.btn-primary
+                                i.fa.fa-upload(aria-hidden='true')
+                                |  Upload a new profile photo!
