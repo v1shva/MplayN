@@ -40,23 +40,3 @@ html{
     font-size: 87px;
 }
 
-.panel-default{
-    background-color: #f8f8f8;
-    position: relative;
-}
-
-.divtoLink {
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left: 0;
-    z-index: 1;
-}
-
-.panel-menu:hover{
-    color: #9b9b9b;
-}
-.panel-active{
-    background-color: rgba(0, 0, 0, 0.50);
-}
