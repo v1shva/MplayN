@@ -5,7 +5,7 @@
     .row
         div(style='padding-top:50px;')  
         .col-lg-3.col-md-3.col-sm-3.hidden-xs
-            .panel.panel-default.panel-menu.panel-active
+            .panel.panel-default.panel-menu
                 .panel-body
                     a(ui-sref='myAccount')
                         span.divtoLink
@@ -14,7 +14,7 @@
                         |  Settings
                         | &nbsp;
                         span.glyphicon.glyphicon-cog
-            .panel.panel-default.panel-menu
+            .panel.panel-default.panel-menu.panel-active
                 .panel-body
                     a(ui-sref='myAccount')
                         span.divtoLink
@@ -35,16 +35,46 @@
         .col-lg-9.col-md-9.col-sm-9.col-xs-12
             .panel.panel-default
                 .panel-body
-                    h1.panel-title.pull-left(style='font-size:20px;') My basic profile
+                    h1.panel-title.pull-left(style='font-size:20px;') Your contributions to MPlay
+
+
             .panel.panel-default
                 .panel-body
-                    h3.panel-title.pull-left Your photo
+                    .panel-title.pull-left
+                        strong Selected Songs :
+                        button.btn.btn-danger()
+                            span.glyphicon.glyphicon-remove
+                            | &nbsp;
+                            | Delete
+                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
+                            span.glyphicon.glyphicon-edit
+                            | &nbsp;
+                            | Edit
+                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
+                            span.glyphicon.glyphicon-edit
+                            | &nbsp;
+                            | Done
                     br
-                    br
-                    div(align='center')
-                        .col-lg-12.col-md-12
-                            img.img-circle.img-responsive(src='https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png', width='100px', height='100px')
-                        .col-lg-12.col-md-12
-                            button.btn.btn-primary
-                                i.fa.fa-upload(aria-hidden='true')
-                                |  Upload a new profile photo!
+                    hr
+                    table.table.table-hover
+                        thead
+                            tr
+                                th Select
+                                th Song Title
+                                th Artist
+                                th Moods with Rank
+                                th Play Count
+                        tbody
+                            tr
+                                td
+                                    input(type='checkbox', checked='')
+                                td Doe
+                                td john@example.com
+                            tr
+                                td Mary
+                                td Moe
+                                td mary@example.com
+                            tr
+                                td July
+                                td Dooley
+                                td july@example.com

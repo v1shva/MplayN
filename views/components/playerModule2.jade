@@ -25,6 +25,7 @@ link(rel='stylesheet', href='/player/skin.css')
         .btn-group
             button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
             emo-bar
+
         .currentTrackDetails {{ currentPlaying.title }} by {{ currentPlaying.artist }}
         ul.playList.animate-show-hide
             li(ng-repeat='song in playlist')
