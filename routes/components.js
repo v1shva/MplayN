@@ -15,8 +15,12 @@ router.get('/home', function(req, res, next) {
     res.render('components/home1', { title: 'Mplay' });
 });
 
-router.get('/userMenuMain', function(req, res, next) {
+router.get('/userMenu/MyAccount', function(req, res, next) {
     res.render('components/userMenu/MyAccount');
+});
+
+router.get('/userMenu/MySongs', function(req, res, next) {
+    res.render('components/userMenu/MySongs');
 });
 
 router.get('/songUpload', function(req, res, next) {
