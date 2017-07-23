@@ -41,16 +41,15 @@ router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (r
     var token = getToken(req.headers);
     req.body.email = xss.inHTMLData(req.body.email);
     req.body.pageToken = xss.inHTMLData(req.body.pageToken);
-    if (token && validator.isEmail(req.body)) {
+    if (token && validator.isEmail(req.body.email)) {
         var decoded = jwt.decode(token, config.secret);
-        getModel().getUserByEmail(req.body.email,10, req.body.pageToken, (err, entities, cursor) => {
+        getModel().getUserByEmail(req.body.email, (err, user) => {
             if (err) {
                 next(err);
                 return;
             }
             res.json({
-                items: entities,
-                nextPageToken: cursor
+                user
             });
         });
     } else {
@@ -61,23 +60,25 @@ router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (r
 // this api route should be protected
 
 router.post('/authUser', (req, res, next) => {
-    req.body.email = xss.HTMLData(req.body.email);
-    req.body.password = xss.HTMLData(req.body.password);
+    req.body.email = xss.inHTMLData(req.body.email);
+    req.body.password = xss.inHTMLData(req.body.password);
     if(validator.isEmail(req.body.email)){
-        getModel().getUserByEmail(req.body.email,10, null, (err, entities, cursor) => {
+        var userDB;
+        getModel().getUserByEmail(req.body.email, (err, user) => {
+            userDB = user[0];
             if (err) {
                 next(err);
                 return;
             }
-            console.log(entities);
-            if(entities.length==1){
-                comparePassword(entities[0].password, req.body.password, function (err, isMatch) {
+            console.log(userDB);
+            if(userDB){
+                comparePassword(userDB.password, req.body.password, function (err, isMatch) {
                     if (isMatch && !err) {
                         // if user is found and password is right create a token
-                        var token = jwt.encode(entities[0], config.secret);
-                        entities[0].password=null;
+                        userDB.password=null;
+                        var token = jwt.encode(userDB, config.secret);
                         // return the information including token as JSON
-                        var user = {username:entities[0].username, email:entities[0].email, imageURL: entities[0].imageURL}
+                        var user = {username:userDB.username, email:userDB.email, imageURL: userDB.imageURL}
                         res.json({success: true, token: 'JWT ' + token, user: user});
                     } else {
                         res.send({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -138,8 +139,102 @@ var comparePassword = function (dbpassw, passw, cb) {
 }
 
 
+//Forgot password method when a user forgets a password
+var async = require('async');
+var crypto = require('crypto');
 
 
+router.post('/forgot', function(req, res, next) {
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function(token, done) {
+            getModel().getUserByEmail({ email: req.body.email }, function(err, user) {
+                console.log(user);
+                if (!user) {
+                    res.json({success: false, message: 'User with that email doesn\'t exist'});
+                }
+
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+                user.save(function(err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function(token, user, done) {
+            var helper = require('sendgrid').mail;
+            var fromEmail = new helper.Email('mailder@mplay.com');
+            var toEmail = new helper.Email(user.email);
+            var subject = 'MPlay Password Reset';
+            var content = new helper.Content('text/plain', 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+            'If you did not request this, please ignore this email and your password will remain unchanged.\n');
+
+            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+            var sg = require('sendgrid')("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");
+            var request = sg.emptyRequest({
+                method: 'POST',
+                path: '/v3/mail/send',
+                body: mail.toJSON()
+            });
+
+            sg.API(request, function (error, response) {
+                if (error) {
+                    console.log('Error response received');
+                }
+                res.json({success: true, message: 'An email has been sent to your email address.'});
+                console.log(response.statusCode);
+                console.log(response.body);
+                console.log(response.headers);
+                done(error,'done');
+            });
+
+            /*var smtpTransport = nodemailer.createTransport('SMTP', {
+                service: 'SendGrid',
+                auth: {
+                    user: '!!! YOUR SENDGRID USERNAME !!!',
+                    pass: '!!! YOUR SENDGRID PASSWORD !!!'
+                }
+            });
+            var mailOptions = {
+                to: user.email,
+                from: 'passwordreset@demo.com',
+                subject: 'Node.js Password Reset',
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            smtpTransport.sendMail(mailOptions, function(err) {
+                req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                done(err, 'done');
+            });*/
+        }
+    ], function(err) {
+        if (err) return next(err);
+        res.json({success: false, message: 'RedirectForgot'});
+    });
+});
+
+router.get('/reset/:token', function(req, res) {
+    getModel.getUserByResetPasswordToken({ resetPasswordToken: req.params.token, resetPasswordExpires: Date.now() }, function(err, user) {
+        if (!user) {
+            req.flash('error', 'Password reset token is invalid or has expired.');
+            return res.redirect('/forgot');
+        }
+        res.render('reset', {
+            user: req.user
+        });
+    });
+});
 
 /**
  * Errors on "/api/user/*" routes.

@@ -122,18 +122,29 @@ function listByUserID (userID, limit, token, cb) {
 }
 
 
-function getUserByEmail (email, limit, token, cb) {
+function getUserByEmail (email, cb) {
     const q = ds.createQuery([kind])
         .filter('email', '=', email)
-        .start(token);
 
     ds.runQuery(q, (err, entities, nextQuery) => {
         if (err) {
             cb(err);
             return;
         }
-        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
-        cb(null, entities.map(fromDatastore), hasMore);
+        cb(null, entities.map(fromDatastore));
+    });
+}
+
+function getUserByResetPasswordToken (token,currentDate, cb) {
+    const q = ds.createQuery([kind])
+        .filter('email', '=', email)
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        cb(null, entities.map(fromDatastore));
     });
 }
 
@@ -216,6 +227,7 @@ module.exports = {
     list,
     listByUserID,
     getUserByEmail,
+    getUserByResetPasswordToken,
     authUser
 };
 // [END exports]
