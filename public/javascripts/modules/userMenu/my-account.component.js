@@ -5,8 +5,11 @@
 angular.
 module('userMenu').
 component('myAccount', {
-    templateUrl: '/components/userMenuMain',
-    controller: function UserMenuController() {
+    templateUrl: '/components/userMenu/MyAccount',
+    controller:['$cookies', function UserMenuController($cookies) {
+        var data = $cookies.getObject('userData');
+        this.userName = data.user.username;
+        this.userEmail = data.user.email;
 
-    }
+    }]
 });

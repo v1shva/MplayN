@@ -39,6 +39,12 @@ MPlayApp.config(
 
         });
 
+        $stateProvider.state('mySongs', {
+            url: '/mySongs.php',
+            component: 'mySongs',
+
+        });
+
         $stateProvider.state('songUploadForm', {
             url: '/songUpload.php',
             component: 'songUploadForm',
@@ -61,33 +67,11 @@ MPlayApp.config(
             url: '/loading.php',
             templateUrl: '/messages/loading',
         });
-        /*var homeState = {
-            url: '/home.php',
-            template: '/partials/home'
-        }
-
-
-
-        var loginState = {
-            url: '/login.php',
-            template: '/partials/login'
-        }
-
-        var accountState = {
-            url: '/MyAccount.php',
-            template: '/partials/myAccount'
-        }
-
-        $stateProvider.state(homeState);
-        $stateProvider.state(loginState);
-        $stateProvider.state(accountState);
-*/
     });
 
 MPlayApp.controller('MainCtrl',
     function MainCtrl(AuthDetails, $scope, $cookies, $state, $window) {
         $scope.loggedIn = false;
-        console.log('maincontrol');
         var loggedIn = $cookies.get('loggedIn');
         if(loggedIn){
             var data = $cookies.getObject('userData');
@@ -95,6 +79,7 @@ MPlayApp.controller('MainCtrl',
             $scope.userEmail = data.user.email;
             $scope.userImageURL = data.user.imageURL;
             $scope.userName = data.user.username;
+
         }
         var subscription = AuthDetails.subscribe(function onNext(d) {
             if(d.success){
@@ -105,7 +90,6 @@ MPlayApp.controller('MainCtrl',
                 $scope.userName = d.user.username;
                 $cookies.put("loggedIn", "true");
                 $cookies.putObject('userData', d);
-                console.log($cookies.getObject('userData'));
             }
         });
         $scope.logOut = function () {
