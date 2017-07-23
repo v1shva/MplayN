@@ -6,7 +6,7 @@ angular.
 module('songUpload').
 component('songUploadForm', {
     templateUrl: '/components/songUpload',
-    controller: ['FileUploader','$scope','Song','$state', function SongUploadController(FileUploader, $scope, Song, $state) {
+    controller: ['FileUploader','$scope','Song','$state','$cookies', function SongUploadController(FileUploader, $scope, Song, $state, $cookies) {
         this.showUpload = true;
         this.uploadFormValid = true;
         this.showUploadOrURLMsg = false;
@@ -14,9 +14,12 @@ component('songUploadForm', {
         this.mood = [];
         this.currentMoods = [];
         this.moodString = "";
+        var loggedIn = $cookies.get('loggedIn');
+        if(loggedIn) var token = $cookies.getObject('userData').token;
         var uploader = $scope.uploader = new FileUploader({
             url: '/api/song/uploadSong',
-            method: 'POST'
+            method: 'POST',
+            headers: {'Authorization': token}
         });
         // FILTERS
 /*        $scope.uploader.filters.push({
@@ -91,6 +94,7 @@ component('songUploadForm', {
 
 
         this.submitForm = function (isValid) {
+
             var title = {title: uploadForm.songTitle.value};
             var artist = {artist: uploadForm.songArtist.value};
             var url = {url : "none"};

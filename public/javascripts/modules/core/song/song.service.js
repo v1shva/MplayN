@@ -2,8 +2,10 @@
 
 angular.
 module('core.song').
-factory('Song', ['$resource',
-    function Song($resource) {
+factory('Song', ['$resource','$cookies',
+    function Song($resource, $cookies) {
+        var loggedIn = $cookies.get('loggedIn');
+        if(loggedIn) var token = $cookies.getObject('userData').token;
         return {
             getSongsByEmo : $resource('/api/song/byEmotion', {}, {
                 get: {
@@ -23,6 +25,7 @@ factory('Song', ['$resource',
             addNewSong : $resource('/api/song/addNew', {}, {
                 post: {
                     method: 'post',
+                    headers: {'Authorization': token},
                     isArray: false
                 }
             }),
