@@ -37,7 +37,6 @@ global.app.use(passport.initialize());
 //list user by user id.
 // this api route should be protected
 router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (req, res, next) => {
-    console.log(req.headers);
     var token = getToken(req.headers);
     req.body.email = xss.inHTMLData(req.body.email);
     req.body.pageToken = xss.inHTMLData(req.body.pageToken);

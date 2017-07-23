@@ -81,10 +81,13 @@ router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, re
 // this api route should be protected
 router.post(
     '/uploadSong',
+    passport.authenticate('jwt', { session: false}),
     songs.multer.single('file'),
     songs.sendUploadToGCS,
     (req, res, next) => {
         let data = req.body;
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
         // Was an image uploaded? If so, we'll use its public URL
         // in cloud storage.
         if (req.file && req.file.cloudStoragePublicUrl) {
@@ -92,6 +95,7 @@ router.post(
         }
         changeEmotionProperty(data);
         sanitation(data);
+        data.userID = decoded.id;
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
             if (err) {
@@ -113,11 +117,12 @@ router.post(
 // this api route should be protected
 router.post(
     '/addNew',
+    passport.authenticate('jwt', { session: false}),
     (req, res, next) => {
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
         let data = req.body;
-        // Was an image uploaded? If so, we'll use its public URL
-        // in cloud storage.
-        console.log(data);
+        data.userID = decoded.id;
         sanitation(data);
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
@@ -161,5 +166,19 @@ function sanitation(obj){
     obj.artist = xss.inHTMLData(obj.artist);
     obj.url = xss.inHTMLData(obj.url);
 }
+
+var getToken = function (headers) {
+    console.log(headers.authorization);
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
 module.exports = router;
