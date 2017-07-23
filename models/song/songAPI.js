@@ -58,7 +58,9 @@ router.get('/byEmotion', (req, res, next) => {
 
 // this api route should be protected
 router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, res, next) => {
-    var userID = xss.inHTMLData(req.query.userID);
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var userID = decoded.id;
     if(validator.isAlphanumeric(userID)){
         getModel().listByUserID(userID,10, req.query.pageToken, (err, entities, cursor) => {
             if (err) {
