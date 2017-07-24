@@ -22,9 +22,15 @@ link(rel='stylesheet', href='/player/skin.css')
             .btn.btn-primary.playerBtnsVol.mute(mute-music='', ng-class="{'unmute': !mute}" )
             .btn.btn-primary.playerBtnsVol.volumeBase(volume-bar='')
                 .volumeLoad(ng-style="{width : ( volume + '%' ) }", ng-class="{'volumeLoadUnMute': !mute}")
+
         .btn-group
             button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
+            button.btn.btn-primary.playerBtns.like(uib-tooltip='Rate this Song',data-toggle="modal", data-target="#likeModal", ng-click='$ctrl.checkLoggedIn()')
+            button.btn.btn-primary.playerBtns.dislike(uib-tooltip='I dont like this song',data-toggle="modal", data-target="#dislikeModal", ng-click='$ctrl.checkLoggedIn()')
+            button.btn.btn-primary.playerBtns.warn(uib-tooltip='Report this Song',data-toggle="modal", data-target="#reportModal", ng-click='$ctrl.checkLoggedIn()')
             emo-bar
+
+
 
         .currentTrackDetails {{ currentPlaying.title }} by {{ currentPlaying.artist }}
         ul.playList.animate-show-hide
@@ -35,6 +41,69 @@ link(rel='stylesheet', href='/player/skin.css')
                     small (remove)
                 span(ng-if='currentPlaying.id == song.id')  - (current)
                 emo-bar-playlist
+
+#likeModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title How do you feel about this song?
+            .modal-body
+                .form-group.ui-widget
+                    label Select Mood:
+                    .container-fluid.moods
+                        link(rel='stylesheet', href='/player/emobar.css')
+                        .emotions.playerEmoBar
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['happy']}", src='/player/icons/happy.png', title='Happy', name='happy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['inLove']}", src='/player/icons/in-love.png', title='In-Love', name='inLove')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['angry']}", src='/player/icons/angry.png', title='Angry', name='angry')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crying']}", src='/player/icons/crying.png', title='Crying', name='crying')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['embarrassed']}", src='/player/icons/embarrassed.png', title='Embarrassed', name='embarrassed')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crazy']}", src='/player/icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['bored']}", src='/player/icons/bored.png', width='8%', title='Bored', name='bored')
+                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
+                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#dislikeModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title What do you want to do?
+            .modal-body
+                .form-group.ui-widget
+                    label Don't play this song ever again.
+                    input(type='checkbox')
+
+                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
+                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#reportModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title.pull-left Report the song
+                h4.modal-title.pull-right Test
+            .modal-body
+                .form-group.ui-widget
+                    .form-group.ui-widget
+                        label Report it for copyright infringment.
+                        input(type='checkbox')
+
+                        .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
+                        .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
+                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 //    hr
     .row
