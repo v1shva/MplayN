@@ -63,6 +63,17 @@ MPlayApp.config(
 
         });
 
+        $stateProvider.state('signUpSuccess', {
+            url: '/signUpSuccess.php',
+            templateUrl: '/messages/signUpSuccess',
+
+        });
+
+        $stateProvider.state('signUpError', {
+            url: '/signUpError',
+            templateUrl: '/messages/signUpError',
+        });
+
         $stateProvider.state('loading', {
             url: '/loading.php',
             templateUrl: '/messages/loading',

@@ -6,9 +6,14 @@ factory('User', ['$resource',
     function User($resource) {
         return {
             getUserByEmail : $resource('/api/user/byUserEmail', {}, {
-                get: {
-                    method: 'GET',
-                    params: {email: '',},
+                post: {
+                    method: 'POST',
+                    isArray: false
+                }
+            }),
+            getUserByUsername : $resource('/api/user/byUsername', {}, {
+                post: {
+                    method: 'POST',
                     isArray: false
                 }
             }),

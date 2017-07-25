@@ -36,26 +36,39 @@ router.use(bodyParser.json());
 global.app.use(passport.initialize());
 //list user by user id.
 // this api route should be protected
-router.post('/byUserEmail',  passport.authenticate('jwt', { session: false}), (req, res, next) => {
-    var token = getToken(req.headers);
+router.post('/byUserEmail', (req, res, next) => {
     req.body.email = xss.inHTMLData(req.body.email);
-    req.body.pageToken = xss.inHTMLData(req.body.pageToken);
-    if (token && validator.isEmail(req.body.email)) {
-        var decoded = jwt.decode(token, config.secret);
+    if (true) {
         getModel().getUserByEmail(req.body.email, (err, user) => {
             if (err) {
                 next(err);
                 return;
             }
-            res.json({
-                user
-            });
+            if(user.length==1) res.send({success: true, msg: 'User found'});
+            else res.send({success: false, msg: 'User not found'});
+
         });
     } else {
         return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
     }
 });
 
+router.post('/byUsername', (req, res, next) => {
+    req.body.username = xss.inHTMLData(req.body.username);
+    if (validator.isAlphanumeric(req.body.username)) {
+        getModel().getUserByUsername(req.body.username, (err, user) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            if(user.length==1) res.send({success: true, msg: 'User found'});
+            else res.send({success: false, msg: 'User not found'});
+
+        });
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
+    }
+});
 // this api route should be protected
 
 router.post('/authUser', (req, res, next) => {

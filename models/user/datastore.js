@@ -135,6 +135,18 @@ function getUserByEmail (email, cb) {
     });
 }
 
+function getUserByUsername (username, cb) {
+    const q = ds.createQuery([kind])
+        .filter('username', '=', username)
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        cb(null, entities.map(fromDatastore));
+    });
+}
 function getUserByResetPasswordToken (token,currentDate, cb) {
     const q = ds.createQuery([kind])
         .filter('email', '=', email)
@@ -227,6 +239,7 @@ module.exports = {
     list,
     listByUserID,
     getUserByEmail,
+    getUserByUsername,
     getUserByResetPasswordToken,
     authUser
 };

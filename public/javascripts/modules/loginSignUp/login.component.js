@@ -42,7 +42,7 @@ component('login', {
 
         this.signUp = function () {
             var user = {email:this.signUpEmail, username: this.signUpUserName, password: this.signUpPassword, country: this.signUpCountry}
-            var res = User.addNewUser(user);
+            var res = User.addNewUser.post(user);
             $state.go('loading');
             res.$promise.then(function(dataRes){
                 console.log(dataRes);
@@ -50,11 +50,34 @@ component('login', {
                     $state.go('signUpSuccess');
                 }
                 else{
-                    $stage.go('signUpError');
+                    $state.go('signUpError');
                 }
                 //$state.go('uploadSuccess');
             });
         }
+        
+        this.verifyUsername = function () {
+            var res = User.getUserByUsername.post({username:this.signUpUserName});
+            res.$promise.then(function(dataRes){
+                if(dataRes.success == true){
+                    controller.userFoundUsername = true;
+                }
+                else{
+                    controller.userFoundUsername = false;
+                }
+            });
+        }
 
+        this.verifyEmail = function () {
+            var res = User.getUserByEmail.post({email:this.signUpEmail});
+            res.$promise.then(function(dataRes){
+                if(dataRes.success == true){
+                    controller.userFoundEmail = true;
+                }
+                else{
+                    controller.userFoundEmail = false;
+                }
+            });
+        }
     }]
 });
