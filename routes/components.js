@@ -12,7 +12,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-    res.render('components/home1', { title: 'Mplay' });
+    res.render('components/home2', { title: 'Mplay' });
 });
 
 router.get('/userMenu/MyAccount', function(req, res, next) {
@@ -29,7 +29,7 @@ router.get('/songUpload', function(req, res, next) {
 
 
 router.get('/aboutUs', function(req, res, next) {
-    res.render('components/aboutUs');
+    res.render('components/aboutUs1');
 });
 
 /*router.get('/test', function(req, res, next) {
