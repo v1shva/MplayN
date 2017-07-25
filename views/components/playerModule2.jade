@@ -45,8 +45,8 @@ link(rel='stylesheet', href='/player/skin.css')
 #likeModal.modal.fade(role='dialog')
     .modal-dialog
         // Modal content
-        .modal-content
-            .modal-header
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-primary
                 button.close(type='button', data-dismiss='modal') ×
                 h4.modal-title How do you feel about this song?
             .modal-body
@@ -62,16 +62,25 @@ link(rel='stylesheet', href='/player/skin.css')
                             img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['embarrassed']}", src='/player/icons/embarrassed.png', title='Embarrassed', name='embarrassed')
                             img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crazy']}", src='/player/icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
                             img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['bored']}", src='/player/icons/bored.png', width='8%', title='Bored', name='bored')
-                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
                     .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.rateSong()', ng-disabled='!$ctrl.emotionSelected') Submit
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 #dislikeModal.modal.fade(role='dialog')
     .modal-dialog
         // Modal content
-        .modal-content
-            .modal-header
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-warn
                 button.close(type='button', data-dismiss='modal') ×
                 h4.modal-title What do you want to do?
             .modal-body
@@ -79,16 +88,23 @@ link(rel='stylesheet', href='/player/skin.css')
                     label Don't play this song ever again.
                     input(type='checkbox')
 
-                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
-                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 #reportModal.modal.fade(role='dialog')
     .modal-dialog
         // Modal content
-        .modal-content
-            .modal-header
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-warn
                 button.close(type='button', data-dismiss='modal') ×
                 h4.modal-title.pull-left Report the song
                 h4.modal-title.pull-right Test
@@ -102,6 +118,15 @@ link(rel='stylesheet', href='/player/skin.css')
                         .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
                     .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
                     .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
 

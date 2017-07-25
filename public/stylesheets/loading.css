@@ -45,6 +45,15 @@
   background-size: contain;
 }
 
+.logoSmall {
+  margin: auto;
+  height: 28px;
+  width: 100px;
+  background-image: url("../images/Logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 /* line 23, ../sass/loading.scss */
 .bounce {
   -moz-animation: bounce 2s infinite;
@@ -59,6 +68,12 @@
   font-style: italic;
 }
 
+.text-process-small {
+  color: #686b7a;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}
 @keyframes blink {
   0% {
     opacity: .2;

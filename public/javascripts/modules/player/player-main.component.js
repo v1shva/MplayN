@@ -6,7 +6,11 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/components/player.php',
-    controller: ['Song','$timeout','Emotion', function PlayListController(Song, $timeout, Emotion) {
+    controller: ['Song','$timeout','Emotion','$cookies', function PlayListController(Song, $timeout, Emotion, $cookies) {
+        this.emotionSelected = false;
+        this.mood = [];
+        this.currentMoods = [];
+        this.moodString = "";
 
         var elem = angular.element(document.querySelector('[ng-app]'));
         //get the injector.
@@ -51,6 +55,54 @@ component('playerMain', {
         });
 
         this.songs = songs;
+        this.checkLoggedIn = function () {
+            var data = $cookies.getObject('userData');
+            if(data) this.loggedIn = true;
+        }
+
+        this.EmoBarInput = function handleClick(item) {
+            console.log('here');
+            this.emotionSelected = true;
+            var currentMood = item.attributes["name"].value;
+            var index = this.currentMoods.indexOf(currentMood);
+            if (index === -1) { // check whether the current mood is already in the currentMoods arrray
+                this.currentMoods.push(currentMood); // if not value is pushed to array
+                this.mood[currentMood] = true;
+            }
+            else if (this.currentMoods.length > 1) {
+                this.mood[currentMood] = false;
+                this.currentMoods.splice(index, 1);
+            }
+            if (this.currentMoods.length > 3) {
+                var removeMood = this.currentMoods.shift();
+                this.mood[removeMood] = false;
+            }
+            var currentMoodString = "";
+            var currentMoodsCp = this.currentMoods.slice();
+            currentMoodsCp.sort();
+            currentMoodsCp.forEach(function (emotion) {
+                currentMoodString += emotion.concat('0');
+            })
+            this.moodString = currentMoodString;
+            this.displayMoodString = this.moodString.replace(/0/g, "  ");
+        }
+
+        this.rateSong = function () {
+            var currentSong =  {id: angularPlayer.currentTrackData().id};
+            this.songs.forEach( function (song)
+            {
+               if(currentSong.id == song.id) currentSong = song;
+            });
+            currentSong[this.moodString] -= -1;
+            var res = Song.rateSong.post(currentSong);
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+
+                console.log(dataRes);
+                //$state.go('uploadSuccess');
+            });
+            //this.moodString
+        }
 
     }]
 });

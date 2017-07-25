@@ -37,3 +37,8 @@
     background:#3698d9;
 }
 
+.errorMsg{
+    font-size: 12px;
+    color: #c9302c;
+    padding: 5px;
+}

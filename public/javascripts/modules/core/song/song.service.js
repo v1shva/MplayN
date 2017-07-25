@@ -15,10 +15,10 @@ factory('Song', ['$resource','$cookies',
                 }
 
             }),
-            getSongsByUserID : $resource('/api/song/byUser', {}, {
+            rateSong : $resource('/api/song/rateSong', {}, {
                 get: {
-                    method: 'GET',
-                    params: {userID: '123'},
+                    method: 'POST',
+                    headers: {'Authorization': token},
                     isArray: false
                 }
             }),

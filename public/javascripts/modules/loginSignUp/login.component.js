@@ -11,24 +11,48 @@ component('login', {
         this.showSignIn = true;
         this.email = "";
         this.password = "";
+        this.loginSuccess = true;
+        this.loading = false;
+        this.loginSuccess = true, this.loginMsg;
+        var controller = this;
+
+        // authentication function for the project
         this.auth = function () {
             var user = {email:this.email, password:this.password}
             var res = User.authUser.post(user);
-            $state.go('loading');
+            controller.loading = true;
+            //$state.go('loading');
             res.$promise.then(function(dataRes){
-
-                console.log(dataRes);
-                AuthDetails.set(dataRes);
-                $state.go('uploadSuccess');
+                if(dataRes.success == true){
+                    console.log(dataRes);
+                    AuthDetails.set(dataRes);
+                    $state.go('home');
+                    controller.loading = false;
+                    controller.loginSuccess = true;
+                }
+                else{
+                    controller.loginSuccess = false;
+                    controller.loginMsg = dataRes.msg;
+                    console.log(controller.loginMsg);
+                    controller.loading = false;
+                }
             });
+
         }
+
         this.signUp = function () {
-            var user = {email:this.signUpEmail, username: this.signUpUserName, password: this.signUpPassword}
+            var user = {email:this.signUpEmail, username: this.signUpUserName, password: this.signUpPassword, country: this.signUpCountry}
             var res = User.addNewUser(user);
             $state.go('loading');
             res.$promise.then(function(dataRes){
                 console.log(dataRes);
-                $state.go('uploadSuccess');
+                if(dataRes.success == true){
+                    $state.go('signUpSuccess');
+                }
+                else{
+                    $stage.go('signUpError');
+                }
+                //$state.go('uploadSuccess');
             });
         }
 

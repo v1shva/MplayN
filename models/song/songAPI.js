@@ -75,6 +75,20 @@ router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, re
     }
 });
 
+router.post('/rateSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    req.body.userID = decoded.id;
+    if(validator.isAlphanumeric(userID)){
+        getModel().update(req.body.id, req.body, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    }
+});
 /**
  * POST /api/songs
  *
