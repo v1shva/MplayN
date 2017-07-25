@@ -51,7 +51,7 @@ block content
                             form(method='post', name='signUpForm')
                                 .form-group
                                     label Username
-                                    input.form-control(type='text', name="username", ng-model="$ctrl.signUpUserName" required, ng-blur='$ctrl.verifyUsername()', ng-pattern="/^[a-zA-Z0-9]*$/")
+                                    input.form-control(type='text', name="username", ng-model="$ctrl.signUpUserName" required, ng-blur='$ctrl.verifyUsername()', ng-pattern="/^[a-zA-Z0-9]*$/", ng-minlength='5')
                                     .errorMsg(ng-show="signUpForm.username.$invalid && signUpForm.username.$touched") Username is invalid
                                     .errorMsg(ng-show="$ctrl.userFoundUsername") This username is already registered.
                                 .form-group
@@ -314,7 +314,7 @@ block content
                                     .errorMsg(ng-show="signUpForm.country.$invalid && signUpForm.country.$touched") Country is required
                                 .form-group
                                     label Password
-                                    input.form-control(type='password', name='password', ng-model="$ctrl.signUpPassword", required)
+                                    input.form-control(type='password', name='password', ng-model="$ctrl.signUpPassword", ng-minlength='5', required)
                                     .errorMsg(ng-show="signUpForm.password.$invalid && signUpForm.password.$touched") Password is required
                                 .form-group
                                     label Confirm Password

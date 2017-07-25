@@ -22,6 +22,20 @@ factory('Song', ['$resource','$cookies',
                     isArray: false
                 }
             }),
+            reportSong : $resource('/api/song/reportSong', {}, {
+                get: {
+                    method: 'POST',
+                    headers: {'Authorization': token},
+                    isArray: false
+                }
+            }),
+            dislikeSong : $resource('/api/song/dislikeSong', {}, {
+                get: {
+                    method: 'POST',
+                    headers: {'Authorization': token},
+                    isArray: false
+                }
+            }),
             addNewSong : $resource('/api/song/addNew', {}, {
                 post: {
                     method: 'post',

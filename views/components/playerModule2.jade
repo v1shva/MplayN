@@ -47,8 +47,8 @@ link(rel='stylesheet', href='/player/skin.css')
         // Modal content
         .modal-content(ng-show='$ctrl.loggedIn')
             .modal-header.modal-header-primary
-                button.close(type='button', data-dismiss='modal') ×
-                h4.modal-title How do you feel about this song?
+                h4.modal-title.pull-left How do you feel about this song?
+                img.img-thumbnail.pull-right(src="images/logo.png", width="80px")
             .modal-body
                 .form-group.ui-widget
                     label Select Mood:
@@ -81,8 +81,8 @@ link(rel='stylesheet', href='/player/skin.css')
         // Modal content
         .modal-content(ng-show='$ctrl.loggedIn')
             .modal-header.modal-header-warn
-                button.close(type='button', data-dismiss='modal') ×
-                h4.modal-title What do you want to do?
+                h4.modal-title.pull-left What do you want to do?
+                img.img-thumbnail.pull-right(src="images/logo.png", width="80px")
             .modal-body
                 .form-group.ui-widget
                     label Don't play this song ever again.
@@ -105,19 +105,13 @@ link(rel='stylesheet', href='/player/skin.css')
         // Modal content
         .modal-content(ng-show='$ctrl.loggedIn')
             .modal-header.modal-header-warn
-                button.close(type='button', data-dismiss='modal') ×
                 h4.modal-title.pull-left Report the song
-                h4.modal-title.pull-right Test
+                img.img-thumbnail.pull-right(src="images/logo.png", width="80px")
             .modal-body
                 .form-group.ui-widget
                     .form-group.ui-widget
                         label Report it for copyright infringment.
                         input(type='checkbox')
-
-                        .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
-                        .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
-                    .error(ng-show="!$ctrl.emotionSelected && showEmoError", class='errorMsg') You have to select a emotion
-                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
         .modal-content(ng-show='!$ctrl.loggedIn')

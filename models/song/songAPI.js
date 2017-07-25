@@ -78,7 +78,7 @@ router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, re
 router.post('/rateSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
-    req.body.userID = decoded.id;
+    req.body[decoded.id] = 'like';
     if(validator.isAlphanumeric(userID)){
         getModel().update(req.body.id, req.body, (err) => {
             if (err) {
