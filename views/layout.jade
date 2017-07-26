@@ -105,10 +105,20 @@ html(lang='en', ng-app='MPlayApp')
                                   a(href='#')
                                       span.glyphicon.glyphicon-music
                                       | &nbsp Songs
-                      li(ng-show="loggedIn")
-                          a(ui-sref='songUploadForm')
+                      li.dropdown(ng-show="loggedIn")
+                          a.dropdown-toggle(data-toggle='dropdown')
                               span.glyphicon.glyphicon-music
-                              |  Add Songs
+                              | &nbsp Songs
+                              span.caret
+                          ul.dropdown-menu
+                              li
+                                  a(ui-sref='songUploadForm')
+                                      span.glyphicon.glyphicon-plus
+                                      | &nbsp Add New Songs
+                              li
+                                  a(ui-sref='mySongs')
+                                      span.glyphicon.glyphicon-headphones
+                                      | &nbsp My Songs
                       li(ng-show="!loggedIn")
                           a(ui-sref='login')
                               span.glyphicon.glyphicon-log-in
