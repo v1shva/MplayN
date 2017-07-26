@@ -98,7 +98,8 @@ router.post('/authUser', (req, res, next) => {
                             country: userDB.country,
                             gender: userDB.gender,
                             firstName: userDB.firstName,
-                            lastName: userDB.lastName
+                            lastName: userDB.lastName,
+                            userLevel: userDB.userLevel
                         }
                         res.json({success: true, token: 'JWT ' + token, user: user});
                     } else {
@@ -117,39 +118,80 @@ router.post('/authUser', (req, res, next) => {
 });
 
 
-router.post('/makeAdmin', (req, res, next) => {
+router.post('/makeAdmin', passport.authenticate('jwt', { session: false}), (req, res, next) => {
     req.body.id = xss.inHTMLData(req.body.id);
-    if (validator.isAlphanumeric(req.body.id)) {
-        var priviledge = {admin: "allow"}
-        var token = jwt.encode(priviledge, config.secret);
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    if (decoded.userLevel==="admin"){
+        let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+        if(accessKey.admin === "allow"){
+            if (validator.isAlphanumeric(req.body.id)) {
+                var priviledge = {admin: "allow"}
+                var token = jwt.encode(priviledge, config.secret);
+                getModel().read(req.body.id, (err, user) => {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                    user.userLevelToken = token;
+                    user.userLevel = "admin";
+                    getModel().update(decoded.id, user, (err) => {
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+                        res.status(200).send('OK');
+                    });
+                });
 
-        getModel().update(req.body.id, user, (err) => {
-            if (err) {
-                next(err);
-                return;
+            } else {
+                return res.status(403).send({success: false, msg: 'No token provided or invalid id'});
             }
-            res.status(200).send('OK');
-        });
-    } else {
-        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
+        } else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+        }
     }
+    else {
+        return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
+    }
+
 });
 
-router.post('/makeModerator', (req, res, next) => {
+router.post('/makeModerator', passport.authenticate('jwt', { session: false}), (req, res, next) => {
     req.body.id = xss.inHTMLData(req.body.id);
-    if (validator.isAlphanumeric(req.body.id)) {
-        var priviledge = {moderator: "allow"}
-        var token = jwt.encode(priviledge, config.secret);
-        user["userLevel"] = token;
-        getModel().update(req.body.id, user, (err) => {
-            if (err) {
-                next(err);
-                return;
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    if (decoded.userLevel==="admin"){
+        let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+        if(accessKey.admin === "allow"){
+            if (validator.isAlphanumeric(req.body.id)) {
+                var priviledge = {mod: "allow"}
+                var token = jwt.encode(priviledge, config.secret);
+                getModel().read(req.body.id, (err, user) => {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                    user.userLevelToken = token;
+                    user.userLevel = "mod";
+                    getModel().update(decoded.id, user, (err) => {
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+                        res.status(200).send('OK');
+                    });
+                });
+
+            } else {
+                return res.status(403).send({success: false, msg: 'No token provided or invalid id'});
             }
-            res.status(200).send('OK');
-        });
-    } else {
-        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
+        } else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+        }
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
     }
 });
 /**

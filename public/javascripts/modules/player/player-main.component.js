@@ -109,7 +109,12 @@ component('playerMain', {
 
         this.dislikeSong = function () {
             var currentSong =  {id: angularPlayer.currentTrackData().id};
-            var res = Song.rateSong.post(currentSong);
+            songs.forEach( function (song)
+            {
+                if(currentSong.id === song.id) currentSong = song;
+
+            });
+            var res = Song.dislikeSong.post(currentSong);
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
 
@@ -121,7 +126,12 @@ component('playerMain', {
 
         this.reportSong = function () {
             var currentSong =  {id: angularPlayer.currentTrackData().id};
-            var res = Song.rateSong.post(currentSong);
+            songs.forEach( function (song)
+            {
+                if(currentSong.id === song.id) currentSong = song;
+
+            });
+            var res = Song.reportSong.post(currentSong);
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
                 console.log(dataRes);

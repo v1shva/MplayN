@@ -78,7 +78,7 @@ router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, re
 router.post('/rateSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
-    req.body[decoded.id] = 'like';
+    req.body[decoded.id.concat("l")] = 'like';
     if(validator.isAlphanumeric(decoded.id)){
         getModel().update(req.body.id, req.body, (err) => {
             if (err) {
@@ -93,7 +93,7 @@ router.post('/rateSong',passport.authenticate('jwt', { session: false}), (req, r
 router.post('/dislikeSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
-    req.body[decoded.id] = 'dislike';
+    req.body[decoded.id.concat("d")] = 'dislike';
     if(validator.isAlphanumeric(decoded.id)){
         getModel().update(req.body.id, req.body, (err) => {
             if (err) {
@@ -111,7 +111,7 @@ var moment = require('moment');
 router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
-    req.body[decoded.id] = 'report';
+    req.body[decoded.id.concat("r")] = 'report';
     var time = moment();
     var time_format = time.format('YYYY-MM-DD HH:mm:ss Z');
     console.log(time_format);
@@ -185,7 +185,7 @@ router.post('/addNew', passport.authenticate('jwt', { session: false}), (req, re
         var token = getToken(req.headers);
         var decoded = jwt.decode(token, config.secret);
         let data = req.body;
-        data.userID = decoded.id;
+        data.uploaded = decoded.id;
         sanitation(data);
         // Save the data to the database.
         getModel().create(data, (err, savedData) => {
