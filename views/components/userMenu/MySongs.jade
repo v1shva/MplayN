@@ -40,41 +40,60 @@
 
             .panel.panel-default
                 .panel-body
-                    .panel-title.pull-left
-                        strong Selected Songs :
-                        button.btn.btn-danger()
-                            span.glyphicon.glyphicon-remove
-                            | &nbsp;
-                            | Delete
-                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
-                            span.glyphicon.glyphicon-edit
-                            | &nbsp;
-                            | Edit
-                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
-                            span.glyphicon.glyphicon-edit
-                            | &nbsp;
-                            | Done
-                    br
-                    hr
-                    table.table.table-hover
-                        thead
-                            tr
-                                th Select
-                                th Song Title
-                                th Artist
-                                th Moods with Rank
-                                th Play Count
-                        tbody
-                            tr
-                                td
-                                    input(type='checkbox', checked='')
-                                td Doe
-                                td john@example.com
-                            tr
-                                td Mary
-                                td Moe
-                                td mary@example.com
-                            tr
-                                td July
-                                td Dooley
-                                td july@example.com
+                    ul.nav.nav-tabs
+                        li(ng-class="{'active': $ctrl.showLiked, '': !$ctrl.showLiked}")
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = true;$ctrl.showReported = false;") Liked Songs
+                        li(ng-class="{'active': $ctrl.showDislLked, '': !$ctrl.showDisLiked}")
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = true;$ctrl.showLiked = false;$ctrl.showReported = false;") Disliked Songs
+                        li(ng-class="{'active': $ctrl.showReported, '': !$ctrl.showReported}")
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = false;$ctrl.showReported = true;") Reported Songs
+
+                    .tab-content
+                        .tab-pane.fade.in(ng-class="{'active': $ctrl.showLiked, '': !$ctrl.showLiked}")
+                            br
+                            strong Operations :
+                            button.btn.btn-danger()
+                                span.glyphicon.glyphicon-remove
+                                | &nbsp;
+                                | Delete
+                            button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
+                                span.glyphicon.glyphicon-edit
+                                | &nbsp;
+                                | Edit
+                            button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
+                                span.glyphicon.glyphicon-edit
+                                | &nbsp;
+                                | Done
+                            table.table.table-hover
+                                thead
+                                    tr
+                                        th Select
+                                        th Song Title
+                                        th Artist
+                                        th Moods with Rank
+                                        th Play Count
+                                tbody
+                                    tr
+                                        td
+                                            input(type='checkbox', checked='')
+                                        td Doe
+                                        td john@example.com
+                                    tr
+                                        td Mary
+                                        td Moe
+                                        td mary@example.com
+                                    tr
+                                        td July
+                                        td Dooley
+                                        td july@example.com
+
+                        .tab-pane.fade.in(ng-class="{'active': $ctrl.showDisLiked, '': !$ctrl.showDisLiked}")
+                            h3 Menu 1
+                            p
+                            | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+                        .tab-pane.fade.in(ng-class="{'active': $ctrl.showReported, '': !$ctrl.showReported}")
+                            h3 Menu 2
+                            p
+                            | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+

@@ -127,13 +127,13 @@ router.post('/makeAdmin', passport.authenticate('jwt', { session: false}), (req,
         if(accessKey.admin === "allow"){
             if (validator.isAlphanumeric(req.body.id)) {
                 var priviledge = {admin: "allow"}
-                var token = jwt.encode(priviledge, config.secret);
+                var newToken = jwt.encode(priviledge, config.secret);
                 getModel().read(req.body.id, (err, user) => {
                     if (err) {
                         next(err);
                         return;
                     }
-                    user.userLevelToken = token;
+                    user.userLevelToken = newToken;
                     user.userLevel = "admin";
                     getModel().update(decoded.id, user, (err) => {
                         if (err) {
@@ -166,13 +166,13 @@ router.post('/makeModerator', passport.authenticate('jwt', { session: false}), (
         if(accessKey.admin === "allow"){
             if (validator.isAlphanumeric(req.body.id)) {
                 var priviledge = {mod: "allow"}
-                var token = jwt.encode(priviledge, config.secret);
+                var newToken = jwt.encode(priviledge, config.secret);
                 getModel().read(req.body.id, (err, user) => {
                     if (err) {
                         next(err);
                         return;
                     }
-                    user.userLevelToken = token;
+                    user.userLevelToken = newToken;
                     user.userLevel = "mod";
                     getModel().update(decoded.id, user, (err) => {
                         if (err) {
