@@ -6,6 +6,7 @@ var MPlayApp = angular.module('MPlayApp', [
     'player',
     'core',
     'userMenu',
+    'adminMenu',
     'home',
     'songUpload',
     'loginSignUp',
@@ -99,6 +100,7 @@ MPlayApp.controller('MainCtrl',
                 $scope.userEmail = d.user.email;
                 $scope.userImageURL = d.user.imageURL;
                 $scope.userName = d.user.username;
+                $scope.userLevel = d.user.userLevel;
                 $cookies.put("loggedIn", "true");
                 $cookies.putObject('userData', d);
             }

@@ -39,6 +39,10 @@ html(lang='en', ng-app='MPlayApp')
     script(type='text/javascript' src='javascripts/modules/userMenu/my-account.component.js')
     script(type='text/javascript' src='javascripts/modules/userMenu/my-songs.component.js')
 
+    script(type='text/javascript' src='javascripts/modules/adminMenu/admin-menu.module.js')
+    script(type='text/javascript' src='javascripts/modules/adminMenu/users.component.js')
+    script(type='text/javascript' src='javascripts/modules/adminMenu/songs.component.js')
+
     script(type='text/javascript' src='javascripts/modules/songUpload/song-upload.module.js')
     script(type='text/javascript' src='javascripts/modules/songUpload/song-upload-form.component.js')
 
@@ -88,6 +92,19 @@ html(lang='en', ng-app='MPlayApp')
                       li
                           a(ui-sref='aboutUs') About Us
                   ul.nav.navbar-nav.navbar-right
+                      li.dropdown
+                          a.dropdown-toggle(data-toggle='dropdown', href='#')
+                              | Manage
+                              span.caret
+                          ul.dropdown-menu
+                              li
+                                  a(href='#')
+                                      span.glyphicon.glyphicon-user
+                                      | &nbsp Users
+                              li
+                                  a(href='#')
+                                      span.glyphicon.glyphicon-music
+                                      | &nbsp Songs
                       li(ng-show="loggedIn")
                           a(ui-sref='songUploadForm')
                               span.glyphicon.glyphicon-music

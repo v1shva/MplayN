@@ -212,6 +212,7 @@ router.post('/addNew', (req, res, next) => {
                     return next(err);
                 }
                 req.body.password = hash;
+                req.body.userLevel = "user";
                 getModel().create(req.body, (err, entity) => {
                     if (err) {
                         next(err);

@@ -1,0 +1,80 @@
+//
+   Created by Vishva on 7/23/2017.
+
+.mainbody.container-fluid
+    .row
+        div(style='padding-top:50px;')  
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs
+            .panel.panel-default.panel-menu
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  Settings
+                        | &nbsp;
+                        span.glyphicon.glyphicon-cog
+            .panel.panel-default.panel-menu.panel-active
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  My Songs
+                        | &nbsp;
+                        span.glyphicon.glyphicon-headphones
+            .panel.panel-default.panel-menu
+                .panel-body
+                    a(ui-sref='myAccount')
+                        span.divtoLink
+                    h1.panel-title.pull-right(style='font-size:20px;')
+                        i.fa.fa-cogs(aria-hidden='true')
+                        |  My Messages
+                        | &nbsp;
+                        span.glyphicon.glyphicon-comment
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+            .panel.panel-default
+                .panel-body
+                    h1.panel-title.pull-left(style='font-size:20px;') Your contributions to MPlay
+
+
+            .panel.panel-default
+                .panel-body
+                    .panel-title.pull-left
+                        strong Selected Songs :
+                        button.btn.btn-danger()
+                            span.glyphicon.glyphicon-remove
+                            | &nbsp;
+                            | Delete
+                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
+                            span.glyphicon.glyphicon-edit
+                            | &nbsp;
+                            | Edit
+                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
+                            span.glyphicon.glyphicon-edit
+                            | &nbsp;
+                            | Done
+                    br
+                    hr
+                    table.table.table-hover
+                        thead
+                            tr
+                                th Select
+                                th Song Title
+                                th Artist
+                                th Moods with Rank
+                                th Play Count
+                        tbody
+                            tr
+                                td
+                                    input(type='checkbox', checked='')
+                                td Doe
+                                td john@example.com
+                            tr
+                                td Mary
+                                td Moe
+                                td mary@example.com
+                            tr
+                                td July
+                                td Dooley
+                                td july@example.com

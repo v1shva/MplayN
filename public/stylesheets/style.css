@@ -40,3 +40,6 @@ html{
     font-size: 87px;
 }
 
+.dropdown-menu li{
+    padding: 5px;
+}
