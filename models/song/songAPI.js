@@ -79,7 +79,39 @@ router.post('/rateSong',passport.authenticate('jwt', { session: false}), (req, r
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     req.body[decoded.id] = 'like';
-    if(validator.isAlphanumeric(userID)){
+    if(validator.isAlphanumeric(decoded.id)){
+        getModel().update(req.body.id, req.body, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    }
+});
+
+router.post('/dislikeSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    req.body[decoded.id] = 'dislike';
+    if(validator.isAlphanumeric(decoded.id)){
+        getModel().update(req.body.id, req.body, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    }
+});
+
+router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    req.body[decoded.id] = 'report';
+    var reportDetails = {reportedUser: decoded, date:}
+    req.body[reported]
+    if(validator.isAlphanumeric(decoded.id)){
         getModel().update(req.body.id, req.body, (err) => {
             if (err) {
                 next(err);

@@ -95,6 +95,7 @@ component('playerMain', {
             });
             if(currentSong[this.moodString]<0) currentSong[this.moodString] -= -1;
             else currentSong[this.moodString] = -1;
+            console.log(currentSong);
             var res = Song.rateSong.post(currentSong);
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
