@@ -105,12 +105,19 @@ router.post('/dislikeSong',passport.authenticate('jwt', { session: false}), (req
     }
 });
 
+var moment = require('moment');
+
 router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     req.body[decoded.id] = 'report';
-    var reportDetails = {reportedUser: decoded, date:}
-    req.body[reported]
+    var time = moment();
+    var time_format = time.format('YYYY-MM-DD HH:mm:ss Z');
+    console.log(time_format);
+    decoded.password = "";
+    var reportDetails = {reportedUser: decoded, date:time_format, resolved: "no"};
+    req.body["reported"] = reportDetails;
+    console.log(req.body);
     if(validator.isAlphanumeric(decoded.id)){
         getModel().update(req.body.id, req.body, (err) => {
             if (err) {

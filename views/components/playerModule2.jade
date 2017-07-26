@@ -89,6 +89,7 @@ link(rel='stylesheet', href='/player/skin.css')
                     input(type='checkbox')
 
             .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.dislikeSong()') Submit
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
         .modal-content(ng-show='!$ctrl.loggedIn')
             .modal-header.modal-header-error

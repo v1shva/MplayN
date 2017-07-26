@@ -92,6 +92,8 @@ component('playerMain', {
             this.songs.forEach( function (song)
             {
                if(currentSong.id == song.id) currentSong = song;
+               console.log(currentSong.id);
+               console.log(song.id);
             });
             if(currentSong[this.moodString]<0) currentSong[this.moodString] -= -1;
             else currentSong[this.moodString] = -1;
@@ -108,15 +110,21 @@ component('playerMain', {
 
         this.dislikeSong = function () {
             var currentSong =  {id: angularPlayer.currentTrackData().id};
-            this.songs.forEach( function (song)
-            {
-                if(currentSong.id == song.id) currentSong = song;
-            });
-            currentSong[this.moodString] -= -1;
             var res = Song.rateSong.post(currentSong);
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
 
+                console.log(dataRes);
+                //$state.go('uploadSuccess');
+            });
+            //this.moodString
+        }
+
+        this.reportSong = function () {
+            var currentSong =  {id: angularPlayer.currentTrackData().id};
+            var res = Song.rateSong.post(currentSong);
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
                 console.log(dataRes);
                 //$state.go('uploadSuccess');
             });
