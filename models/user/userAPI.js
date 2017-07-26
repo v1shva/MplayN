@@ -122,7 +122,7 @@ router.post('/makeAdmin', (req, res, next) => {
     if (validator.isAlphanumeric(req.body.id)) {
         var priviledge = {admin: "allow"}
         var token = jwt.encode(priviledge, config.secret);
-        user["userLevel"] = token;
+
         getModel().update(req.body.id, user, (err) => {
             if (err) {
                 next(err);
@@ -175,16 +175,40 @@ router.post('/addNew', (req, res, next) => {
                         next(err);
                         return;
                     }
-                    res.status(200).send('OK');
+                    res.send({success: true, msg: 'User registered'});
                 });
             });
         });
     }else{
-        res.status(501).send('Invalid Data');
+        res.send({success: false, msg: 'Invalid data'});
     }
 });
 
-var comparePassword = function (dbpassw, passw, cb) {
+router.post('/updateUser', passport.authenticate('jwt', { session: false}),  (req, res, next) => {
+    sanitation(req.body);
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    getModel().read(decoded.id, (err, user) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.gender= req.body.gender;
+        user.country = req.body.country;
+        user.birthDate = req.body.birthDate;
+        getModel().update(decoded.id, user, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    });
+});
+
+let comparePassword = function (dbpassw, passw, cb) {
     bcrypt.compare(passw, dbpassw, function (err, isMatch) {
         if(err){
             return cb(err);
@@ -333,5 +357,19 @@ function sanitation(obj){
     obj.password = xss.inHTMLData(obj.password);
     obj.username = xss.inHTMLData(obj.username);
 }
+
+var getToken = function (headers) {
+    console.log(headers.authorization);
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
 module.exports = router;

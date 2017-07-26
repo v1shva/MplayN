@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `phoneList` module
-angular.module('userMenu', []);
+angular.module('userMenu', ['core.song']);

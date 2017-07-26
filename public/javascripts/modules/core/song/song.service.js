@@ -4,8 +4,12 @@ angular.
 module('core.song').
 factory('Song', ['$resource','$cookies',
     function Song($resource, $cookies) {
-        var loggedIn = $cookies.get('loggedIn');
-        if(loggedIn) var token = $cookies.getObject('userData').token;
+        var getToken = function () {
+            var loggedIn = $cookies.get('loggedIn');
+            if(loggedIn) var token = $cookies.getObject('userData').token;
+            else var token = "none"
+            return token;
+        };
         return {
             getSongsByEmo : $resource('/api/song/byEmotion', {}, {
                 get: {
@@ -18,28 +22,28 @@ factory('Song', ['$resource','$cookies',
             rateSong : $resource('/api/song/rateSong', {}, {
                 post: {
                     method: 'POST',
-                    headers: {'Authorization': token},
+                    headers: {'Authorization': getToken},
                     isArray: false
                 }
             }),
             reportSong : $resource('/api/song/reportSong', {}, {
                 post: {
                     method: 'POST',
-                    headers: {'Authorization': token},
+                    headers: {'Authorization': getToken},
                     isArray: false
                 }
             }),
             dislikeSong : $resource('/api/song/dislikeSong', {}, {
                 post: {
                     method: 'POST',
-                    headers: {'Authorization': token},
+                    headers: {'Authorization': getToken},
                     isArray: false
                 }
             }),
             addNewSong : $resource('/api/song/addNew', {}, {
                 post: {
                     method: 'post',
-                    headers: {'Authorization': token},
+                    headers: {'Authorization': getToken},
                     isArray: false
                 }
             }),

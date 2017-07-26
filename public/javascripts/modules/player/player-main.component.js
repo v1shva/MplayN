@@ -89,13 +89,12 @@ component('playerMain', {
 
         this.rateSong = function () {
             var currentSong =  {id: angularPlayer.currentTrackData().id};
-            this.songs.forEach( function (song)
+            songs.forEach( function (song)
             {
-               if(currentSong.id == song.id) currentSong = song;
-               console.log(currentSong.id);
-               console.log(song.id);
+               if(currentSong.id === song.id) currentSong = song;
+
             });
-            if(currentSong[this.moodString]<0) currentSong[this.moodString] -= -1;
+            if(currentSong[this.moodString]<0) currentSong[this.moodString] -= 1;
             else currentSong[this.moodString] = -1;
             console.log(currentSong);
             var res = Song.rateSong.post(currentSong);
