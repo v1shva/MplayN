@@ -56,7 +56,7 @@ router.get('/byEmotion', (req, res, next) => {
 
 });
 
-// this api route should be protected
+
 router.get('/byUserID',passport.authenticate('jwt', { session: false}), (req, res, next) => {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
@@ -105,6 +105,7 @@ router.post('/dislikeSong',passport.authenticate('jwt', { session: false}), (req
     }
 });
 
+
 var moment = require('moment');
 
 router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req, res, next) => {
@@ -128,18 +129,28 @@ router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req,
         });
     }
 });
+
+router.post('/getReportedSongs',passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+
+    if(validator.isAlphanumeric(decoded.id)){
+        getModel().getReportedSongs(req.body.id, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    }
+});
 /**
  * POST /api/songs
  *
  * Create a new song using song upload.
  */
 // this api route should be protected
-router.post(
-    '/uploadSong',
-    passport.authenticate('jwt', { session: false}),
-    songs.multer.single('file'),
-    songs.sendUploadToGCS,
-    (req, res, next) => {
+router.post('/uploadSong', passport.authenticate('jwt', { session: false}), songs.multer.single('file'), songs.sendUploadToGCS, (req, res, next) => {
         let data = req.body;
         var token = getToken(req.headers);
         var decoded = jwt.decode(token, config.secret);
@@ -170,10 +181,7 @@ router.post(
  * Create a new song using song URL.
  */
 // this api route should be protected
-router.post(
-    '/addNew',
-    passport.authenticate('jwt', { session: false}),
-    (req, res, next) => {
+router.post('/addNew', passport.authenticate('jwt', { session: false}), (req, res, next) => {
         var token = getToken(req.headers);
         var decoded = jwt.decode(token, config.secret);
         let data = req.body;
@@ -189,8 +197,6 @@ router.post(
         });
     }
 );
-
-
 
 /**
  * Errors on "/api/songAPI/*" routes.

@@ -114,6 +114,7 @@ link(rel='stylesheet', href='/player/skin.css')
                         label Report it for copyright infringment.
                         input(type='checkbox')
             .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.reportSong()') Submit
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
         .modal-content(ng-show='!$ctrl.loggedIn')
             .modal-header.modal-header-error

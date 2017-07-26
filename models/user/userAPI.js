@@ -90,7 +90,16 @@ router.post('/authUser', (req, res, next) => {
                         userDB.password=null;
                         var token = jwt.encode(userDB, config.secret);
                         // return the information including token as JSON
-                        var user = {username:userDB.username, email:userDB.email, imageURL: userDB.imageURL}
+                        var user = {
+                            username:userDB.username,
+                            email:userDB.email,
+                            imageURL: userDB.imageURL,
+                            birthDate: userDB.birthDate,
+                            country: userDB.country,
+                            gender: userDB.gender,
+                            firstName: userDB.firstName,
+                            lastName: userDB.lastName
+                        }
                         res.json({success: true, token: 'JWT ' + token, user: user});
                     } else {
                         res.send({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -108,7 +117,41 @@ router.post('/authUser', (req, res, next) => {
 });
 
 
+router.post('/makeAdmin', (req, res, next) => {
+    req.body.id = xss.inHTMLData(req.body.id);
+    if (validator.isAlphanumeric(req.body.id)) {
+        var priviledge = {admin: "allow"}
+        var token = jwt.encode(priviledge, config.secret);
+        user["userLevel"] = token;
+        getModel().update(req.body.id, user, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
+    }
+});
 
+router.post('/makeModerator', (req, res, next) => {
+    req.body.id = xss.inHTMLData(req.body.id);
+    if (validator.isAlphanumeric(req.body.id)) {
+        var priviledge = {moderator: "allow"}
+        var token = jwt.encode(priviledge, config.secret);
+        user["userLevel"] = token;
+        getModel().update(req.body.id, user, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided or invalid Email'});
+    }
+});
 /**
  * POST /api/user/addNew
  *
