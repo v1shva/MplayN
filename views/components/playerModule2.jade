@@ -139,7 +139,7 @@ link(rel='stylesheet', href='/player/skin.css')
                                         label.control-label.col-sm-4(for='pwd') URL of allegedly infringing audio to be removed:
                                         .col-sm-6
                                             input#pwd.form-control(type='text', placeholder='URL of allegedly infringing audio to be removed', name='pwd')
-                                            | Describe the work allegedly infringed:
+                                            |         Describe the work allegedly infringed:
                                     br
                                     .form-group
                                         label.control-label.col-sm-4(for='radio') Where does the content appear?
@@ -303,9 +303,6 @@ link(rel='stylesheet', href='/player/skin.css')
                                         label.control-label.col-sm-4(for='radio') Typing your full name in this box will act as your digital signature.
                                         .col-sm-6
                                             input#radio.form-control(type='text', placeholder='Typing your full name in this box will act as your digital signature.', name='')
-                                    .col-sm-10
-                                        input.btn.btn-default(type='submit', name='submit', value='submit complaint')
-
             .modal-footer
                 button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.reportSong()') Submit
                 button.btn.btn-default(type='button', data-dismiss='modal') Close

@@ -7,69 +7,56 @@
         .col-lg-3.col-md-3.col-sm-3.hidden-xs
             .panel.panel-default.panel-menu
                 .panel-body
-                    a(ui-sref='myAccount')
+                    a(ui-sref='adminSongs')
                         span.divtoLink
                     h1.panel-title.pull-right(style='font-size:20px;')
                         i.fa.fa-cogs(aria-hidden='true')
-                        |  Settings
+                        |  Reported Songs
                         | &nbsp;
-                        span.glyphicon.glyphicon-cog
+                        span.glyphicon.glyphicon-alert
             .panel.panel-default.panel-menu.panel-active
                 .panel-body
-                    a(ui-sref='myAccount')
+                    a(ui-sref='adminUsers')
                         span.divtoLink
                     h1.panel-title.pull-right(style='font-size:20px;')
                         i.fa.fa-cogs(aria-hidden='true')
-                        |  My Songs
+                        |  Current Users
                         | &nbsp;
-                        span.glyphicon.glyphicon-headphones
-            .panel.panel-default.panel-menu
-                .panel-body
-                    a(ui-sref='myAccount')
-                        span.divtoLink
-                    h1.panel-title.pull-right(style='font-size:20px;')
-                        i.fa.fa-cogs(aria-hidden='true')
-                        |  My Messages
-                        | &nbsp;
-                        span.glyphicon.glyphicon-comment
+                        span.glyphicon.glyphicon-user
+
         .col-lg-9.col-md-9.col-sm-9.col-xs-12
             .panel.panel-default
                 .panel-body
-                    h1.panel-title.pull-left(style='font-size:20px;') Your contributions to MPlay
+                    h1.panel-title.pull-left(style='font-size:20px;') Current Users
 
 
             .panel.panel-default
                 .panel-body
                     .panel-title.pull-left
-                        strong Selected Songs :
-                        button.btn.btn-danger()
-                            span.glyphicon.glyphicon-remove
-                            | &nbsp;
-                            | Delete
-                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
-                            span.glyphicon.glyphicon-edit
-                            | &nbsp;
-                            | Edit
-                        button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
-                            span.glyphicon.glyphicon-edit
-                            | &nbsp;
-                            | Done
+                    strong Selected Users :
+                    button.btn.btn-danger()
+                        span.glyphicon.glyphicon-remove
+                        | &nbsp;
+                        | Delete
                     br
                     hr
                     table.table.table-hover
                         thead
                             tr
                                 th Select
-                                th Song Title
-                                th Artist
-                                th Moods with Rank
-                                th Play Count
+                                th Username
+                                th Email
+                                th Country
+                                th Image
                         tbody
-                            tr
+                            tr(ng-repeat='user in $ctrl.users')
                                 td
                                     input(type='checkbox', checked='')
-                                td Doe
-                                td john@example.com
+                                td {{user.username}}
+                                td {{user.email}}
+                                td {{user.country}}
+                                td
+                                    img.img-responsive.img-circle(ng-src='{{user.imageURL}}', width='30px', height='30px')
                             tr
                                 td Mary
                                 td Moe

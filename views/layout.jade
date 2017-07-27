@@ -125,7 +125,7 @@ html(lang='en', ng-app='MPlayApp')
                       li.dropdown(ng-show="loggedIn")
                           a.dropdown-toggle(data-toggle='dropdown')
                               span.user-avatar.pull-left(style='margin-right:8px; margin-top:-5px;')
-                                  img.img-responsive.img-circle(src='https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png', width='30px', height='30px')
+                                  img.img-responsive.img-circle(ng-src='{{userImageURL}}', width='30px', height='30px')
                               span.user-name
                                   | {{userName}}
                           ul.dropdown-menu
