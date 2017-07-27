@@ -99,10 +99,10 @@ MPlayApp.controller('MainCtrl',
         if(loggedIn){
             var data = $cookies.getObject('userData');
             $scope.loggedIn = true;
-            $scope.userEmail = d.user.email;
-            $scope.userImageURL = d.user.imageURL;
-            $scope.userName = d.user.username;
-            $scope.userLevel = d.user.userLevel;
+            $scope.userEmail = data.user.email;
+            $scope.userImageURL = data.user.imageURL;
+            $scope.userName = data.user.username;
+            $scope.userLevel = data.user.userLevel;
 
         }
         var subscription = AuthDetails.subscribe(function onNext(d) {
