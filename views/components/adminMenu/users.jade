@@ -49,15 +49,18 @@
                                 th Country
                                 th Image
                                 th User Level
+                                th Change Privileges
                         tbody
                             tr(ng-repeat='user in $ctrl.users')
                                 td
-                                    input(name="{{user.id}}", type='checkbox',ng-model="$ctrl.clicked", ng-change="$ctrl.checked($event.currentTarget)")
+                                    input(name="{{user.id}}", type='checkbox',ng-model="$ctrl.clicked", ng-click="$ctrl.checked($event.currentTarget)")
                                 td {{user.username}}
                                 td {{user.email}}
                                 td {{user.country}}
                                 td
-                                    img.img-responsive.img-circle(ng-src='{{user.imageURL}}', width='30px', height='30px')
+                                    img.img-responsive.img-circle(ng-src='{{user.imageURL}}', width='30px', height='30px',style='margin:auto;')
                                 td {{user.userLevel}}
+                                td
+                                    button.btn.btn-default()
                             tr(ng-show="!$ctrl.users")
                                 td Loading content
