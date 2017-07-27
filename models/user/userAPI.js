@@ -125,14 +125,12 @@ router.post('/getAllUsers', passport.authenticate('jwt', { session: false}), (re
     if (decoded.userLevel==="admin"){
         let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
         if(accessKey.admin === "allow"){
-            var priviledge = {admin: "allow"}
-            var newToken = jwt.encode(priviledge, config.secret);
             getModel().listAllUsers(10, req.body.pageToken, (err, entities, cursor) => {
                 if (err) {
                     next(err);
                     return;
                 }
-                entities.forEach( function (user)
+                /*entities.forEach( function (user)
                 {
                     if(decoded.id === user.id) {
                         var index = entities.indexOf(user);
@@ -141,12 +139,39 @@ router.post('/getAllUsers', passport.authenticate('jwt', { session: false}), (re
                         }
                     };
 
-                });
+                });*/
                 res.json({
                     items: entities,
                     nextPageToken: cursor
                 });
             });
+        } else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+        }
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
+    }
+
+});
+
+router.post('/deleteUsers', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    if (decoded.userLevel==="admin"){
+        let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+        if(accessKey.admin === "allow"){
+            req.body.users.forEach( function (user)
+            {
+                getModel().delete(user, (err) => {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                });
+            });
+            return res.status(403).send({success: true, msg: 'Done'});
+
         } else {
             return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
         }
@@ -174,7 +199,7 @@ router.post('/makeAdmin', passport.authenticate('jwt', { session: false}), (req,
                     }
                     user.userLevelToken = newToken;
                     user.userLevel = "admin";
-                    getModel().update(decoded.id, user, (err) => {
+                    getModel().update(req.body.id, user, (err) => {
                         if (err) {
                             next(err);
                             return;
@@ -196,7 +221,7 @@ router.post('/makeAdmin', passport.authenticate('jwt', { session: false}), (req,
 
 });
 
-router.post('/makeModerator', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+router.post('/makeMod', passport.authenticate('jwt', { session: false}), (req, res, next) => {
     req.body.id = xss.inHTMLData(req.body.id);
     let token = getToken(req.headers);
     let decoded = jwt.decode(token, config.secret);
@@ -213,7 +238,7 @@ router.post('/makeModerator', passport.authenticate('jwt', { session: false}), (
                     }
                     user.userLevelToken = newToken;
                     user.userLevel = "mod";
-                    getModel().update(decoded.id, user, (err) => {
+                    getModel().update(req.body.id, user, (err) => {
                         if (err) {
                             next(err);
                             return;

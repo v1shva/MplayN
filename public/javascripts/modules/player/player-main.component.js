@@ -24,7 +24,7 @@ component('playerMain', {
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
                 var dataRes = dataRes;
-                console.log(dataRes.items);
+                //console.log(dataRes.items);
                 $timeout(function() {
                     angularPlayer.clearPlaylist(function(data) {
                         //add songs to playlist
@@ -51,16 +51,16 @@ component('playerMain', {
 
         $scope.$on('track:id', function(event, data) {
             //do your stuff here
-            console.log(data);
+            //(data);
             var res = Song.playCount.post({id : data});
             res.$promise.then(function(dataRes){
-                console.log(dataRes);
+                //console.log(dataRes);
             });
         });
 
         getSongsByEmotion('happy0');
         var subscription = Emotion.subscribe(function onNext(d) {
-            console.log(d);
+            //console.log(d);
             getSongsByEmotion(Emotion.get());
         });
 
@@ -126,7 +126,7 @@ component('playerMain', {
             });
             var res = Song.dislikeSong.post(currentSong);
             res.$promise.then(function(dataRes){
-                console.log(dataRes);
+                //console.log(dataRes);
             });
         }
 

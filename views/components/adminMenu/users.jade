@@ -34,7 +34,7 @@
                 .panel-body
                     .panel-title.pull-left
                     strong Selected Users :
-                    button.btn.btn-danger(ng-disabled="$ctrl.checkedUsers.length == 0")
+                    button.btn.btn-danger(ng-disabled="$ctrl.checkedUsers.length == 0",data-toggle="modal", data-target="#deleteModal")
                         span.glyphicon.glyphicon-remove
                         | &nbsp;
                         | Delete
@@ -53,7 +53,7 @@
                         tbody
                             tr(ng-repeat='user in $ctrl.users')
                                 td
-                                    input(name="{{user.id}}", type='checkbox',ng-model="$ctrl.clicked", ng-click="$ctrl.checked($event.currentTarget)")
+                                    input(name="{{user.id}}", type='checkbox', ng-click="$ctrl.checked($event.currentTarget)")
                                 td {{user.username}}
                                 td {{user.email}}
                                 td {{user.country}}
@@ -61,6 +61,49 @@
                                     img.img-responsive.img-circle(ng-src='{{user.imageURL}}', width='30px', height='30px',style='margin:auto;')
                                 td {{user.userLevel}}
                                 td
-                                    button.btn.btn-default()
+                                    button.btn.btn-default(name="{{user.id}}",ng-click="$ctrl.makeAdminUser = user.id", data-toggle="modal", data-target="#makeAdminModal") Make Admin
+                                    button.btn.btn-default(name="{{user.id}}",ng-click="$ctrl.makeModUser = user.id", data-toggle="modal", data-target="#makeModModal") Make Moderator
                             tr(ng-show="!$ctrl.users")
                                 td Loading content
+
+#deleteModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to delete selected users from app. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.deleteUsers()') Delete
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#makeAdminModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to make this user an administrator of MPlay. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.makeAdmin()') Make Admin
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#makeModModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to make this user a moderator of MPlay. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.makeMod()') Make Moderator
+                button.btn.btn-default(type='button', data-dismiss='modal') Close

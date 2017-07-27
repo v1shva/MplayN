@@ -50,6 +50,27 @@ factory('User', ['$resource', '$cookies',
                     isArray: false
                 }
             }),
+            deleteUsers : $resource('/api/user/deleteUsers', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            makeAdmin : $resource('/api/user/makeAdmin', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            makeMod : $resource('/api/user/makeMod', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
         }
 
 

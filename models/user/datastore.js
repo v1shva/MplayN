@@ -123,7 +123,7 @@ function listByUserID (userID, limit, token, cb) {
 
 function listAllUsers (limit, token, cb) {
     const q = ds.createQuery([kind])
-        .filter('id', '>', 0)
+        .filter('userLevel', '=', "user")
         .start(token);
 
     ds.runQuery(q, (err, entities, nextQuery) => {
