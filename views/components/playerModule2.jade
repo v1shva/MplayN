@@ -108,10 +108,204 @@ link(rel='stylesheet', href='/player/skin.css')
                 h4.modal-title.pull-left Report the song
                 img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
             .modal-body
-                .form-group.ui-widget
-                    .form-group.ui-widget
-                        label Report it for copyright infringment.
-                        input(type='checkbox')
+                .container
+                    h2 Copyright Infringement Notification
+                    form#submit_complaint(method='post')
+                        #complaint_filter_div.section
+                            p.section-header What is the issue?
+                            script(type='text/javascript').
+                                function yesnoCheck() {
+                                    if (document.getElementById('yesCheck').checked) {
+                                        document.getElementById('ifYes').style.display = 'block';
+                                    }
+                                    else document.getElementById('ifYes').style.display = 'none';
+                                    if (document.getElementById('noCheck').checked) {
+                                        document.getElementById('ifNo').style.display = 'block';
+                                    }
+                                    else document.getElementById('ifNo').style.display = 'none';
+                                }
+                            input#yesCheck(type='radio', onclick='javascript:yesnoCheck();', name='yesno')
+                            | I am!
+                            br
+                            br
+                            input#noCheck(type='radio', onclick='javascript:yesnoCheck();', name='yesno')
+                            | My company, organisation or client
+                            br
+                        #ifYes(style='display:none')
+                            form
+                                .container
+                                    h4 Audio to be removed
+                                    .form-group
+                                        label.control-label.col-sm-4(for='pwd') URL of allegedly infringing audio to be removed:
+                                        .col-sm-6
+                                            input#pwd.form-control(type='text', placeholder='URL of allegedly infringing audio to be removed', name='pwd')
+                                            | Describe the work allegedly infringed:
+                                    br
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Where does the content appear?
+                                        .col-sm-2
+                                            input#radio.form-check-input(type='radio', name='exampleRadios', value='option1', checked='')
+                                            |     Entire audio
+                                        .col-sm-2
+                                            input#radio.form-check-input(type='radio', name='exampleRadios', value='option2')
+                                            |     Timestamps
+                                        .col-sm-2
+                                            input#exampleRadios3.form-check-input(type='radio', name='exampleRadios', value='option3')
+                                            |     Customised Thumbnail
+                                    .form-group
+                                        .col-sm-10
+                                            b Tell us about yourself
+                                            br
+                                            |    ∗ Copyright Owner's Name (YouTube username or full legal name):
+                                            |    The copyright owner name will be published on YouTube in place of disabled content.
+                                            |    This will become part of the public record of your request, along with your description(s) of the work(s) allegedly infringed. All other information, including your full legal name and email address, are part of the full takedown notice, which may be provided to the uploader.
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Authority to make this complaint:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Authority to make this complaint:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Secondary Email Address:
+                                        .col-sm-6
+                                            input#radio.form-control(type='email', placeholder='Secondary Email Address:', name='')
+                                    .form-group
+                                        .col-sm-10
+                                            | We may email you about your takedown request if additional information is required. You may wish to provide an alternative email address where we can reach you, for example, if you don't frequently check the email address associated with your account.
+                                            br
+                                    //
+                                      <div class="form-group">
+                                      <label class="control-label col-sm-4" for="radio">Your Full Legal Name (A first and a last name, not a company name):</label>
+                                      <div class="col-sm-6">
+                                      <input type="password" class="form-control" id="radio" placeholder="Your Full Legal Name (A first and a last name, not a company name):" name="pwd">
+                                      </div>
+                                      </div>
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Street Address:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Street Address:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') City:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='City:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') County/Area:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='County/Area:', name='')
+                                        label.control-label.col-sm-4(for='radio') ZIP/Postcode:
+                                        .col-sm-6
+                                            input#radio.form-control(type='number', placeholder='ZIP/Postcode:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Phone:
+                                        .col-sm-6
+                                            input#radio.form-control(type='number', placeholder='Phone:', name='')
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I am the owner or an agent authorised to act on behalf of the owner of an exclusive right that has allegedly been infringed.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I have a good faith belief that the use of the material in the manner reported by complaint is not authorised by the copyright owner, its agent or the law; and
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | This notification is accurate.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I acknowledge that there may be adverse legal consequences for making false or bad faith allegations of copyright infringement by using this process.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I understand that abuse of this tool will result in termination of my YouTube account.
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Typing your full name in this box will act as your digital signature.
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Typing your full name in this box will act as your digital signature.', name='pwd')
+                                    .col-sm-10
+                                        input.btn.btn-default(type='submit', name='submit', value='submit complaint')
+                        #ifNo(style='display:none')
+                            form
+                                .container
+                                    h4 Audio to be removed
+                                    .form-group
+                                        label.control-label.col-sm-4(for='pwd') URL of allegedly infringing audio to be removed:
+                                        .col-sm-6
+                                            input#pwd.form-control(type='text', placeholder='URL of allegedly infringing audio to be removed', name='')
+                                            |         Describe the work allegedly infringed:
+                                    br
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Where does the content appear?
+                                        .col-sm-2
+                                            input#radio.form-check-input(type='radio', name='exampleRadios', value='option1', checked='')
+                                            |     Entire audio
+                                        .col-sm-2
+                                            input#radio.form-check-input(type='radio', name='exampleRadios', value='option2')
+                                            |     Timestamps
+                                        .col-sm-2
+                                            input#exampleRadios3.form-check-input(type='radio', name='exampleRadios', value='option3')
+                                            |     Customised Thumbnail
+                                    .form-group
+                                        .col-sm-10
+                                            b Tell us about yourself
+                                            br
+                                            |    ∗ Copyright Owner's Name (YouTube username or full legal name):
+                                            |    The copyright owner name will be published on YouTube in place of disabled content.
+                                            |    This will become part of the public record of your request, along with your description(s) of the work(s) allegedly infringed. All other information, including your full legal name and email address, are part of the full takedown notice, which may be provided to the uploader.
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Authority to make this complaint:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Authority to make this complaint:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Secondary Email Address:
+                                        .col-sm-6
+                                            input#radio.form-control(type='email', placeholder='Secondary Email Address:', name='')
+                                    .form-group
+                                        .col-sm-10
+                                            | We may email you about your takedown request if additional information is required. You may wish to provide an alternative email address where we can reach you, for example, if you don't frequently check the email address associated with your account.
+                                            br
+                                    //
+                                      <div class="form-group">
+                                      <label class="control-label col-sm-4" for="radio">Your Full Legal Name (A first and a last name, not a company name):</label>
+                                      <div class="col-sm-6">
+                                      <input type="password" class="form-control" id="radio" placeholder="Your Full Legal Name (A first and a last name, not a company name):" name="pwd">
+                                      </div>
+                                      </div>
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Street Address:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Street Address:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') City:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='City:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') County/Area:
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='County/Area:', name='')
+                                        label.control-label.col-sm-4(for='radio') ZIP/Postcode:
+                                        .col-sm-6
+                                            input#radio.form-control(type='number', placeholder='ZIP/Postcode:', name='')
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Phone:
+                                        .col-sm-6
+                                            input#radio.form-control(type='number', placeholder='Phone:', name='')
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I am the owner or an agent authorised to act on behalf of the owner of an exclusive right that has allegedly been infringed.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I have a good faith belief that the use of the material in the manner reported by complaint is not authorised by the copyright owner, its agent or the law; and
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | This notification is accurate.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I acknowledge that there may be adverse legal consequences for making false or bad faith allegations of copyright infringement by using this process.
+                                            label.checkbox-inline
+                                                input(type='checkbox', value='')
+                                                | I understand that abuse of this tool will result in termination of my YouTube account.
+                                    .form-group
+                                        label.control-label.col-sm-4(for='radio') Typing your full name in this box will act as your digital signature.
+                                        .col-sm-6
+                                            input#radio.form-control(type='text', placeholder='Typing your full name in this box will act as your digital signature.', name='')
+                                    .col-sm-10
+                                        input.btn.btn-default(type='submit', name='submit', value='submit complaint')
+
             .modal-footer
                 button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.reportSong()') Submit
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
