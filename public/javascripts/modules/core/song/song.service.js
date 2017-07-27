@@ -19,6 +19,12 @@ factory('Song', ['$resource','$cookies',
                 }
 
             }),
+            playCount : $resource('/api/song/playCount', {}, {
+                post: {
+                    method: 'POST',
+                    isArray: false
+                }
+            }),
             rateSong : $resource('/api/song/rateSong', {}, {
                 post: {
                     method: 'POST',
@@ -41,6 +47,34 @@ factory('Song', ['$resource','$cookies',
                 }
             }),
             addNewSong : $resource('/api/song/addNew', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            getLikedSongs : $resource('/api/song/getLikedSongs', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            getDislikedSongs : $resource('/api/song/getDislikedSongs', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            getReportedSongs : $resource('/api/song/getReportedSongs', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            getUploadedSongs : $resource('/api/song/getUploadedSongs', {}, {
                 post: {
                     method: 'post',
                     headers: {'Authorization': getToken},

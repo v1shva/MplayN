@@ -6,17 +6,68 @@ angular.
 module('userMenu').
 component('mySongs', {
     templateUrl: '/components/userMenu/MySongs',
-    controller:['$cookies', function MySongsController($cookies) {
+    controller:['$cookies','Song', function MySongsController($cookies, Song) {
         this.showLiked = true;
         var data = $cookies.getObject('userData');
         this.userName = data.user.username;
         this.userEmail = data.user.email;
+        var controller = this;
         this.EditBasic = function () {
             //
         }
         
-        this.getLikeSongs = function () {
-            
+        this.getLikedSongs = function () {
+            var res = Song.getLikedSongs.post();
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+                console.log(dataRes);
+                $state.go('uploadSuccess');
+                dataRes.entities.forEach( function (song)
+                {
+                    getEmotionProperty(song);
+                });
+                controller.likedSongs = dataRes.entities;
+            });
+        };
+
+        this.getDislikedSongs = function () {
+            var res = Song.getDislikedSongs();
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+                console.log(dataRes);
+                $state.go('uploadSuccess');
+                dataRes.entities.forEach( function (song)
+                {
+                    getEmotionProperty(song);
+                });
+                controller.likedSongs = dataRes.entities;
+            });
+        };
+
+        this.getReportedSongs = function () {
+            var res = Song.getDisikedSongs.post();
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+                console.log(dataRes);
+                $state.go('uploadSuccess');
+                dataRes.entities.forEach( function (song)
+                {
+                    getEmotionProperty(song);
+                });
+                controller.likedSongs = dataRes.entities;
+            });
+        };
+
+        function getEmotionProperty(obj) {
+            var re = new RegExp("0$"), key;
+            obj.moods = [];
+            for (key in obj)
+                if (re.test(key)) {
+                    key.concat(": rank=");
+                    key.concat(obj[key]);
+                    obj.moods.push(key.concat)
+                }
+            return null; // This should not be possible
         }
     }]
 });

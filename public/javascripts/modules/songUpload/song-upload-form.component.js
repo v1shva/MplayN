@@ -98,19 +98,23 @@ component('songUploadForm', {
             var title = {title: uploadForm.songTitle.value};
             var artist = {artist: uploadForm.songArtist.value};
             var url = {url : "none"};
+            var playCount = {playCount : 0};
             var moodS = {};
             moodS[this.moodString] = -1;
             $state.go('loading');
             if(this.showUpload && isValid){
                 // check to make sure the form is completely valid
                 console.log(uploadForm);
-                $scope.selectedItem.formData = [title,artist,url,moodS];
+                $scope.selectedItem.formData = [title,artist,url,moodS,playCount];
                 $scope.selectedItem.upload();
             }
             else if(isValid){
-                var currentSong =  {title: uploadForm.songTitle.value,
-                                    artist: uploadForm.songArtist.value,
-                                    url : uploadForm.songURL.value};
+                var currentSong =  {
+                    title: uploadForm.songTitle.value,
+                    artist: uploadForm.songArtist.value,
+                    url : uploadForm.songURL.value,
+                    playCount: 0
+                };
                 currentSong[this.moodString] = -1;
                 console.log(currentSong);
                 var res = Song.addNewSong.post(currentSong);

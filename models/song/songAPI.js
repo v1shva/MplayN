@@ -130,20 +130,6 @@ router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req,
     }
 });
 
-router.post('/getReportedSongs',passport.authenticate('jwt', { session: false}), (req, res, next) => {
-    var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-
-    if(validator.isAlphanumeric(decoded.id)){
-        getModel().getReportedSongs(req.body.id, (err) => {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.status(200).send('OK');
-        });
-    }
-});
 /**
  * POST /api/songs
  *
@@ -194,6 +180,95 @@ router.post('/addNew', passport.authenticate('jwt', { session: false}), (req, re
                 return;
             }
             res.status(200).send('OK');
+        });
+    }
+);
+
+router.post('/playCount', (req, res, next) => {
+    getModel().read(req.body.id, (err, song) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        song.playCount +=1;
+        getModel().update(req.body.id, song, (err) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).send('OK');
+        });
+    });
+});
+
+router.post('/getLikedSongs', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
+
+        // Save the data to the database.
+    getModel().likedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.json({
+            items: entities,
+            nextPageToken: cursor
+        });
+    });
+    }
+);
+
+router.post('/getDislikedSongs', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
+
+        // Save the data to the database.
+        getModel().dislikedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
+        });
+    }
+);
+
+router.post('/getReportedSongs', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
+
+        // Save the data to the database.
+        getModel().reportedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
+        });
+    }
+);
+
+router.post('/getUploadedSongs', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+        var token = getToken(req.headers);
+        var decoded = jwt.decode(token, config.secret);
+
+        // Save the data to the database.
+        getModel().uploadedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
         });
     }
 );

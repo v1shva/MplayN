@@ -137,6 +137,65 @@ function listByUserID (userID, limit, token, cb) {
     });
 }
 
+function likedSongsList (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter(userID.concat("l"), '=', 'like')
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
+function dislikedSongsList (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter(userID.concat("d"), '=', 'dislike')
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
+function reportedSongsList (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter(userID.concat("r"), '=', 'report')
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
+function uploadedSongsList (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter('uploaded', '=', userID)
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
 
 // Creates a new song or updates an existing song with new data. The provided
 // data is automatically translated into Datastore format. The song will be
@@ -200,6 +259,10 @@ module.exports = {
     delete: _delete,
     list,
     listByEmotion,
-    listByUserID
+    listByUserID,
+    likedSongsList,
+    dislikedSongsList,
+    reportedSongsList,
+    uploadedSongsList
 };
 // [END exports]

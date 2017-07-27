@@ -6,7 +6,7 @@ angular.
 module('player').
 component('playerMain', {
     templateUrl: '/components/player.php',
-    controller: ['Song','$timeout','Emotion','$cookies', function PlayListController(Song, $timeout, Emotion, $cookies) {
+    controller: ['Song','$timeout','Emotion','$cookies','$scope', function PlayListController(Song, $timeout, Emotion, $cookies, $scope) {
         this.emotionSelected = false;
         this.mood = [];
         this.currentMoods = [];
@@ -40,7 +40,7 @@ component('playerMain', {
                         });
 
                         songs = dataRes.items;
-                        angularPlayer.play();
+                        //angularPlayer.play();
 
                     });
                 }, 0);
@@ -48,6 +48,12 @@ component('playerMain', {
 
             });
         }
+
+        $scope.$on('track:id', function(event, data) {
+            //do your stuff here
+            console.log(data);
+        });
+
         getSongsByEmotion('happy0');
         var subscription = Emotion.subscribe(function onNext(d) {
             console.log(d);

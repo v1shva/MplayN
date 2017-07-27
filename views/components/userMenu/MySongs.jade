@@ -42,12 +42,13 @@
                 .panel-body
                     ul.nav.nav-tabs
                         li(ng-class="{'active': $ctrl.showLiked, '': !$ctrl.showLiked}")
-                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = true;$ctrl.showReported = false;") Liked Songs
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = true;$ctrl.showReported = false;$ctrl.showUploaded = false;") Liked Songs
                         li(ng-class="{'active': $ctrl.showDislLked, '': !$ctrl.showDisLiked}")
-                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = true;$ctrl.showLiked = false;$ctrl.showReported = false;") Disliked Songs
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = true;$ctrl.showLiked = false;$ctrl.showReported = false;$ctrl.showUploaded = false;") Disliked Songs
                         li(ng-class="{'active': $ctrl.showReported, '': !$ctrl.showReported}")
-                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = false;$ctrl.showReported = true;") Reported Songs
-
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = false;$ctrl.showReported = true;$ctrl.showUploaded = false;") Reported Songs
+                        li(ng-class="{'active': $ctrl.showUploaded, '': !$ctrl.showUploaded}")
+                            a(data-toggle='tab', ng-click="$ctrl.showDisLiked = false;$ctrl.showLiked = false;$ctrl.showReported = false;$ctrl.showUploaded = true;") Uploaded Songs
                     .tab-content
                         .tab-pane.fade.in(ng-class="{'active': $ctrl.showLiked, '': !$ctrl.showLiked}")
                             br
@@ -73,11 +74,14 @@
                                         th Moods with Rank
                                         th Play Count
                                 tbody
-                                    tr
+                                    tr(ng-repeat='song in $ctrl.likedSongs')
                                         td
                                             input(type='checkbox', checked='')
-                                        td Doe
-                                        td john@example.com
+                                        td {{song.title}}
+                                        td {{song.artist}}
+                                        td
+                                            li(ng-repeat='moods in song')
+                                        td {{song.playCount}}
                                     tr
                                         td Mary
                                         td Moe
