@@ -34,7 +34,7 @@
                 .panel-body
                     .panel-title.pull-left
                     strong Selected Users :
-                    button.btn.btn-danger()
+                    button.btn.btn-danger(ng-disabled="$ctrl.checkedUsers.length == 0")
                         span.glyphicon.glyphicon-remove
                         | &nbsp;
                         | Delete
@@ -48,20 +48,16 @@
                                 th Email
                                 th Country
                                 th Image
+                                th User Level
                         tbody
                             tr(ng-repeat='user in $ctrl.users')
                                 td
-                                    input(type='checkbox', checked='')
+                                    input(name="{{user.id}}", type='checkbox',ng-model="$ctrl.clicked", ng-change="$ctrl.checked($event.currentTarget)")
                                 td {{user.username}}
                                 td {{user.email}}
                                 td {{user.country}}
                                 td
                                     img.img-responsive.img-circle(ng-src='{{user.imageURL}}', width='30px', height='30px')
-                            tr
-                                td Mary
-                                td Moe
-                                td mary@example.com
-                            tr
-                                td July
-                                td Dooley
-                                td july@example.com
+                                td {{user.userLevel}}
+                            tr(ng-show="$ctrl.users")
+                                td Loading content

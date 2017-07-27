@@ -125,23 +125,28 @@ router.post('/getAllUsers', passport.authenticate('jwt', { session: false}), (re
     if (decoded.userLevel==="admin"){
         let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
         if(accessKey.admin === "allow"){
-            if (validator.isAlphanumeric(req.body.id)) {
-                var priviledge = {admin: "allow"}
-                var newToken = jwt.encode(priviledge, config.secret);
-                getModel().listAllUsers(decoded.id,10, req.body.pageToken, (err, entities, cursor) => {
-                    if (err) {
-                        next(err);
-                        return;
-                    }
-                    res.json({
-                        items: entities,
-                        nextPageToken: cursor
-                    });
-                });
+            var priviledge = {admin: "allow"}
+            var newToken = jwt.encode(priviledge, config.secret);
+            getModel().listAllUsers(10, req.body.pageToken, (err, entities, cursor) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                entities.forEach( function (user)
+                {
+                    if(decoded.id === user.id) {
+                        var index = entities.indexOf(user);
+                        if (index > -1) {
+                            entities.splice(index, 1);
+                        }
+                    };
 
-            } else {
-                return res.status(403).send({success: false, msg: 'No token provided or invalid id'});
-            }
+                });
+                res.json({
+                    items: entities,
+                    nextPageToken: cursor
+                });
+            });
         } else {
             return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
         }

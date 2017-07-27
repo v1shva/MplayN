@@ -121,9 +121,9 @@ function listByUserID (userID, limit, token, cb) {
     });
 }
 
-function listAllUsers (userID, limit, token, cb) {
+function listAllUsers (limit, token, cb) {
     const q = ds.createQuery([kind])
-        .filter('id', '!=', userID)
+        .filter('id', '>', 0)
         .start(token);
 
     ds.runQuery(q, (err, entities, nextQuery) => {
