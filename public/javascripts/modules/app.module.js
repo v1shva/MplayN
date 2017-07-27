@@ -40,6 +40,17 @@ MPlayApp.config(
 
         });
 
+        $stateProvider.state('adminSongs', {
+            url: '/adminMenu/songs.php',
+            component: 'songs',
+
+        });
+
+        $stateProvider.state('adminUsers', {
+            url: '/adminMenu/users.php',
+            component: 'users',
+
+        });
         $stateProvider.state('mySongs', {
             url: '/mySongs.php',
             component: 'mySongs',

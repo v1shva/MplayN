@@ -15,12 +15,24 @@ router.get('/home', function(req, res, next) {
     res.render('components/home2', { title: 'Mplay' });
 });
 
+
+// General user routes
 router.get('/userMenu/MyAccount', function(req, res, next) {
     res.render('components/userMenu/MyAccount');
 });
 
 router.get('/userMenu/MySongs', function(req, res, next) {
     res.render('components/userMenu/MySongs');
+});
+
+
+// Admin routes
+router.get('/adminMenu/songs', function(req, res, next) {
+    res.render('components/adminMenu/songs');
+});
+
+router.get('/adminMenu/users', function(req, res, next) {
+    res.render('components/adminMenu/users');
 });
 
 router.get('/songUpload', function(req, res, next) {
@@ -32,17 +44,11 @@ router.get('/aboutUs', function(req, res, next) {
     res.render('components/aboutUs1');
 });
 
-/*router.get('/test', function(req, res, next) {
- res.render('partials/playerTest', { title: 'Mplay' });
- });*/
-
+// player components
 router.get('/player/emobar.php', function(req, res, next) {
     res.render('components/emotionbar', { title: 'Mplay' });
 });
 
-router.get('/player/emobarPlaylist.php', function(req, res, next) {
-    res.render('components/emotionbarPlaylist', { title: 'Mplay' });
-});
 
 router.get('/player.php', function(req, res, next) {
     res.render('components/playerModule2', { title: 'Mplay' });
