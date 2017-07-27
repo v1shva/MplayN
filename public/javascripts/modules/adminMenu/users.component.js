@@ -6,12 +6,15 @@ angular.
 module('adminMenu').
 component('users', {
     templateUrl: '/components/adminMenu/users',
-    controller:['$cookies', function UsersController($cookies) {
-        var data = $cookies.getObject('userData');
-        this.userName = data.user.username;
-        this.userEmail = data.user.email;
-        this.EditBasic = function () {
-            //
+    controller:['$cookies','Users', function UsersController($cookies, Users) {
+        var controller = this;
+        this.getUsers = function () {
+            var res = Users.getAllUsers.post();
+            res.$promise.then(function(dataRes){
+                //casting the retrieved song object apropriate object type, that casn be used
+                controller.users = dataRes.entities;
+            });
         }
+        this.getUsers();
     }]
 });

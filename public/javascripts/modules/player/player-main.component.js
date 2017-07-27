@@ -52,6 +52,7 @@ component('playerMain', {
         $scope.$on('track:id', function(event, data) {
             //do your stuff here
             console.log(data);
+            var res = Song.playCount({id : data});
         });
 
         getSongsByEmotion('happy0');

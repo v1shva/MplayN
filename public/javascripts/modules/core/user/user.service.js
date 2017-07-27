@@ -43,7 +43,13 @@ factory('User', ['$resource', '$cookies',
                     isArray: false
                 }
             }),
-
+            getAllUsers : $resource('/api/user/getAllUsers', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
         }
 
 

@@ -20,8 +20,6 @@ component('mySongs', {
             var res = Song.getLikedSongs.post();
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
-                console.log(dataRes);
-                $state.go('uploadSuccess');
                 dataRes.entities.forEach( function (song)
                 {
                     getEmotionProperty(song);
@@ -34,8 +32,6 @@ component('mySongs', {
             var res = Song.getDislikedSongs();
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
-                console.log(dataRes);
-                $state.go('uploadSuccess');
                 dataRes.entities.forEach( function (song)
                 {
                     getEmotionProperty(song);
@@ -48,8 +44,6 @@ component('mySongs', {
             var res = Song.getReportedSongs.post();
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
-                console.log(dataRes);
-                $state.go('uploadSuccess');
                 dataRes.entities.forEach( function (song)
                 {
                     getEmotionProperty(song);
@@ -62,8 +56,6 @@ component('mySongs', {
             var res = Song.getUploadedSongs.post();
             res.$promise.then(function(dataRes){
                 //casting the retrieved song object apropriate object type, that casn be used
-                console.log(dataRes);
-                $state.go('uploadSuccess');
                 dataRes.entities.forEach( function (song)
                 {
                     getEmotionProperty(song);
@@ -82,6 +74,11 @@ component('mySongs', {
                     obj.moods.push(key.concat)
                 }
             return null; // This should not be possible
-        }
+        };
+
+        this.getLikedSongs();
+        this.getDislikedSongs();
+        this.getReportedSongs();
+        this.getUploadedSongs();
     }]
 });

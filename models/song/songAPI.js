@@ -206,16 +206,16 @@ router.post('/getLikedSongs', passport.authenticate('jwt', { session: false}), (
         var decoded = jwt.decode(token, config.secret);
 
         // Save the data to the database.
-    getModel().likedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
-        if (err) {
-            next(err);
-            return;
-        }
-        res.json({
-            items: entities,
-            nextPageToken: cursor
+        getModel().likedSongsList(decoded.id,10, req.query.pageToken, (err, entities, cursor) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.json({
+                items: entities,
+                nextPageToken: cursor
+            });
         });
-    });
     }
 );
 
