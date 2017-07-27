@@ -190,7 +190,8 @@ router.post('/playCount', (req, res, next) => {
             next(err);
             return;
         }
-        song.playCount +=1;
+        var currentCount = parseInt(song.playCount);
+        song.playCount = currentCount + 1;
         getModel().update(req.body.id, song, (err) => {
             if (err) {
                 next(err);
