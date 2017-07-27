@@ -1,6 +1,7 @@
 .containerApp{
     height:85%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .navbar-brand {
