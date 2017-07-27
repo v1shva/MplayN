@@ -52,7 +52,10 @@ component('playerMain', {
         $scope.$on('track:id', function(event, data) {
             //do your stuff here
             console.log(data);
-            var res = Song.playCount({id : data});
+            var res = Song.playCount.post({id : data});
+            res.$promise.then(function(dataRes){
+                console.log(dataRes);
+            });
         });
 
         getSongsByEmotion('happy0');
@@ -123,12 +126,8 @@ component('playerMain', {
             });
             var res = Song.dislikeSong.post(currentSong);
             res.$promise.then(function(dataRes){
-                //casting the retrieved song object apropriate object type, that casn be used
-
                 console.log(dataRes);
-                //$state.go('uploadSuccess');
             });
-            //this.moodString
         }
 
         this.reportSong = function () {

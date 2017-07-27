@@ -6,11 +6,8 @@ link(rel='stylesheet', href='/player/skin.css')
         .seekBase(seek-track='')
             .seekLoad(ng-style="{width : ( progress + '%' ) }")
         br
-        //p
-            | Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
 
-        .currentDuration {{ currentDuration }}
-        .currentPosition {{ currentPostion }}
+        .currentPosition {{ currentPostion }} / {{ currentDuration }}
         .btn-group
             button.btn.btn-primary.playerBtns.previous(prev-track='')
             button.btn.btn-primary.playerBtns.play(play-pause-toggle, ng-class="{'pause': isPlaying}")
