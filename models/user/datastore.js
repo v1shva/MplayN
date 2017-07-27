@@ -121,6 +121,20 @@ function listByUserID (userID, limit, token, cb) {
     });
 }
 
+function listAllUsers (userID, limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter('id', '!=', userID)
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
 
 function getUserByEmail (email, cb) {
     const q = ds.createQuery([kind])
@@ -241,6 +255,7 @@ module.exports = {
     getUserByEmail,
     getUserByUsername,
     getUserByResetPasswordToken,
-    authUser
+    authUser,
+    listAllUsers
 };
 // [END exports]

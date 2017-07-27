@@ -117,6 +117,40 @@ router.post('/authUser', (req, res, next) => {
     }
 });
 
+// admin only routes
+
+router.post('/getAllUsers', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    if (decoded.userLevel==="admin"){
+        let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+        if(accessKey.admin === "allow"){
+            if (validator.isAlphanumeric(req.body.id)) {
+                var priviledge = {admin: "allow"}
+                var newToken = jwt.encode(priviledge, config.secret);
+                getModel().listAllUsers(decoded.id,10, req.body.pageToken, (err, entities, cursor) => {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+                    res.json({
+                        items: entities,
+                        nextPageToken: cursor
+                    });
+                });
+
+            } else {
+                return res.status(403).send({success: false, msg: 'No token provided or invalid id'});
+            }
+        } else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+        }
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
+    }
+
+});
 
 router.post('/makeAdmin', passport.authenticate('jwt', { session: false}), (req, res, next) => {
     req.body.id = xss.inHTMLData(req.body.id);
@@ -213,6 +247,7 @@ router.post('/addNew', (req, res, next) => {
                 }
                 req.body.password = hash;
                 req.body.userLevel = "user";
+                req.body.imageURL = "images/user.png";
                 getModel().create(req.body, (err, entity) => {
                     if (err) {
                         next(err);
