@@ -34,18 +34,10 @@
                 .panel-body
                     .panel-title.pull-left
                     strong Selected Songs :
-                    button.btn.btn-danger()
+                    button.btn.btn-danger(ng-disabled="$ctrl.checkedSongs.length == 0",data-toggle="modal", data-target="#deleteModal")
                         span.glyphicon.glyphicon-remove
                         | &nbsp;
                         | Delete
-                    button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='!showEdit')
-                        span.glyphicon.glyphicon-edit
-                        | &nbsp;
-                        | Edit
-                    button.btn.btn-default(ng-click='showEdit = !showEdit', ng-show='showEdit')
-                        span.glyphicon.glyphicon-edit
-                        | &nbsp;
-                        | Done
                     br
                     hr
                     table.table.table-hover
@@ -54,19 +46,63 @@
                                 th Select
                                 th Song Title
                                 th Artist
-                                th Moods with Rank
-                                th Play Count
+                                th Reported By
+                                th Resolved?
+                                th Date Reported
+                                th Action
                         tbody
-                            tr
+                            tr(ng-repeat='song in $ctrl.songs')
                                 td
-                                    input(type='checkbox', checked='')
-                                td Doe
-                                td john@example.com
-                            tr
-                                td Mary
-                                td Moe
-                                td mary@example.com
-                            tr
-                                td July
-                                td Dooley
-                                td july@example.com
+                                    input(name="{{song.id}}", type='checkbox', ng-click="$ctrl.checked($event.currentTarget)")
+                                td {{song.title}}
+                                td {{song.artist}}
+                                td {{song.reported.reportedUser.username}}
+                                td {{song.reported.resolved}}
+                                td {{song.reported.date}}
+                                td
+                                    button.btn.btn-default(ng-click="$ctrl.resolveSong = song.id", data-toggle="modal", data-target="#resolveModal") Resolve
+                                    button.btn.btn-default(ng-click="$ctrl.ignoreSong = song.id", data-toggle="modal", data-target="#ignoreModal") Ignore
+                            tr(ng-show="!$ctrl.songs")
+                                td Loading content
+
+#deleteModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to delete selected songs from app. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.deleteSongs()') Delete
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#resolveModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to delete selected songs from app. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.deleteSongs()') Delete
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#ignoreModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Are you sure?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                p You are about to delete selected songs from app. Are you sure?
+
+            .modal-footer
+                button.btn.btn-danger(type='button', data-dismiss='modal', ng-click='$ctrl.deleteSongs()') Delete
+                button.btn.btn-default(type='button', data-dismiss='modal') Close

@@ -81,6 +81,20 @@ factory('Song', ['$resource','$cookies',
                     isArray: false
                 }
             }),
+            getAllReported : $resource('/api/song/getAllReported', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
+            deleteReported : $resource('/api/song/deleteReported', {}, {
+                post: {
+                    method: 'post',
+                    headers: {'Authorization': getToken},
+                    isArray: false
+                }
+            }),
 
         }
     }

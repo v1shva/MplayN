@@ -274,6 +274,69 @@ router.post('/getUploadedSongs', passport.authenticate('jwt', { session: false})
     }
 );
 
+
+// admin and mod only routes
+router.post('/getAllReported', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+    let token = getToken(req.headers);
+    let decoded = jwt.decode(token, config.secret);
+    if (decoded.userLevel==="admin" || decoded.userLevel==="mod"){
+        let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+        if(accessKey.admin === "allow" || accessKey.mod === "allow"){
+            getModel().listAllReported(10, req.body.pageToken, (err, entities, cursor) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                /*entities.forEach( function (user)
+                 {
+                 if(decoded.id === user.id) {
+                 var index = entities.indexOf(user);
+                 if (index > -1) {
+                 entities.splice(index, 1);
+                 }
+                 };
+
+                 });*/
+                res.json({
+                    items: entities,
+                    nextPageToken: cursor
+                });
+            });
+        } else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+        }
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
+    }
+    }
+);
+
+router.post('/deleteReported', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+        let token = getToken(req.headers);
+        let decoded = jwt.decode(token, config.secret);
+        if (decoded.userLevel==="admin" || decoded.userLevel==="mod"){
+            let accessKey = jwt.decode(decoded.userLevelToken, config.secret);
+            if(accessKey.admin === "allow" || accessKey.mod === "allow"){
+                req.body.songs.forEach( function (song)
+                {
+                    getModel().delete(song, (err) => {
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+                    });
+                });
+                return res.status(403).send({success: true, msg: 'Done'});
+            } else {
+                return res.status(403).send({success: false, msg: 'Access denied. invalid access key'});
+            }
+        }
+        else {
+            return res.status(403).send({success: false, msg: 'Access denied. invalid access level'});
+        }
+    }
+);
 /**
  * Errors on "/api/songAPI/*" routes.
  */

@@ -137,6 +137,21 @@ function listByUserID (userID, limit, token, cb) {
     });
 }
 
+function listAllReported (limit, token, cb) {
+    const q = ds.createQuery([kind])
+        .filter('reported', '=', "true")
+        .start(token);
+
+    ds.runQuery(q, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== Datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities.map(fromDatastore), hasMore);
+    });
+}
+
 function likedSongsList (userID, limit, token, cb) {
     const q = ds.createQuery([kind])
         .filter(userID.concat("l"), '=', 'like')
@@ -263,6 +278,7 @@ module.exports = {
     likedSongsList,
     dislikedSongsList,
     reportedSongsList,
-    uploadedSongsList
+    uploadedSongsList,
+    listAllReported
 };
 // [END exports]
