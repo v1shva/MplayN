@@ -277,7 +277,7 @@ router.post('/addNew', (req, res, next) => {
                 }
                 req.body.password = hash;
                 req.body.userLevel = "user";
-                req.body.imageURL = "images/user.png";
+                req.body.imageURL = "https://storage.googleapis.com/mplay-151612.appspot.com/20170214_58a28e23853ae-210x210.png";
                 getModel().create(req.body, (err, entity) => {
                     if (err) {
                         next(err);
