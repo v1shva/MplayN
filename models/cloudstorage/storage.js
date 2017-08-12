@@ -40,8 +40,9 @@ function sendUploadToGCS (req, res, next) {
   if (!req.file) {
     return next();
   }
-
-  const gcsname = Date.now() + req.file.originalname;
+  var gcsname = "none";
+  if(req.fileName === "none") gcsname = Date.now() + req.file.originalname;
+  else gcsname = req.fileName;
   const file = bucket.file(gcsname);
 
   const stream = file.createWriteStream({
@@ -65,6 +66,8 @@ function sendUploadToGCS (req, res, next) {
 
   stream.end(req.file.buffer);
 }
+
+
 // [END process]
 
 // Multer handles parsing multipart/form-data requests.

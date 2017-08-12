@@ -292,7 +292,25 @@ router.post('/addNew', (req, res, next) => {
     }
 });
 
-router.post('/updateUser', passport.authenticate('jwt', { session: false}), storage.multer.single('image'), storage.sendUploadToGCS,  (req, res, next) => {
+router.post('/updateUser', passport.authenticate('jwt', { session: false}), storage.multer.single('image'), updateImage,  (req, res, next) => {
+    sanitation(req.body);
+    var user = req.user;
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.gender= req.body.gender;
+    user.country = req.body.country;
+    user.birthDate = req.body.birthDate;
+    getModel().update(decoded.id, user, (err) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.status(200).send('OK');
+    });
+
+});
+
+function updateImage (req, res, next) {
     sanitation(req.body);
     let token = getToken(req.headers);
     let decoded = jwt.decode(token, config.secret);
@@ -301,21 +319,19 @@ router.post('/updateUser', passport.authenticate('jwt', { session: false}), stor
             next(err);
             return;
         }
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.gender= req.body.gender;
-        user.country = req.body.country;
-        user.birthDate = req.body.birthDate;
-        getModel().update(decoded.id, user, (err) => {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.status(200).send('OK');
-        });
-    });
-});
+        req.user = user;
+        var fileName = user.imageURL.substring(url.lastIndexOf('/')+1);
+        if (fileName === "20170214_58a28e23853ae-210x210.png") {
+            req.fileName = "none";
+            storage.sendUploadToGCS(req,res,next);
+        }
+        else {
+            req.fileName = fileName;
+            storage.sendUploadToGCS(req,res,next);
+        }
 
+    });
+}
 let comparePassword = function (dbpassw, passw, cb) {
     bcrypt.compare(passw, dbpassw, function (err, isMatch) {
         if(err){
@@ -464,6 +480,11 @@ function sanitation(obj){
     obj.email = xss.inHTMLData(obj.email);
     obj.password = xss.inHTMLData(obj.password);
     obj.username = xss.inHTMLData(obj.username);
+    obj.firstName = xss.inHTMLData(obj.firstName);
+    obj.lastName = xss.inHTMLData(obj.lastName);
+    obj.gender = xss.inHTMLData(obj.gender);
+    obj.country = xss.inHTMLData(obj.country);
+    obj.birthDate = xss.inHTMLData(obj.birthDate);
 }
 
 var getToken = function (headers) {
