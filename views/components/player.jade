@@ -1,6 +1,7 @@
 
 link(rel='stylesheet', href='/player/skin.css')
 
+sound-manager
 .bottom-player.navbar-fixed-bottom.dark-theme.text-justify
   .col-sm-2
     .pull-left.album-art
@@ -10,13 +11,13 @@ link(rel='stylesheet', href='/player/skin.css')
       .artist Artist Name
   .col-sm-8
     .col-sm-4.col-md-1
-      button
+      button(prev-track='')
         i.fa.fa-step-backward(aria-hidden='true')
     .col-sm-4.col-md-1
-      button
+      button(play-pause-toggle, ng-class="{'fa fa-pause': isPlaying, 'fa fa-play': !isPlaying}")
         i.fa.fa-play(aria-hidden='true')
     .col-sm-4.col-md-1
-      button
+      button(next-track='')
         i.fa.fa-step-forward(aria-hidden='true')
   .col-sm-2
     h3 Song Emotion
