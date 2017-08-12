@@ -12,7 +12,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-    res.render('components/home2', { title: 'Mplay' });
+    res.render('components/home', { title: 'Mplay' });
 });
 
 

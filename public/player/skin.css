@@ -154,7 +154,7 @@ li {
 
 .playerBtns:hover{
     -webkit-filter: invert(80%);
-    filter: invert(20%);
+    filter: invert(80%);
     background-color: transparent;
 }
 
@@ -177,7 +177,7 @@ li {
 
 .playerBtnsVol:hover{
     -webkit-filter: invert(80%);
-    filter: invert(20%);
+    filter: invert(80%);
     background-color: transparent;
 }
 
