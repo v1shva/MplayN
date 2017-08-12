@@ -335,7 +335,6 @@ button {
   cursor: pointer;
   color: white;
   background: transparent;
-   padding-top:18px;
  text-align: center;
  font-size: 25px;
 }
@@ -384,4 +383,9 @@ button:after {
 
 button:focus:not(:active)::after {
   animation: ripple 1s ease-out;
+}
+
+
+.player-Btns {
+   padding-top: 18px;
 }
