@@ -41,7 +41,7 @@ router.get('/songUpload', function(req, res, next) {
 
 
 router.get('/aboutUs', function(req, res, next) {
-    res.render('components/aboutUs1');
+    res.render('components/aboutUs');
 });
 
 // player components
