@@ -7,17 +7,20 @@ link(rel='stylesheet', href='/player/skin.css')
       img.img-responsive(src='https://upload.wikimedia.org/wikipedia/en/9/96/Adele_-_25_%28Official_Album_Cover%29.png')
     .col-5.song-description
       h5 Song Title
-      .artist
-        | Artist Name
+      .artist Artist Name
   .col-sm-8
     .col-sm-4.col-md-1
-      i.fa.fa-step-backward(aria-hidden='true')
+      button
+        i.fa.fa-step-backward(aria-hidden='true')
     .col-sm-4.col-md-1
-      i.fa.fa-play(aria-hidden='true')
+      button
+        i.fa.fa-play(aria-hidden='true')
     .col-sm-4.col-md-1
-      i.fa.fa-step-forward(aria-hidden='true')
+      button
+        i.fa.fa-step-forward(aria-hidden='true')
   .col-sm-2
     h3 Song Emotion
+
 
 //- #playerMain.playerMainSmall(ng-class="{'playerMainSmall': !showPlaylist, 'playerMainBig': showPlaylist}")
 //-     sound-manager
