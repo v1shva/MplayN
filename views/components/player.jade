@@ -1,8 +1,11 @@
 
 link(rel='stylesheet', href='/player/skin.css')
 
-sound-manager
-.bottom-player.navbar-fixed-bottom.dark-theme.text-justify
+
+.bottom-player.navbar-fixed-bottom.dark-theme.text-center
+  sound-manager
+  .seekBase(seek-track='')
+      .seekLoad(ng-style="{width : ( progress + '%' ) }")
   .col-sm-2
     .pull-left.album-art
       img.img-responsive(src='https://upload.wikimedia.org/wikipedia/en/9/96/Adele_-_25_%28Official_Album_Cover%29.png')
@@ -22,8 +25,8 @@ sound-manager
 
 //- #playerMain.playerMainSmall(ng-class="{'playerMainSmall': !showPlaylist, 'playerMainBig': showPlaylist}")
 //-     sound-manager
-//-         .seekBase(seek-track='')
-//-             .seekLoad(ng-style="{width : ( progress + '%' ) }")
+        .seekBase(seek-track='')
+            .seekLoad(ng-style="{width : ( progress + '%' ) }")
 //-         br
 
 //-         .currentPosition {{ currentPostion }} / {{ currentDuration }}
