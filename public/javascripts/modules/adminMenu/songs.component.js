@@ -12,6 +12,7 @@ component('songs', {
         this.getSongs = function () {
             var res = Song.getAllReported.post();
             res.$promise.then(function(dataRes){
+                console.log(dataRes);
                 controller.songs = dataRes.items;
             });
         }

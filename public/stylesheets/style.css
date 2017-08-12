@@ -1,5 +1,5 @@
 .containerApp{
-    height:85%;
+    height:100%;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -43,4 +43,15 @@ html{
 
 .dropdown-menu li{
     padding: 5px;
+}
+
+.navbar.navbar-default.navbar-fixed-top{
+    background-color: #9C27B0;
+}
+ul.nav.navbar-nav li a {
+    color: white;
+}
+
+.navbar{
+    border-color: transparent;
 }
