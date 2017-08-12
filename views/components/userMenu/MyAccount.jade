@@ -9,7 +9,7 @@
                     a(ui-sref='myAccount')
                         span.divtoLink
                     h1.panel-title.pull-right(style='font-size:20px;')
-                        i.fa.fa-cogs(aria-hidden='true')
+                        i(aria-hidden='true')
                         |  Settings
                         | &nbsp;
                         span.glyphicon.glyphicon-cog
@@ -18,7 +18,7 @@
                     a(ui-sref='mySongs')
                         span.divtoLink
                     h1.panel-title.pull-right(style='font-size:20px;')
-                        i.fa.fa-cogs(aria-hidden='true')
+                        i(aria-hidden='true')
                         |  My Songs
                         | &nbsp;
                         span.glyphicon.glyphicon-headphones
@@ -27,7 +27,7 @@
                     a(ui-sref='myAccount')
                         span.divtoLink
                     h1.panel-title.pull-right(style='font-size:20px;')
-                        i.fa.fa-cogs(aria-hidden='true')
+                        i(aria-hidden='true')
                         |  My Messages
                         | &nbsp;
                         span.glyphicon.glyphicon-comment
@@ -45,7 +45,7 @@
                             img.img-circle.img-responsive(ng-src='{{$ctrl.imageFileLink}}', width='100px', height='100px')
                         .col-lg-12.col-md-12
                             label.btn.btn-primary Upload a new profile photo!
-                                input(type='file',id='imageIn', name='imageFile', ng-model='$ctrl.imageFile' ng-change="$ctrol.previewImage($event.currentTarget)")
+                                input(type='file',id='imageIn', name='imageFile', nv-file-select='', uploader="$ctrl.uploader")
             .panel.panel-default
                 .panel-body
                     h3.panel-title.pull-left Basic Details

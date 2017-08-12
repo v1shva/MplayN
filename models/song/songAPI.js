@@ -17,7 +17,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const validator = require('validator');
 const xss = require('xss-filters');
-const songs = require('../cloudstorage/songs');
+const storage = require('../cloudstorage/storage');
 var router = express.Router();
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
@@ -136,7 +136,7 @@ router.post('/reportSong',passport.authenticate('jwt', { session: false}), (req,
  * Create a new song using song upload.
  */
 // this api route should be protected
-router.post('/uploadSong', passport.authenticate('jwt', { session: false}), songs.multer.single('file'), songs.sendUploadToGCS, (req, res, next) => {
+router.post('/uploadSong', passport.authenticate('jwt', { session: false}), storage.multer.single('file'), storage.sendUploadToGCS, (req, res, next) => {
         let data = req.body;
         var token = getToken(req.headers);
         var decoded = jwt.decode(token, config.secret);

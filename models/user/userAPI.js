@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const xss = require('xss-filters');
 const validator = require('validator');
-
+const storage = require('../cloudstorage/storage');
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
 var config = require('../../config/app');
@@ -292,7 +292,7 @@ router.post('/addNew', (req, res, next) => {
     }
 });
 
-router.post('/updateUser', passport.authenticate('jwt', { session: false}),  (req, res, next) => {
+router.post('/updateUser', passport.authenticate('jwt', { session: false}), storage.multer.single('image'), storage.sendUploadToGCS,  (req, res, next) => {
     sanitation(req.body);
     let token = getToken(req.headers);
     let decoded = jwt.decode(token, config.secret);
