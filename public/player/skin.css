@@ -1,15 +1,15 @@
 
 .seekBase {
-    height: 10px;
+    height: 4px;
     width: 100%;
-    background-color: #e7e4ea;
+    background-color: #2c3e50;
 }
 
 
 .seekLoad {
-    height: 10px;
+    height: 4.6px;
     width: 0;
-    background-color: #2e8bf1;
+    background-color: #8E24AA;
 }
 
 .volumeBase {
