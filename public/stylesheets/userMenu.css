@@ -22,3 +22,11 @@
 .table th, td {
     text-align: center;
 }
+
+#imageIn{
+    display: none;
+}
+
+.panel.panel-danger{
+    margin-bottom: 100px;
+}

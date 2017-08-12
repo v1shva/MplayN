@@ -42,11 +42,10 @@
                     br
                     div(align='center')
                         .col-lg-12.col-md-12
-                            img.img-circle.img-responsive(src='https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png', width='100px', height='100px')
+                            img.img-circle.img-responsive(ng-src='$ctrl.', width='100px', height='100px')
                         .col-lg-12.col-md-12
-                            button.btn.btn-primary
-                                i.fa.fa-upload(aria-hidden='true')
-                                |  Upload a new profile photo!
+                            label.btn.btn-primary Upload a new profile photo!
+                                input(type='file',id='imageIn', name='imageFile', ng-model='$ctrl.imageFile')
             .panel.panel-default
                 .panel-body
                     h3.panel-title.pull-left Basic Details

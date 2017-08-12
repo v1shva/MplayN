@@ -16,8 +16,6 @@ component('songs', {
                 controller.songs = dataRes.items;
             });
         }
-
-
         this.checkedSongs = [];
         this.checked = function (item) {
             if(item.checked) this.checkedSongs.push(item.attributes["name"].value);
@@ -29,7 +27,6 @@ component('songs', {
                 }
             }
         }
-
         this.deleteSongs = function () {
             $(".modal-backdrop").hide();
             $state.go('loading');

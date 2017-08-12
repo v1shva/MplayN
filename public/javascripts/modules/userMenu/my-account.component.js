@@ -35,5 +35,6 @@ component('myAccount', {
                 $cookies.putObject('userData', data);
             });
         }
+
     }]
 });
