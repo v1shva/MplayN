@@ -11,14 +11,11 @@ sound-manager
       .artist Artist Name
   .col-sm-8
     .col-sm-4.col-md-1
-      button(prev-track='')
-        i.fa.fa-step-backward(aria-hidden='true')
+      button.fa.fa-step-backward(prev-track='', aria-hidden='true')
     .col-sm-4.col-md-1
-      button(play-pause-toggle, ng-class="{'fa fa-pause': isPlaying, 'fa fa-play': !isPlaying}")
-        i.fa.fa-play(aria-hidden='true')
+      button(play-pause-toggle='play-pause-toggle', aria-hidden='true', ng-class="{'fa fa-pause': isPlaying, 'fa fa-play': !isPlaying}")
     .col-sm-4.col-md-1
-      button(next-track='')
-        i.fa.fa-step-forward(aria-hidden='true')
+      button.fa.fa-step-forward(next-track='', aria-hidden='true')
   .col-sm-2
     h3 Song Emotion
 

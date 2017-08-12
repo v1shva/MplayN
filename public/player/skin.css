@@ -335,6 +335,13 @@ button {
   cursor: pointer;
   color: white;
   background: transparent;
+   padding-top:18px;
+ text-align: center;
+ font-size: 25px;
+}
+
+button.fa{
+    font-size: 20px;
 }
 button:focus{
     outline: 0;
