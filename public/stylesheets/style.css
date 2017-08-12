@@ -1,3 +1,7 @@
+*{ 
+     font-family: 'Montserrat', sans-serif !important;
+}
+
 .containerApp{
     height:100%;
     overflow-y: auto;
@@ -17,8 +21,8 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     height: 100%;
+     font-family: 'Montserrat', sans-serif !important;
     font-size: 13px;
-    
 }
 html{
     height:100%;
@@ -106,3 +110,4 @@ ul.nav.navbar-nav li a {
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #8E24AA;
 }
+

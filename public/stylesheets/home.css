@@ -1,6 +1,6 @@
 /* banner */
 #banner{
-	background: url('../img/bg-banner.svg') no-repeat fixed;
+	background: url('../images/bg-banner.svg') no-repeat fixed;
 	background-size: cover;
 	min-height: 650px;
 	position: relative;

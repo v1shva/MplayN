@@ -1,0 +1,37 @@
+/* banner */
+#banner{
+	background: url('../img/bg-banner.svg') no-repeat fixed;
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+}
+
+
+.bg-color{
+	
+	min-height: 650px;
+}
+.banner-info{
+	padding-top: 190px;
+}
+.banner-logo img{
+	display: inline-block;
+}
+.banner-text {
+    color: #fff;
+    text-shadow: 2px 1px 7px #7b7878;
+    
+}
+
+.banner-text a {
+    text-shadow: 0px 0px 0px #7b7878;
+    font-size: 12px;
+    text-transform: uppercase;
+   letter-spacing: 2px;
+}
+.banner-text h1{
+	font-family: 'Candal', sans-serif;
+	font-size: 35px;
+	text-transform: uppercase;
+	padding-bottom:15px; 
+}
