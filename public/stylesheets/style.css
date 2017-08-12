@@ -1,6 +1,4 @@
-*{ 
-     font-family: 'Montserrat', sans-serif !important;
-}
+
 
 .containerApp{
     height:100%;
@@ -19,9 +17,7 @@
 
 body {
     padding-top: 50px;
-    padding-bottom: 20px;
     height: 100%;
-     font-family: 'Montserrat', sans-serif !important;
     font-size: 13px;
 }
 html{
