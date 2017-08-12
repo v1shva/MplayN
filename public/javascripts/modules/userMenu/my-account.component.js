@@ -15,6 +15,7 @@ component('myAccount', {
         this.BirthDate = data.user.birthDate;
         this.userName = data.user.username;
         this.userEmail = data.user.email;
+        this.imageFileLink = data.user.imageURL;
         var controller = this;
         this.EditBasic = function () {
             let user =  {
@@ -35,6 +36,9 @@ component('myAccount', {
                 $cookies.putObject('userData', data);
             });
         }
-
+        this.previewImage = function (item) {
+            console.log(item);
+            //window.URL.createObjectURL(fileItem._file);
+        }
     }]
 });

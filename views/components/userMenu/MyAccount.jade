@@ -42,10 +42,10 @@
                     br
                     div(align='center')
                         .col-lg-12.col-md-12
-                            img.img-circle.img-responsive(ng-src='$ctrl.', width='100px', height='100px')
+                            img.img-circle.img-responsive(ng-src='{{$ctrl.imageFileLink}}', width='100px', height='100px')
                         .col-lg-12.col-md-12
                             label.btn.btn-primary Upload a new profile photo!
-                                input(type='file',id='imageIn', name='imageFile', ng-model='$ctrl.imageFile')
+                                input(type='file',id='imageIn', name='imageFile', ng-model='$ctrl.imageFile' ng-change="$ctrol.previewImage($event.currentTarget)")
             .panel.panel-default
                 .panel-body
                     h3.panel-title.pull-left Basic Details

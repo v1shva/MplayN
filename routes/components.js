@@ -51,7 +51,7 @@ router.get('/player/emobar.php', function(req, res, next) {
 
 
 router.get('/player.php', function(req, res, next) {
-    res.render('components/playerModule2', { title: 'Mplay' });
+    res.render('components/player', { title: 'Mplay' });
 });
 
 module.exports = router;
