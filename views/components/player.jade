@@ -1,18 +1,23 @@
 
 link(rel='stylesheet', href='/player/skin.css')
-.bottom-player.navbar-fixed-bottom.dark-theme.text-center
-  .col-md-2
-    h3 Song Discription
-  .col-md-8
-    .col-sm-1
-      i.fa.fa-step-backward(aria-hidden='true')
-    .col-sm-1
-      i.fa.fa-play(aria-hidden='true')
-    .col-sm-1
-      i.fa.fa-step-forward(aria-hidden='true')
-  .col-md-2
-    h3 Song Emotion
 
+.bottom-player.navbar-fixed-bottom.dark-theme.text-justify
+  .col-sm-2
+    .pull-left.album-art
+      img.img-responsive(src='https://upload.wikimedia.org/wikipedia/en/9/96/Adele_-_25_%28Official_Album_Cover%29.png')
+    .col-5.song-description
+      h5 Song Title
+      .artist
+        | Artist Name
+  .col-sm-8
+    .col-sm-4.col-md-1
+      i.fa.fa-step-backward(aria-hidden='true')
+    .col-sm-4.col-md-1
+      i.fa.fa-play(aria-hidden='true')
+    .col-sm-4.col-md-1
+      i.fa.fa-step-forward(aria-hidden='true')
+  .col-sm-2
+    h3 Song Emotion
 
 //- #playerMain.playerMainSmall(ng-class="{'playerMainSmall': !showPlaylist, 'playerMainBig': showPlaylist}")
 //-     sound-manager
