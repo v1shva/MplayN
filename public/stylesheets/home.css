@@ -2,7 +2,7 @@
 #banner{
 	background: url('../images/bg-banner.svg') no-repeat fixed;
 	background-size: cover;
-	min-height: 650px;
+	min-height: 450px;
 	position: relative;
 }
 
@@ -34,3 +34,39 @@
 	text-transform: uppercase;
 	padding-bottom:15px; 
 }
+
+.white-section{
+	min-height: 400px;
+   padding: 40px 0px;
+}
+
+.white-section h4{
+    line-height: 1.5;
+    padding-top: 65px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+
+
+.inverse-section{
+    background-color: #9C27B0;
+    color :white;
+	min-height: 450px;
+    padding: 40px 0px;
+}
+
+.inverse-section h4{
+    line-height: 1.5;
+    /* padding-top: 33px; */
+    
+}
+.inverse-section .pg-titl-bdr-btm{
+    color :white;
+    background-color:#FFEDC1;
+}
+.inverse-section .page-header h1{
+    color: #FFEDC1;
+    
+}
+

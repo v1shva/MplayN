@@ -12,4 +12,54 @@ section#banner.banner
               h1.white 
               p 
               
-  // bg color
+ // service section
+section.white-section
+  div
+    .container
+      .page-title.text-center
+        h1 What is Mplay
+        // <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor <br>incididunt ut labore et dolore magna aliqua. </p>
+        hr.pg-titl-bdr-btm
+      .service-section
+        .col-md-4
+          | test
+        .col-md-8
+          h4.text-center
+            | MPlay is a community based web application that guides you to find music across communities across genres simply based on other users’ taste in music
+
+section.inverse-section
+  div
+    .container
+      .page-title.text-center
+        h1 New way to Listen Music
+        hr.pg-titl-bdr-btm
+      .row.text-center
+        // method one
+        .col-sm-4
+          .method-card.card-3.animated.jello.hide
+            .card-block
+              .text-center
+                .method-icon
+                  i.fa.fa-handshake-o
+              h3.card-title Method 1
+              p.card-text With supporting text below as a natural lead-in to additional content.
+              .text-center
+        // method two
+        .col-sm-4
+          .method-card.card-3.animated.jello.hide(style=' animation-delay: 0.2s;')
+            .card-block
+              .text-center
+                .method-icon
+                  i.fa.fa-money
+              h3.card-title Method 2
+              p.card-text With supporting text below as a natural lead-in to additional content.
+        // method three
+        .col-sm-4
+          .method-card.card-3.animated.jello(style=' animation-delay: 0.4s;')
+            .card-block
+              .text-center
+                .method-icon
+                  i.fa.fa-credit-card-alt
+              h3.card-title section
+              p.card-text test.
+      // end of row
