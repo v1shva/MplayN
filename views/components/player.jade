@@ -1,0 +1,157 @@
+//
+   Created by Vishva on 4/24/2017.
+link(rel='stylesheet', href='/player/skin.css')
+#playerMain.playerMainSmall(ng-class="{'playerMainSmall': !showPlaylist, 'playerMainBig': showPlaylist}")
+    sound-manager
+        .seekBase(seek-track='')
+            .seekLoad(ng-style="{width : ( progress + '%' ) }")
+        br
+
+        .currentPosition {{ currentPostion }} / {{ currentDuration }}
+        .text-center
+            button.btn.btn-primary.playerBtns.previous(prev-track='')
+            button.btn.btn-primary.playerBtns.play(play-pause-toggle, ng-class="{'pause': isPlaying}")
+            button.btn.btn-primary.playerBtns.next(next-track='')
+            button.btn.btn-primary.playerBtns.stop(stop-music='')
+            button.btn.btn-primary.playerBtns.repeat(repeat-music='')
+            .btn-group(style="padding-top:23px")
+                .btn.btn-primary.playerBtnsVol.mute(mute-music='', ng-class="{'unmute': !mute}" )
+                .btn.btn-primary.playerBtnsVol(volume-bar='')
+                    .volumeBase
+                        .volumeLoad(ng-style="{width : ( volume + '%' ) }", ng-class="{'volumeLoadUnMute': !mute}")
+
+            button.btn.btn-primary.playerBtns.playlist(ng-click="showPlaylist = !showPlaylist")
+            button.btn.btn-primary.playerBtns.like(uib-tooltip='Rate this Song',data-toggle="modal", data-target="#likeModal", ng-click='$ctrl.checkLoggedIn()')
+            button.btn.btn-primary.playerBtns.dislike(uib-tooltip='I dont like this song',data-toggle="modal", data-target="#dislikeModal", ng-click='$ctrl.checkLoggedIn()')
+            button.btn.btn-primary.playerBtns.warn(uib-tooltip='Report this Song',data-toggle="modal", data-target="#reportModal", ng-click='$ctrl.checkLoggedIn()')
+
+
+
+
+        .currentTrackDetails {{ currentPlaying.title }} by {{ currentPlaying.artist }}
+        ul.playList.animate-show-hide
+            li(ng-repeat='song in playlist')
+                a(play-from-playlist='song') {{ song.title }}
+                |                         -
+                a(remove-from-playlist='song', data-index='{{$index}}')
+                    small (remove)
+                span(ng-if='currentPlaying.id == song.id')  - (current)
+
+#likeModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-primary
+                h4.modal-title.pull-left How do you feel about this song?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                .form-group.ui-widget
+                    label Select Mood:
+                    .container-fluid.moods
+                        link(rel='stylesheet', href='/player/emobar.css')
+                        .emotions.playerEmoBar
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['happy']}", src='/player/icons/happy.png', title='Happy', name='happy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['inLove']}", src='/player/icons/in-love.png', title='In-Love', name='inLove')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['angry']}", src='/player/icons/angry.png', title='Angry', name='angry')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crying']}", src='/player/icons/crying.png', title='Crying', name='crying')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['embarrassed']}", src='/player/icons/embarrassed.png', title='Embarrassed', name='embarrassed')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['crazy']}", src='/player/icons/tongue-out-1.png', width='8%', title='Crazy', name='crazy')
+                            img.img-circle.emoicon.songSelect(ng-click="$ctrl.EmoBarInput($event.currentTarget)", ng-class="{'selected': $ctrl.mood['bored']}", src='/player/icons/bored.png', width='8%', title='Bored', name='bored')
+                    .msg(ng-show="$ctrl.emotionSelected") {{$ctrl.displayMoodString}}
+            .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.rateSong()', ng-disabled='!$ctrl.emotionSelected') Submit
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#dislikeModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left What do you want to do?
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                .form-group.ui-widget
+                    label Don't play this song ever again.
+                    input(type='checkbox')
+
+            .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.dislikeSong()') Submit
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#reportModal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content(ng-show='$ctrl.loggedIn')
+            .modal-header.modal-header-warn
+                h4.modal-title.pull-left Report the song
+                img.img-thumbnail.pull-right(src="images/Logo.png", width="80px")
+            .modal-body
+                strong Reason :
+                .radio
+                    label
+                        input(type='radio', name='optradio')
+                        | For copyright infringement
+                .radio
+                    label
+                        input(type='radio', name='optradio')
+                        | For not suitable content
+                strong I agree to the following :
+                .checkbox
+                    label
+                        input(type='checkbox', value='')
+                        | I am the owner or an agent authorised to act on behalf of the owner of an exclusive right that has allegedly been infringed.
+                .checkbox
+                    label
+                        input(type='checkbox', value='')
+                        | I have a good faith belief that the use of the material in the manner reported by complaint is not authorised by the copyright owner, its agent or the law; and
+                .checkbox
+                    label
+                        input(type='checkbox', value='')
+                        | This notification is accurate.
+                .checkbox
+                    label
+                        input(type='checkbox', value='')
+                        | I acknowledge that there may be adverse legal consequences for making false or bad faith allegations of copyright infringement by using this process.
+                .checkbox
+                    label
+                        input(type='checkbox', value='')
+                        | I understand that abuse of this tool will result in termination of my YouTube account.
+                .form-group.ui-widget
+                    label Typing your full name in this box will act as your digital signature.
+                    input.form-control(type='text',name='songArtist', ng-model="songArtist", required)
+                    .error(ng-show="uploadForm.songArtist.$invalid && uploadForm.songArtist.$touched", class="errorMsg") Song artist is required.
+            .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal', ng-click='$ctrl.reportSong()') Submit
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+        .modal-content(ng-show='!$ctrl.loggedIn')
+            .modal-header.modal-header-error
+                button.close(type='button', data-dismiss='modal') ×
+                h4.modal-title Sorry you're not logged in.
+            .modal-body
+                p   You must be logged in to use this feature.
+                a(ui-sref='login', data-dismiss='modal') Click here to login.
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+//    hr
+    .row
+        .col-md-12
+            // init soundManager2 player
